@@ -18,6 +18,7 @@ namespace Evasion
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Personnage perso = new Personnage();
 
         public Game1()
         {
@@ -69,9 +70,10 @@ namespace Evasion
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            
             // TODO: Add your update logic here
 
+            perso.ecrire();
             base.Update(gameTime);
         }
 
