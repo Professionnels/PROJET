@@ -7,9 +7,22 @@ namespace Evasion
 {
     class Personnage
     {
-        public void ecrire()
+        public int vie, vitesse, identifiant, type, genrePerso, accroupi, marcher, courrir, sneak;
+        public string nom, fichier3D;
+        public objet objet;
+
+        public Personnage()
         {
-            Console.WriteLine("test");
+ 
+        }
+
+        public 
+        public int accroupir(int accroupi)
+        {
+            if (accroupi == 0)
+            {
+                
+            }
         }
     }
 }
