@@ -1,0 +1,4 @@
+A,"Nouvelle Partie",C:\Documents
+A,"Charger",C:\Images
+J,"Quitter",C:\
+J,"Sauvegarder",C:\Perso
