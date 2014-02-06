@@ -18,11 +18,14 @@ namespace Evasion
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Personnage perso = new Personnage();
+        Evasion.Affichage.Menu.Menu menu; 
+        
+        //Personnage perso = new Personnage();
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            this.graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -37,6 +40,7 @@ namespace Evasion
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            menu = new Evasion.Affichage.Menu.Menu("A");
         }
 
         /// <summary>
@@ -73,7 +77,7 @@ namespace Evasion
             
             // TODO: Add your update logic here
 
-            perso.ecrire();
+            //perso.ecrire();
             base.Update(gameTime);
         }
 
@@ -88,6 +92,7 @@ namespace Evasion
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+            menu.Affiche_Menu(spriteBatch);
         }
     }
 }

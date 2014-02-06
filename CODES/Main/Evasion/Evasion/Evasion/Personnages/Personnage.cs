@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Evasion.Objets;
 
 namespace Evasion
 {
@@ -18,7 +19,7 @@ namespace Evasion
         private int sneak;
         private string nom;
         private string fichier3D; // emplacement modele 3D du perso
-        private objet objet;
+        private Objets.Objets objet;
 
         public int _vie { get { return vie; } }
         public int _vitesse { get { return vitesse; } }
@@ -31,14 +32,14 @@ namespace Evasion
         public int _sneak { get { return sneak; } }
         public string _nom { get { return nom; } }
         public string _fichier3D { get { return fichier3D; } }
-        public objet _objet { get { return objet; } } 
+        public Objets.Objets _objet { get { return objet; } } 
 
         public Personnage() {} // Constructeur sans parametres
 
-        public Personnage(int vie, int vitesse, int identifiant, int type, int genrePerso, int accroupi, int marcher, int courrir, int sneak, string nom, string fichier3D, objet objet) // Constructeur avec parametre
+        public Personnage(int vie, int vitesse, int identifiant, int type, int genrePerso, int accroupi, int marcher, int courrir, int sneak, string nom, string fichier3D, Objets.Objets objet) // Constructeur avec parametre
         {
-            vie = _vie;
-            vitesse = _vitesse;
+            this.vie = vie;
+            this.vitesse = vitesse;
             identifiant = _identifiant;
             type = _type;
             genrePerso = _genrePerso;
@@ -71,24 +72,27 @@ namespace Evasion
             sneak = sneak ^ 1;
         }
 
-        private void utiliserObjet()
-        {
-            switch (collision())
-            {
-                case 0 :
-                    enleverMunition();
-                    break;
-                case 1 :
-                    enleverMunitions();
-                    break;
-                case 2 :
-                    Munitions;
-                    modifierVie;
-                case 3 :
-                    Munitions;
-            }
-        }
+        //private void utiliserObjet()
+        //{
+        //    switch (collision())
+        //    {
+        //        case 0 :
+        //            enleverMunition();
+        //            break;
+        //        case 1 :
+        //            enleverMunitions();
+        //            break;
+        //        case 2 :
+        //            Munitions;
+        //            modifierVie;
+        //        case 3 :
+        //            Munitions;
+        //    }
+        //}
 
-        private int modifeirVie()
+        private int modifierVie()
+        {
+            return 0;
+        }
     }
 }
