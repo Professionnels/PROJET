@@ -32,10 +32,14 @@ namespace Evasion.Affichage
 
         public void LoadContent(Content_t content)
         {
+            this.content = content;
             switch (content)
             {
                 case Content_t.Menu:
                     menu.LoadContent(screen);
+                    break;
+                case Content_t.Quit:
+                    screen.Exit();
                     break;
                 default:
                     Console.WriteLine("Un nouveau contenu a été chargé !");

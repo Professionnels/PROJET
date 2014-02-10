@@ -8,6 +8,7 @@ namespace Evasion.Affichage
     public static class Constantes
     {
         public const int SCREEN_WIDTH = 850; // Cannot change while !fullScreen
-        public static int SCREEN_HEIGHT = 600; // Cannot change while !fullScreen
+        public const int SCREEN_HEIGHT = 600; // Cannot change while !fullScreen
+        public const float BUTTON_LENGTH = 0.20f; // Compared to the screen
     }
 }

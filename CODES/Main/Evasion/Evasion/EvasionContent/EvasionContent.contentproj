@@ -42,49 +42,49 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="menu_accueil_fond.bmp">
+    <Compile Include="menu_accueil_fond.png">
       <Name>menu_accueil_fond</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Load game.BMP">
+    <Compile Include="Load game.png">
       <Name>Load game</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Load game_on.BMP">
+    <Compile Include="Load game_on.png">
       <Name>Load game_on</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="New game.BMP">
+    <Compile Include="New game.png">
       <Name>New game</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="New game_on.BMP">
+    <Compile Include="New game_on.png">
       <Name>New game_on</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Options.BMP">
+    <Compile Include="Options.png">
       <Name>Options</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Options_on.BMP">
+    <Compile Include="Options_on.png">
       <Name>Options_on</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Quit.BMP">
+    <Compile Include="Quit.png">
       <Name>Quit</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Quit_on.BMP">
+    <Compile Include="Quit_on.png">
       <Name>Quit_on</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>

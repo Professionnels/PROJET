@@ -8,13 +8,13 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using System.Reflection;
 using System.Drawing;
+using Evasion.Affichage;
 
 namespace Evasion.Affichage.Menu
 {
     class Bouton
     {
-        private Menu menu;
-        private Texture2D Image;
+        public Texture2D Image;
         private bool loaded;
         private string path;
         public string Name;
@@ -24,7 +24,7 @@ namespace Evasion.Affichage.Menu
 
         public Bouton(string name)
         {
-            size = new Size(850, 60);
+            size = new Size(0, 0);
             loaded = false;
             Name = name;
             Gris = false;
@@ -44,19 +44,20 @@ namespace Evasion.Affichage.Menu
             loaded = false;
         }
 
-        public void LoadContent(ContentManager cm, SpriteBatch sb)
+        public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb)
         {
-            path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName) + "\\GRAPHISMES\\Images\\Menu";
-        }
-
-        public void Display(ContentManager cm, SpriteBatch sb)
-        {
-            if (!loaded)
+            if (!loaded || screen.GraphicsDevice.Viewport.Width != Image.Width)
             {
-                Image = cm.Load<Texture2D>(Name );
+                Image = screen.Content.Load<Texture2D>(Name);
                 loaded = true;
+                float pourcentage = Constantes.BUTTON_LENGTH;
+                size.Width = (int)(pourcentage*(float)Image.Width);
+                size.Height = (int)(pourcentage * (float)Image.Height);
+                sb.Draw(Image, Pos, null, Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), pourcentage, SpriteEffects.None, 0);
+
             }
-            sb.Draw(Image, Pos, Microsoft.Xna.Framework.Color.Transparent);
+            else
+                sb.Draw(Image, Pos, Microsoft.Xna.Framework.Color.White);
         }
     }
 }
