@@ -30,7 +30,7 @@ namespace Evasion
             graphics.PreferredBackBufferWidth = Evasion.Affichage.Constantes.SCREEN_WIDTH;
             graphics.PreferredBackBufferHeight = Evasion.Affichage.Constantes.SCREEN_HEIGHT;
             this.Window.Title = "Evasion";
-           // this.graphics.ApplyChanges();
+            this.graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -80,7 +80,10 @@ namespace Evasion
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
                 this.graphics.IsFullScreen = !(this.graphics.IsFullScreen);
+                this.graphics.ApplyChanges();
+            }
             fenetre.Update(Keyboard.GetState(), Mouse.GetState());
             // TODO: Add your update logic here
 
@@ -98,6 +101,7 @@ namespace Evasion
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             fenetre.Display(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

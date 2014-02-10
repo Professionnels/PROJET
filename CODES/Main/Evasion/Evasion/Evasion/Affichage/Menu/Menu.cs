@@ -35,14 +35,12 @@ namespace Evasion.Affichage.Menu
             switch (type)
             {
                 case "Main menu":
-                    Elements = new Bouton[4] { new Bouton("New game"), new Bouton("Load game"), new Bouton("Quit"), new Bouton("Options") };
-                    path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName + "\\GRAPHISMES\\Images\\Menu\\Menu_accueil_fond.bmp");
-                    Image = screen.Content.Load<Texture2D>(path);
+                    Elements = new Bouton[4] { new Bouton("New game"), new Bouton("Load game"), new Bouton("Quit"), new Bouton("Options") }
+                    Image = screen.Content.Load<Texture2D>("menu_accueil_fond");
                     break;
                 case "Pause":
                     Elements = new Bouton[4] { new Bouton("Save"), new Bouton("Quit"), new Bouton("Main menu"), new Bouton("Options") };
-                    path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName + "\\GRAPHISMES\\Images\\Menu\\Menu_accueil_fond.bmp");
-                    Image = screen.Content.Load<Texture2D>(path);
+                    Image = screen.Content.Load<Texture2D>("menu_accueil_fond");
                     break;
                 case "Quit":
                     Fen.LoadContent(Content_t.Quit);
@@ -80,7 +78,7 @@ namespace Evasion.Affichage.Menu
 
         public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb)
         {
-            sb.Draw(Image, new Vector2(0,0), Microsoft.Xna.Framework.Color.Transparent);
+            sb.Draw(Image, new Vector2(0,0), Microsoft.Xna.Framework.Color.White);
 
             int height = screen.GraphicsDevice.Viewport.Height;
             int width = screen.GraphicsDevice.Viewport.Width;

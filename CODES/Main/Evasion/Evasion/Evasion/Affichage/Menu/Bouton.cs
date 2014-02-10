@@ -53,7 +53,7 @@ namespace Evasion.Affichage.Menu
         {
             if (!loaded)
             {
-                Image = cm.Load<Texture2D>(path + Name + ".bmp");
+                Image = cm.Load<Texture2D>(Name );
                 loaded = true;
             }
             sb.Draw(Image, Pos, Microsoft.Xna.Framework.Color.Transparent);
