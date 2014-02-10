@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Evasion.Objets
+namespace Evasion.Affichage.Menu
 {
-    class Objets
+    class ArbreMenu
     {
-        public Objets()
-        {
-
-        }
     }
 }

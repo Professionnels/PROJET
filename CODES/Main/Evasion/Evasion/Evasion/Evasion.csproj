@@ -93,7 +93,6 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -111,12 +110,12 @@
     <Compile Include="Affichage\ActionBarre.cs" />
     <Compile Include="Affichage\AffichageHUD.cs" />
     <Compile Include="Affichage\Carte.cs" />
-    <Compile Include="Affichage\Constantes.cs" />
     <Compile Include="Affichage\Fenetre.cs" />
-    <Compile Include="Affichage\Menu\Bouton.cs" />
+    <Compile Include="Affichage\Menu\ArbreMenu.cs" />
+    <Compile Include="Affichage\Menu\ElementArbreMenu.cs" />
     <Compile Include="Affichage\Menu\Menu.cs" />
-    <Compile Include="Affichage\Decors\Murs.cs" />
-    <Compile Include="Affichage\Decors\ObjetDecors.cs" />
+    <Compile Include="Decors\Murs.cs" />
+    <Compile Include="Decors\ObjetDecors.cs" />
     <Compile Include="Jeu\ChargementNiveau.cs" />
     <Compile Include="Jeu\Jeu.cs" />
     <Compile Include="Jeu\Niveau.cs" />
