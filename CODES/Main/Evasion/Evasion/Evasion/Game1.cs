@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Evasion.Affichage;
 
 namespace Evasion
 {
@@ -18,15 +19,18 @@ namespace Evasion
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Evasion.Affichage.Menu.Menu menu; 
-        
-        //Personnage perso = new Personnage();
+       // Personnage perso = new Personnage();
+        Fenetre fenetre;
 
         public Game1()
         {
+            fenetre = new Fenetre(this);
             graphics = new GraphicsDeviceManager(this);
-            this.graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = Evasion.Affichage.Constantes.SCREEN_WIDTH;
+            graphics.PreferredBackBufferHeight = Evasion.Affichage.Constantes.SCREEN_HEIGHT;
+            this.Window.Title = "Evasion";
+           // this.graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -40,7 +44,6 @@ namespace Evasion
             // TODO: Add your initialization logic here
 
             base.Initialize();
-            menu = new Evasion.Affichage.Menu.Menu("A");
         }
 
         /// <summary>
@@ -51,7 +54,7 @@ namespace Evasion
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            fenetre.LoadContent(Content_t.Menu);
             // TODO: use this.Content to load your game content here
         }
 
@@ -74,10 +77,13 @@ namespace Evasion
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                this.Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                this.graphics.IsFullScreen = !(this.graphics.IsFullScreen);
+            fenetre.Update(Keyboard.GetState(), Mouse.GetState());
             // TODO: Add your update logic here
 
-            //perso.ecrire();
             base.Update(gameTime);
         }
 
@@ -90,9 +96,9 @@ namespace Evasion
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            fenetre.Display(spriteBatch);
             base.Draw(gameTime);
-            menu.Affiche_Menu(spriteBatch);
         }
     }
 }
