@@ -7,9 +7,5 @@ namespace Evasion.Objets
 {
     class Objets
     {
-        public Objets()
-        {
-
-        }
     }
 }
