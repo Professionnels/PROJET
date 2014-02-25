@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Evasion.Decors
 {
-    class Murs
+    class Escalier
     {
         private string fichier3D;
         private int type;
         private int identifiant;
 
-        public Murs() { }
-        public Murs(string fichier3D, int type, int identifiant)
+        public Escalier() { }
+        public Escalier(string fichier3D, int type, int identifiant) 
         {
             this.fichier3D = fichier3D;
             this.type = type;
