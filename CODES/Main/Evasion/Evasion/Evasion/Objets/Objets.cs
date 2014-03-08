@@ -9,7 +9,8 @@ namespace Evasion.Objets
     {
         public Objets()
         {
-
         }
+
+        public virtual void Utiliser() { }
     }
 }

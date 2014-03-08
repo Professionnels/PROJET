@@ -31,6 +31,7 @@ namespace Evasion
             graphics.PreferredBackBufferHeight = Evasion.Affichage.Constantes.SCREEN_HEIGHT;
             this.Window.Title = "Evasion";
             this.graphics.ApplyChanges();
+            Son.ChargerSon.Init(Content);
         }
 
         /// <summary>

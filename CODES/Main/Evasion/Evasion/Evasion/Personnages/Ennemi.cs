@@ -11,16 +11,16 @@ namespace Evasion
         private int joueur_cible;
         private int timer_reperer;
         private int champs_vision;
-        private bool Assomer;
-        private int temps_assomer;
+        private bool assome;
+        private int temps_assome;
         private bool se_deplace;
 
         public int _argent_recompense { get { return argent_recompense; } }
         public int _joueur_cible { get { return joueur_cible; } }
         public int _timer_reperer { get { return timer_reperer; } }
         public int _champs_vision { get { return champs_vision; } }
-        public bool _assomer { get { return Assomer; } }
-        public int _temps_assomer { get { return temps_assomer; } }
+        public bool _assomer { get { return assome; } }
+        public int _temps_assome { get { return temps_assome; } }
         public bool _se_deplace { get { return se_deplace; } }
 
         public Ennemi() { }
@@ -32,7 +32,7 @@ namespace Evasion
             timer_reperer = _timer_reperer;
             champs_vision = _champs_vision;
             Assomer = _assomer;
-            temps_assomer = _temps_assomer;
+            temps_assomer = _temps_assome;
             se_deplace = _se_deplace;
         }
         private void attaquer(int attaquer)

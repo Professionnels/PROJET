@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Evasion.Affichage
 {
@@ -19,6 +20,7 @@ namespace Evasion.Affichage
 
     class Fenetre
     {
+        private Jeu.Jeu jeu;
         private Content_t content;
         private Microsoft.Xna.Framework.Game screen;
         private Menu.Menu menu;
@@ -33,6 +35,7 @@ namespace Evasion.Affichage
         public void LoadContent(Content_t content)
         {
             this.content = content;
+            MediaPlayer.Stop();
             switch (content)
             {
                 case Content_t.Menu:
@@ -41,8 +44,19 @@ namespace Evasion.Affichage
                 case Content_t.Quit:
                     screen.Exit();
                     break;
+                case Content_t.Save:
+                    jeu.Save();
+                    break;
+                case Content_t.NewGame:
+                    menu = new Menu.Menu("Pause", this);
+                    jeu = new Jeu.Jeu(this);
+                    break;
+                case Content_t.LoadGame:
+                    menu = new Menu.Menu("Pause", this);
+                    break;
                 default:
-                    Console.WriteLine("Un nouveau contenu a été chargé !");
+                    Console.WriteLine("Erreur: ce contenu de la fenetre n'est pas pris en compte par l'application.");
+                    Console.Read();
                     break;
             }
         }
@@ -54,15 +68,32 @@ namespace Evasion.Affichage
                 case Content_t.Menu:
                     menu.Update(keyboardState, mouseState);
                     break;
+                case Content_t.NewGame:
+                case Content_t.LoadGame:
+                    jeu.Update(keyboardState, mouseState);
+                    break;
+                case Content_t.Save:
+                    jeu.DisplaySaveProgressing();
+                    break;
                 default:
-                    Console.WriteLine("Un nouveau contenu a été chargé !");
                     break;
             }
         }
 
         public void Display(SpriteBatch sb)
         {
-            menu.Display(screen, sb);
+            switch (content)
+            {
+                case Content_t.Menu:
+                    menu.Display(screen, sb);
+                    break;
+                case Content_t.NewGame:
+                case Content_t.LoadGame:
+                    jeu.Display(screen, sb);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

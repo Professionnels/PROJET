@@ -38,8 +38,11 @@ namespace Evasion.Affichage.Menu
                     Image = screen.Content.Load<Texture2D>("menu_accueil_fond");
                     break;
                 case "Pause":
-                    Elements = new Bouton[4] { new Bouton("Save"), new Bouton("Quit"), new Bouton("Main menu"), new Bouton("Options") };
+                    Elements = new Bouton[5] { new Bouton("Reprendre"), new Bouton("Save"), new Bouton("Quit"), new Bouton("Main menu"), new Bouton("Options") };
                     Image = screen.Content.Load<Texture2D>("menu_accueil_fond");
+                    break;
+                case "Reprendre":
+                    Fen.LoadContent(Content_t.LoadGame);
                     break;
                 case "Quit":
                     Fen.LoadContent(Content_t.Quit);
@@ -70,6 +73,7 @@ namespace Evasion.Affichage.Menu
                 if (mouseState.LeftButton == ButtonState.Pressed && mouseState.Y >= Elements[i].Pos.Y && mouseState.Y <= Elements[i].Pos.Y + Elements[i].size.Height && mouseState.X >= Elements[i].Pos.X && mouseState.X <= Elements[i].Pos.X + Elements[i].size.Width)
                 {
                     type=Elements[i].Name.Remove(Elements[i].Name.Length-3);
+                    Elements[i].Press();
                     LoadContent(screen);
                 }
             }

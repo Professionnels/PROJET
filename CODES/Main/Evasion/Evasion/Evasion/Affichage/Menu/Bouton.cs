@@ -9,11 +9,13 @@ using Microsoft.Xna.Framework;
 using System.Reflection;
 using System.Drawing;
 using Evasion.Affichage;
+using Evasion.Son;
 
 namespace Evasion.Affichage.Menu
 {
     class Bouton
     {
+        private Son.Son son;
         public Texture2D Image;
         private bool loaded;
         private string path;
@@ -28,6 +30,12 @@ namespace Evasion.Affichage.Menu
             loaded = false;
             Name = name;
             Gris = false;
+            son = new Son.Son(Son.ChargerSon.son_bouton);
+        }
+
+        public void Press()
+        {
+            son.Play();
         }
 
         public void Griser()
