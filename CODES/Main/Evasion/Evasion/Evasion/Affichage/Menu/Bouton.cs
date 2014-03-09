@@ -17,6 +17,8 @@ namespace Evasion.Affichage.Menu
     {
         private Son.Son son;
         public Texture2D Image;
+        public Texture2D Image_on;
+        public Texture2D CurrentImage;
         private bool loaded;
         private string path;
         public string Name;
@@ -24,11 +26,14 @@ namespace Evasion.Affichage.Menu
         public Size size;
         public bool Gris;
 
-        public Bouton(string name)
+        public Bouton(string name, Texture2D img1, Texture2D img2)
         {
+            Name = name;
             size = new Size(0, 0);
             loaded = false;
-            Name = name;
+            Image = img1;
+            Image_on = img2;
+            CurrentImage = img1;
             Gris = false;
             son = new Son.Son(Son.ChargerSon.son_bouton);
         }
@@ -41,31 +46,21 @@ namespace Evasion.Affichage.Menu
         public void Griser()
         {
             Gris = true;
-            Name += "_on"; 
-            loaded = false;
+            CurrentImage = Image_on;
         }
 
         public void DeGriser()
         {
             Gris = false;
-            Name = Name.Remove(Name.Length-3);
-            loaded = false;
+            CurrentImage = Image;
         }
 
         public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb)
         {
-            if (!loaded || screen.GraphicsDevice.Viewport.Width != Image.Width)
-            {
-                Image = screen.Content.Load<Texture2D>(Name);
-                loaded = true;
-                float pourcentage = Constantes.BUTTON_LENGTH;
-                size.Width = (int)(pourcentage*(float)Image.Width);
-                size.Height = (int)(pourcentage * (float)Image.Height);
-                sb.Draw(Image, Pos, null, Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), pourcentage, SpriteEffects.None, 0);
-
-            }
-            else
-                sb.Draw(Image, Pos, Microsoft.Xna.Framework.Color.White);
+            float pourcentage = Constantes.BUTTON_LENGTH;
+            size.Width = (int)(pourcentage * (float)Image.Width);
+            size.Height = (int)(pourcentage * (float)Image.Height);
+            sb.Draw(CurrentImage, Pos, null, Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), pourcentage, SpriteEffects.None, 0);
         }
     }
 }

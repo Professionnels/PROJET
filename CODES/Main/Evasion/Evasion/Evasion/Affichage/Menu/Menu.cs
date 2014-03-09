@@ -34,12 +34,12 @@ namespace Evasion.Affichage.Menu
             switch (type)
             {
                 case "Main menu":
-                    Elements = new Bouton[4] { new Bouton("New game"), new Bouton("Load game"), new Bouton("Options"), new Bouton("Quit") };
-                    Image = screen.Content.Load<Texture2D>("menu_accueil_fond");
+                    Elements = new Bouton[4] { new Bouton("New game", ChargerImages.bouton_nouveau_jeu, ChargerImages.bouton_nouveau_jeu_on), new Bouton("Load game", ChargerImages.bouton_charger_jeu, ChargerImages.bouton_charger_jeu_on), new Bouton("Options", ChargerImages.bouton_options, ChargerImages.bouton_options_on), new Bouton("Quit", ChargerImages.bouton_quitter, ChargerImages.bouton_quitter_on) };
+                    Image = ChargerImages.menu_accueil;
                     break;
                 case "Pause":
-                    Elements = new Bouton[5] { new Bouton("Reprendre"), new Bouton("Save"), new Bouton("Quit"), new Bouton("Main menu"), new Bouton("Options") };
-                    Image = screen.Content.Load<Texture2D>("menu_accueil_fond");
+                    Elements = new Bouton[5] { new Bouton("Reprendre", ChargerImages.bouton_reprendre, ChargerImages.bouton_reprendre_on), new Bouton("Save", ChargerImages.bouton_sauvegarder, ChargerImages.bouton_sauvegarder_on), new Bouton("Quit", ChargerImages.bouton_quitter, ChargerImages.bouton_quitter_on), new Bouton("Main menu", ChargerImages.bouton_menu_principal, ChargerImages.bouton_menu_principal_on), new Bouton("Options", ChargerImages.bouton_options, ChargerImages.bouton_options_on) };
+                    Image = ChargerImages.menu_accueil;
                     break;
                 case "Reprendre":
                     Fen.LoadContent(Content_t.LoadGame);
@@ -72,7 +72,7 @@ namespace Evasion.Affichage.Menu
                     Elements[i].DeGriser();
                 if (mouseState.LeftButton == ButtonState.Pressed && mouseState.Y >= Elements[i].Pos.Y && mouseState.Y <= Elements[i].Pos.Y + Elements[i].size.Height && mouseState.X >= Elements[i].Pos.X && mouseState.X <= Elements[i].Pos.X + Elements[i].size.Width)
                 {
-                    type=Elements[i].Name.Remove(Elements[i].Name.Length-3);
+                    type=Elements[i].Name;
                     Elements[i].Press();
                     LoadContent(screen);
                 }
@@ -83,12 +83,7 @@ namespace Evasion.Affichage.Menu
         {
             int height = screen.GraphicsDevice.Viewport.Height;
             int width = screen.GraphicsDevice.Viewport.Width;
-            if (width != Image.Width)
-            {
-                sb.Draw(Image, new Vector2(0, 0), null, Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), (float)screen.GraphicsDevice.Viewport.Width / (float)Image.Width, SpriteEffects.None, 0);
-            }
-            else
-                sb.Draw(Image, new Vector2(0, 0), Microsoft.Xna.Framework.Color.White);
+            sb.Draw(Image, new Vector2(0, 0), null, Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), (float)screen.GraphicsDevice.Viewport.Width / (float)Image.Width, SpriteEffects.None, 0);
 
             Vector2 pos = new Vector2(width / 2 - Elements[0].size.Width / 2, height/15);
             Elements[0].Pos = pos;

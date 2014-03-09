@@ -14,6 +14,7 @@ namespace Evasion.Jeu
         private Son.Son SonAmbiance1;
         private Son.Son SonAmbiance2;
         private Son.Son current;
+        private Son.Son pause;
         private Fenetre Fen;
 
         public Jeu(Fenetre fen)
@@ -21,22 +22,25 @@ namespace Evasion.Jeu
             Fen = fen;
             SonAmbiance1 = new Son.Son(Son.ChargerSon.theme1);
             SonAmbiance2 = new Son.Son(Son.ChargerSon.theme2);
+            pause = new Son.Son(Son.ChargerSon.son_pause);
             current = SonAmbiance1;
         }
 
         public void Update(KeyboardState keyboardState, MouseState mouseState)
         {
-            // Touches
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-            {
-                Fen.LoadContent(Content_t.Menu);
-            }
 
             // Sons
             if (MediaPlayer.State == MediaState.Stopped)
             {
                 current.Play();
                 current = current == SonAmbiance1 ? SonAmbiance2 : SonAmbiance1;
+            }
+
+            // Touches
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                pause.Play();
+                Fen.LoadContent(Content_t.Menu);
             }
         }
 

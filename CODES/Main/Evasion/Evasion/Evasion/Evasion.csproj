@@ -115,6 +115,7 @@
     <Compile Include="Affichage\Fenetre.cs" />
     <Compile Include="Affichage\Menu\Bouton.cs" />
     <Compile Include="Affichage\Menu\Menu.cs" />
+    <Compile Include="Affichage\Menu\ChargerImages.cs" />
     <Compile Include="Decors\Murs.cs" />
     <Compile Include="Decors\ObjetDecors.cs" />
     <Compile Include="Jeu\ChargementNiveau.cs" />

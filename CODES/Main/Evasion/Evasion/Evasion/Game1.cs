@@ -31,7 +31,6 @@ namespace Evasion
             graphics.PreferredBackBufferHeight = Evasion.Affichage.Constantes.SCREEN_HEIGHT;
             this.Window.Title = "Evasion";
             this.graphics.ApplyChanges();
-            Son.ChargerSon.Init(Content);
         }
 
         /// <summary>
@@ -55,6 +54,8 @@ namespace Evasion
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Son.ChargerSon.Init(Content);
+            ChargerImages.InitMenu(Content);
             fenetre.LoadContent(Content_t.Menu);
             // TODO: use this.Content to load your game content here
         }
