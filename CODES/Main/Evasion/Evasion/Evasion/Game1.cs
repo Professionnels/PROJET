@@ -86,6 +86,11 @@ namespace Evasion
 
                 graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
                 graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+                if (this.graphics.IsFullScreen)
+                {
+                    graphics.PreferredBackBufferWidth = Evasion.Affichage.Constantes.SCREEN_WIDTH;
+                    graphics.PreferredBackBufferHeight = Evasion.Affichage.Constantes.SCREEN_HEIGHT;
+                }
                 this.graphics.IsFullScreen = !(this.graphics.IsFullScreen);
                 this.graphics.ApplyChanges();
             }
