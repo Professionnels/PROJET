@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Evasion.Objets
 {
-    class ObjetsUtilitaires
+    class ObjetsUtilitaires : Objets
     {
     }
 }

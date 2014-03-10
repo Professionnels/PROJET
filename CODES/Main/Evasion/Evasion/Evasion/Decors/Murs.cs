@@ -2,21 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Evasion.Decors
 {
-    class Murs
+    class Murs : ObjetDecors
     {
-        private string fichier3D;
-        private int type;
-        private int identifiant;
-
-        public Murs() { }
-        public Murs(string fichier3D, int type, int identifiant)
+        public Murs(string fichier3D, int type, int identifiant, Vector3 position)
+            :base(fichier3D, type, identifiant, position)
         {
-            this.fichier3D = fichier3D;
-            this.type = type;
-            this.identifiant = identifiant;
+            
         }
     }
 }
