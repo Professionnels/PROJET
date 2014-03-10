@@ -17,7 +17,6 @@ namespace Evasion.Objets
         public Objets(string fichier3D, Vector3 position)
         {
             this.fichier3D = fichier3D;
-            this.type = type;
             this.position = position;
         }
 

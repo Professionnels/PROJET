@@ -25,16 +25,36 @@ namespace Evasion.Objets
  
         }
 
-        public 
+        public int InfligerDegats(Personnage perso, int degats)
+        {
+            return (perso.ModifierVie(degats));
+        }
     }
 
     class Pistolet : Armes
     {
         public Pistolet(Vector3 position, int portee, int degats, Son.Son bruit, int munition)
-            : base("ImagePistolet3D", position)
+            : base("ImagePistolet3D", position, portee, degats, bruit, munition)
         {
  
         }
+    }
 
+    class Mitraillette : Armes
+    {
+        public Mitraillette(Vector3 position, int portee, int degats, Son.Son bruit, int munition)
+            : base("ImageMitraillette3D", position, portee, degats, bruit, munition)
+        {
+ 
+        }
+    }
+
+    class Couteau : Armes
+    {
+        public Couteau(Vector3 position, int portee, int degats, Son.Son bruit, int munition)
+            : base("ImageCouteau3D", position, portee, degats, bruit, -1)
+        {
+ 
+        }
     }
 }
