@@ -84,6 +84,8 @@ namespace Evasion.Affichage.Menu
         {
             int height = screen.GraphicsDevice.Viewport.Height;
             int width = screen.GraphicsDevice.Viewport.Width;
+            int decalX, decalY;
+            decalY = height - Image.Height;
             sb.Draw(Image, new Vector2(0, 0), null, Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), (float)screen.GraphicsDevice.Viewport.Width / (float)Image.Width, SpriteEffects.None, 0);
 
             Vector2 pos = new Vector2(width / 2 - Elements[0].size.Width / 2, height/15);

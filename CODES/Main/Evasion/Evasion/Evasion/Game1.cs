@@ -83,6 +83,9 @@ namespace Evasion
                 this.Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
+
+                graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+                graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
                 this.graphics.IsFullScreen = !(this.graphics.IsFullScreen);
                 this.graphics.ApplyChanges();
             }
