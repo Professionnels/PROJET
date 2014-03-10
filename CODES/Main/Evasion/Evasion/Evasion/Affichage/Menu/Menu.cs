@@ -48,16 +48,16 @@ namespace Evasion.Affichage.Menu
                     Fen.LoadContent(Content_t.Quit);
                     break;
                 case "Save":
-                    Fen.LoadContent(Content_t.Save);
+                    //Fen.LoadContent(Content_t.Save);
                     break;
                 case "New game":
                     Fen.LoadContent(Content_t.NewGame);
                     break;
                 case "Load game":
-                    Fen.LoadContent(Content_t.LoadGame);
+                    //Fen.LoadContent(Content_t.LoadGame);
                     break;
                 case "Options":
-                    Fen.LoadContent(Content_t.Options);
+                    //Fen.LoadContent(Content_t.Options);
                     break;
             }
         }
@@ -73,7 +73,8 @@ namespace Evasion.Affichage.Menu
                 if (mouseState.LeftButton == ButtonState.Pressed && mouseState.Y >= Elements[i].Pos.Y && mouseState.Y <= Elements[i].Pos.Y + Elements[i].size.Height && mouseState.X >= Elements[i].Pos.X && mouseState.X <= Elements[i].Pos.X + Elements[i].size.Width)
                 {
                     type=Elements[i].Name;
-                    Elements[i].Press();
+                    if (Elements[i].Name == "New game" || Elements[i].Name == "Reprendre" || Elements[i].Name == "Main menu")
+                        Elements[i].Press();
                     LoadContent(screen);
                 }
             }
