@@ -35,20 +35,20 @@ namespace Evasion
 
         public Personnage() {} // Constructeur sans parametres
 
-        public Personnage(int vie, int vitesse, int identifiant, int type, int genrePerso, int accroupi, int marcher, int courrir, int sneak, string nom, string fichier3D, Objets.Objets objet) // Constructeur avec parametre
+        public Personnage(int vie, int vitesse, int identifiant, int type, int genrePerso, int accroupi, int marcher, int courrir, int sneak, string nom, string fichier3D, Objets.Objets objet) // Constructeur avec parametres
         {
-            vie = _vie;
-            vitesse = _vitesse;
-            identifiant = _identifiant;
-            type = _type;
-            genrePerso = _genrePerso;
-            accroupi = _accroupi;
-            marche = _marche;
-            court = _court;
-            sneak = _sneak;
-            nom = _nom;
-            fichier3D = _fichier3D;
-            objet = _objet;
+            this.vie = vie;
+            this.vitesse = vitesse;
+            this.identifiant = identifiant;
+            this.type = type;
+            this.genrePerso = genrePerso;
+            this.accroupi = accroupi;
+            this.marche = marcher;
+            this.court = courrir;
+            this.sneak = sneak;
+            this.nom = nom;
+            this.fichier3D = fichier3D;
+            this.objet = objet;
         }
         
         private void accroupir(int accroupi) // Methode pour s'accroupir
@@ -66,19 +66,19 @@ namespace Evasion
             court = court ^ 1;
         }
         
-        private void sneaker(int sneak) // Methode pou r marcher lentement
+        private void sneaker(int sneak) // Methode pour marcher lentement
         {
             sneak = sneak ^ 1;
         }
 
-        private void utiliserObjet()
+        private void utiliserObjet() // Methode pour utiliser un objet
         {
             objet.Utiliser();
         }
 
-        private int modifierVie(int ajout) 
+        private int modifierVie(int ajout) // Methode pour modifier la vie
         {
-            return vie+ajout;
+            return vie + ajout;
         }
     }
 }
