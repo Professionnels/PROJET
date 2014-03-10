@@ -125,6 +125,7 @@
     <Compile Include="Objets\Objets.cs" />
     <Compile Include="Objets\ObjetsUtilitaires.cs" />
     <Compile Include="Objets\Outils.cs" />
+    <Compile Include="Personnages\Capacite.cs" />
     <Compile Include="Personnages\Ennemi.cs" />
     <Compile Include="Personnages\Joueur.cs" />
     <Compile Include="Personnages\Personnage.cs" />
