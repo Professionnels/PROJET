@@ -5,7 +5,6 @@ using System.Text;
 
 namespace Evasion.Personnages
 {
-    //gros boloss ce khalis
     class Capacite
     {
         protected string fichier3D;
