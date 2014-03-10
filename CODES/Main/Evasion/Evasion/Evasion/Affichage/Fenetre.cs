@@ -53,10 +53,9 @@ namespace Evasion.Affichage
                     break;
                 case Content_t.LoadGame:
                     menu = new Menu.Menu("Pause", this);
-<<<<<<< HEAD
-=======
                     jeu = new Jeu.Jeu(this, 1); // temporaire
->>>>>>> 1335947eccd84a943f75d81fa371dbd795859236
+
+
                     break;
                 default:
                     Console.WriteLine("Erreur: ce contenu de la fenetre n'est pas pris en compte par l'application.");
