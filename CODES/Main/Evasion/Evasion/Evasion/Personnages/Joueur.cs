@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Evasion.Personnages
 {
-    public enum direction_t : int
+    public enum direction_t : int // Enumeration pour les differents directions possibles
     {
          gauche = 0,
          droite,
@@ -29,29 +29,29 @@ namespace Evasion.Personnages
         public bool _reperer { get { return reperer; } }
         public Capacite _capacite_speciale { get { return capacite_speciale; } }
 
-        public Joueur()
-            : base("Joueur", 100, deplacement_t.marche, new Vector3(0,0,0), 1, 0, "joueur.3d", genre_t.joueur)
+        public Joueur() // Constructeur sans parametres
+            : base("Joueur", 100, deplacement_t.marche, new Vector3(0,0,0), 1, "joueur.3d", genre_t.joueur)
         {
  
         }
 
-        public Joueur(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, int identifiant, string fichier3D, Capacite capacite_speciale)
-            :base(nom, vie, deplacement, position, vitesse, identifiant, fichier3D, genre_t.joueur)
+        public Joueur(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, string fichier3D, Capacite capacite_speciale) // Constructeur avec parmetres
+            :base(nom, vie, deplacement, position, vitesse, fichier3D, genre_t.joueur)
         {
  
         }
 
-        public void UtiliserCapacite()
+        public void UtiliserCapacite() // Methode pour utiliser la capacite speciale du joueur
         {
             capacite_speciale.Utiliser();
         }
 
-        public void Deplacer(int angle, direction_t direction)
+        override public void Deplacer(int angle, direction_t direction) // Methode pour se deplacer 
         {
-        
+            
         }
         
-        public void Update(KeyboardState keyboardState, MouseState mouseState)
+        override public void Update(KeyboardState keyboardState, MouseState mouseState) // Methode pour charger les donnes
         {
             if(keyboardState.IsKeyDown(Keys.Up))
             {
@@ -69,11 +69,15 @@ namespace Evasion.Personnages
             {
                 Deplacer(0, direction_t.droite);
             }
+            if (keyboardState.IsKeyDown(Keys.W))
+            {
+                UtiliserCapacite();
+            }
         }
 
-        public void Display(SpriteBatch sb)
+        override public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb) // Methode pour afficher les donnes
         {
- 
+            
         }
     }
 }

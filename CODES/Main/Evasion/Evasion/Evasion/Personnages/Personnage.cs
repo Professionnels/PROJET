@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Evasion.Personnages;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Evasion
 {
-    public enum deplacement_t : int
+    public enum deplacement_t : int // Enumeration pour les differents modes de deplacements
     {
         marche = 0,
         courir,
@@ -14,7 +17,7 @@ namespace Evasion
         accroupi
     }
 
-    public enum genre_t : int
+    public enum genre_t : int // Enumeration pour les differents genre de personnage;
     {
         joueur = 0,
         ennemi,
@@ -25,7 +28,6 @@ namespace Evasion
     {
         protected int vie;
         protected int vitesse; 
-        protected int identifiant;
         protected genre_t genrePerso;
         protected deplacement_t deplacement;
         protected string nom;
@@ -34,7 +36,6 @@ namespace Evasion
 
         public int _vie { get { return vie; } }
         public int _vitesse { get { return vitesse; } }
-        public int _identifiant { get { return identifiant; } } 
         public genre_t _genrePerso { get { return genrePerso; } }
         public deplacement_t _deplacement { get { return deplacement; } }
         public string _nom { get { return nom; } }
@@ -46,18 +47,17 @@ namespace Evasion
 
         }
 
-        public Personnage(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, int identifiant, string fichier3D, genre_t genrePerso)
+        public Personnage(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, string fichier3D, genre_t genrePerso) // Constructeur avec parametres
         {
             this.nom = nom;
             this.vie = vie;
             this.vitesse = vitesse;
-            this.identifiant = identifiant;
             this.genrePerso = genrePerso;
             this.fichier3D = nom;
             this.objet = new Objets.Objets();
         }
 
-        public void ChangerDeplacement(deplacement_t deplacement)
+        public void ChangerDeplacement(deplacement_t deplacement) // Methode pour changer le mode de deplacement
         {
             this.deplacement = deplacement;
         }
@@ -70,6 +70,20 @@ namespace Evasion
         public int ModifierVie(int ajout) // Methode pour modifier la vie
         {
             return vie + ajout;
+        }
+
+        virtual public void Deplacer(int angle, direction_t direction) // Methode pour se deplacer
+        {
+
+        }
+
+        virtual public void Update(KeyboardState keyboardState, MouseState mouseState) // Methode pour charger les donnees
+        {
+        }
+
+        virtual public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb) // Methode pour afficher les donnees
+        {
+
         }
     }
 }

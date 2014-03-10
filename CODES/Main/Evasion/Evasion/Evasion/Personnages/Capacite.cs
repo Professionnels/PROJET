@@ -9,12 +9,12 @@ namespace Evasion.Personnages
     {
         protected string fichier3D;
 
-        virtual public void Utiliser()
+        virtual public void Utiliser() // Methode pour utiliser la capacite
         {
 
         }
         
-        public Capacite(string fichier3D)
+        public Capacite(string fichier3D) // constructeur avec parametres
         {
             this.fichier3D = fichier3D;
         }
@@ -22,12 +22,12 @@ namespace Evasion.Personnages
     }
     class CoupDePoing : Capacite
     {
-        public override void Utiliser()
+        public override void Utiliser() // Methode pour utiliser l'attaque
         {
             
         }
 
-        public CoupDePoing(string fichier3D)
+        public CoupDePoing(string fichier3D) // Constructeur avec parametres
             :base(fichier3D)
         {
             this.fichier3D = fichier3D;
