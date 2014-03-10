@@ -20,6 +20,12 @@ namespace Evasion.Objets
             this.position = position;
         }
 
+        public Objets()
+        {
+            this.fichier3D = "Carre3D";
+            this.position = new Vector3(0,0,0);
+        }
+
         public virtual void Utiliser() 
         {
 
