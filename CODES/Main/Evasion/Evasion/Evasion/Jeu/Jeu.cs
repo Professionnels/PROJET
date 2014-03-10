@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Evasion.Affichage;
 using Microsoft.Xna.Framework.Media;
+using Evasion.Personnages;
+using Microsoft.Xna.Framework;
 
 namespace Evasion.Jeu
 {
@@ -16,14 +18,21 @@ namespace Evasion.Jeu
         private Son.Son current;
         private Son.Son pause;
         private Fenetre Fen;
+        private Niveau niveau;
+        List<Personnage> joueurs;
 
-        public Jeu(Fenetre fen)
+        public Jeu(Fenetre fen, int nombreJoueurs)
         {
-            Fen = fen;
+            Niveau niveau = ChargementNiveau.Load();
             SonAmbiance1 = new Son.Son(Son.ChargerSon.theme1);
             SonAmbiance2 = new Son.Son(Son.ChargerSon.theme2);
             pause = new Son.Son(Son.ChargerSon.son_pause);
             current = SonAmbiance1;
+            int i;
+            for (i = 0; i < nombreJoueurs; i++ )
+                joueurs.Add(new Joueur("Joueur "+i+1, 100, deplacement_t.marche, new Vector3(0,0,0), 1, "fichier3D", new Capacite("capacite3D")));
+            for (int j=0; j<niveau.Persos.Count; j++)
+                joueurs.Add(niveau.Persos[j]);
         }
 
         public void Update(KeyboardState keyboardState, MouseState mouseState)
@@ -42,6 +51,10 @@ namespace Evasion.Jeu
                 pause.Play();
                 Fen.LoadContent(Content_t.Menu);
             }
+
+            for (int i = 0; i < joueurs.Count(); i++)
+                joueurs[i].Update(keyboardState, mouseState);
+
         }
 
         public void Save()
@@ -51,6 +64,9 @@ namespace Evasion.Jeu
         { }
 
         public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb)
-        { }
+        {
+            for (int i = 0; i < joueurs.Count(); i++)
+                joueurs[i].Display(screen, sb);
+        }
     }
 }

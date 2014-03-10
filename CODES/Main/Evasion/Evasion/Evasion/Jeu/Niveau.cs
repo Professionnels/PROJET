@@ -7,5 +7,12 @@ namespace Evasion.Jeu
 {
     class Niveau
     {
+        public List<Personnage> Persos;
+
+        public Niveau(int id)
+        {
+            // niveau.txt
+
+        }
     }
 }

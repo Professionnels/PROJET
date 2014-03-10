@@ -2,58 +2,87 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Input;
+using Evasion.Personnages;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Evasion
 {
-    class Ennemi
+    class Ennemi : Personnage
     {
         private int argent_recompense;
-        private int joueur_cible;
         private int timer_reperer;
         private int champs_vision;
         private bool assome;
         private int temps_assome;
-        private bool se_deplace;
+        private bool mobile;
+        private Joueur cible;
 
         public int _argent_recompense { get { return argent_recompense; } }
-        public int _joueur_cible { get { return joueur_cible; } }
+        public Joueur _cible { get { return cible; } }
         public int _timer_reperer { get { return timer_reperer; } }
         public int _champs_vision { get { return champs_vision; } }
-        public bool _assomer { get { return assome; } }
+        public bool _assome { get { return assome; } }
         public int _temps_assome { get { return temps_assome; } }
-        public bool _se_deplace { get { return se_deplace; } }
+        public bool _mobile { get { return mobile; } }
 
-        public Ennemi() { }
+        public Ennemi()
+            : base("Ennemi", 100, deplacement_t.marche, new Vector3(0,0,0), 1, "fichier3D", genre_t.ennemi)
+        {
+ 
+        }
 
-        public Ennemi(int argent_recompense, int joueur_cible, int timer_reperer, int champs_vision, bool Assomer, int temps_assomer, bool se_deplace)
+        public Ennemi(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, int id, string fichier3D, int argent_recompense, int timer_reperer, int champs_vision, bool mobile)
+            : base(nom, vie, deplacement, position, vitesse, fichier3D, genre_t.ennemi) // fichier mouv.txt
         {
-            argent_recompense = _argent_recompense;
-            joueur_cible = _joueur_cible;
-            timer_reperer = _timer_reperer;
-            champs_vision = _champs_vision;
-            Assomer = _assomer;
-            temps_assomer = _temps_assome;
-            se_deplace = _se_deplace;
+            this.argent_recompense = argent_recompense;
+            this.timer_reperer = timer_reperer;
+            this.champs_vision = champs_vision;
+            assome = false;
+            temps_assome = 0;
+            this.mobile = mobile;
         }
-        private void attaquer(int attaquer)
+
+        private void Attaquer()
         {
-            attaquer = attaquer ^ 1;
+            //int distance;
+            //switch (distance)
         }
-        private void reperer(int reperer)
+
+        private bool Reperer()
         {
-            reperer = reperer ^ 1;
+            return false;
         }
-        private void Assomer(int Assomer)
+
+        private void Alerter()
         {
-            Assomer = Assomer ^ 1;
+            
         }
-        private void alerter(int alerter)
+
+        override public void Deplacer(int angle, direction_t direction)
         {
-            alerter = alerter ^ 1;
+
         }
-        private void deplacer(int deplacer)
+
+        public void Mouvement()
         {
-            deplacer = deplacer ^ 1;
+            // mouv.txt
+        }
+
+        override public void Update(KeyboardState keyboardState, MouseState mouseState)
+        {
+            if (Reperer())
+            {
+                Alerter();
+                Attaquer();
+            }
+            Mouvement();
+        }
+
+        override public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb)
+        {
+
         }
     }
 }

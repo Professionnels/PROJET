@@ -5,7 +5,12 @@ using System.Text;
 
 namespace Evasion.Jeu
 {
-    class ChargementNiveau
+    static class ChargementNiveau
     {
+        public static Niveau Load()
+        {
+            // id.txt
+            return null;
+        }
     }
 }
