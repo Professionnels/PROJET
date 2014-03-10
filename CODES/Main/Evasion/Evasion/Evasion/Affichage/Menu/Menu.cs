@@ -38,7 +38,7 @@ namespace Evasion.Affichage.Menu
                     Image = ChargerImages.menu_accueil;
                     break;
                 case "Pause":
-                    Elements = new Bouton[5] { new Bouton("Reprendre", ChargerImages.bouton_reprendre, ChargerImages.bouton_reprendre_on), new Bouton("Save", ChargerImages.bouton_sauvegarder, ChargerImages.bouton_sauvegarder_on), new Bouton("Quit", ChargerImages.bouton_quitter, ChargerImages.bouton_quitter_on), new Bouton("Main menu", ChargerImages.bouton_menu_principal, ChargerImages.bouton_menu_principal_on), new Bouton("Options", ChargerImages.bouton_options, ChargerImages.bouton_options_on) };
+                    Elements = new Bouton[5] { new Bouton("Reprendre", ChargerImages.bouton_reprendre, ChargerImages.bouton_reprendre_on), new Bouton("Save", ChargerImages.bouton_sauvegarder, ChargerImages.bouton_sauvegarder_on), new Bouton("Main menu", ChargerImages.bouton_menu_principal, ChargerImages.bouton_menu_principal_on), new Bouton("Options", ChargerImages.bouton_options, ChargerImages.bouton_options_on), new Bouton("Quit", ChargerImages.bouton_quitter, ChargerImages.bouton_quitter_on) };
                     Image = ChargerImages.menu_accueil;
                     break;
                 case "Reprendre":
