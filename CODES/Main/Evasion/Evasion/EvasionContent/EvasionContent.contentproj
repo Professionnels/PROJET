@@ -172,13 +172,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="menu_accueil_fond.png">
-      <Name>menu_accueil_fond</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Models\murtableau.fbx">
       <Name>murtableau</Name>
       <Importer>FbxImporter</Importer>
@@ -214,13 +207,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\evasion.png">
-      <Name>evasion</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Models\mur.fbx">
       <Name>mur</Name>
       <Importer>FbxImporter</Importer>
@@ -230,6 +216,20 @@
   <ItemGroup>
     <Compile Include="Models\briques.JPG">
       <Name>briques</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="menu_accueil_fond.png">
+      <Name>menu_accueil_fond</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\evasion.png">
+      <Name>evasion</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
