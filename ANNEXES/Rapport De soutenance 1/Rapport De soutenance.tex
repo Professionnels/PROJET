@@ -97,7 +97,7 @@ Voici donc le travail que nos avons effectue depuis nos debuts sur le projet et 
 
 Depuis quelques mois maintenant, je travaille sur le projet avec Lenny, Khalis et Anatole. Et je dois bien avouer, c'est plus dur que ce que je ne pensais. Chacun a sa propre idée. Chacun a ses propres envies. Chacun veut faire ce qu'il lui plait. Mais ce n'est pas possible. Il m' fallut, comme les autres je suppose, faire de nombreuses concessions. Définir un projet qui plait à tout le monde est une chose ardue. De plus, trouver des horaires pour travailler ensemble sur le projet n'est pas facile non plus, chacun ayant ses obligations personnelles.
 
-\subsubsection{Affichage de la 3D}
+\subsubsection{Affichage et animation de la 3D}
 La \bsc{3D} a représenté le plus dur jusqu'à maintenant. Au début, voyant l'abondance d'exemple sur internet, je me suis dis que faire de la 3D serait facile. Mais j'ai très vite déchanté. Plus je regardais ces exemples, plus je me voyais confronté à un mur. En effet, sur internet, il n'y a que des exemples pratiquement. Et aucune explication. Ou alors je ne sais pas chercher. Et dans ce cas là, la suite de l'année risque d'être bien compliqué. \\
 La première étape dans l'affichage des éléments \bsc{3D} est bien évidemment d'avoir des éléments en \bsc{3D}. Ayant déjà manipulé \bsc{Blender}, je me suis mis à l'\oe uvre. Pour nos premiers test, un bonhomme cubique a été réalisé : \begin{center}
 \includegraphics[scale=01.0]{perso}
@@ -116,9 +116,8 @@ private Model persoModel;
 
 Manipuler un tel modèle implique de connaître les règles de base de la géométrie dans l'espace, mais aussi de savoir utiliser des matrices. En \bsc{3D}, tout n'est question que de matrices. \\
 Par ailleur, lorsque le modèle est déplacé, la caméra devra sûrement le suivre dans son déplacement. Là encore il faudra faire intervenir des matrices de rotation et de translation.
+\newline
 
-\newpage
-\subsubsection{Animation de la 3D}
 Avec tout cela vient aussi une manipulation aisée du modèle. Il est possible de déplacer, tourner ou redimensionner le modèle \bsc{3D} comme on le ferait avec une image \bsc{2D}, via l'utilisation de \bsc{Vector3} : 
 \begin{quote}
 persoPosition = new Vector3(0f, 3f, 0f);\\
@@ -166,6 +165,28 @@ Bien sûr, le menu sera amené à évolué dans le futur. Pour l'instant, seul l
 
 \newpage
 J'ai aussi manqué de temps pour travailler l'identité visuelle du jeu. Peu de recherches graphiques ont été effectués. Nous avons décidé de construire un projet propre en premier lieu. Toute une arborescence de classes, de dossiers a été établie pour avoir un projet fort modulable. Ainsi chacun de nous peut travailler sur ce qui lui incombe sans se préoccuper de l'avancement des autres. Nous pourrons avancer à notre rythme. Ce point nous a semblé plus important que d'avoir des textures au début du projet. Commencer un projet bien organisé est mieux que de commencer un beau projet. De plus, si l'envie nous vient d'intégrer une nouvelle fonctionnalité au jeu, car il s'agit bien d'un jeu, ne l'oublions pas, la bonne organisation du projet va grandement faciliter cette intégration. C'est pour cette raison que pour la deuxième soutenance, une véritable charte graphique sera vous sera présenté.
+
+\subsubsection{Et après ?}
+\par
+C'est la première fois que je réalise un projet de cette taille. Au début, j'ai sûrement vu trop grand. Je pensais avoir le temps de tout faire. Mais ça n'a pas été le cas. Il m'a fallu laisser de côté certaines parties du projet pour me concentrer sur d'autres, comme expliqué précédemment. C'est le cas des graphismes et de l'animation des modèles \bsc{3D}. 
+\newline
+
+\par
+Maintenant, je que je sais à quoi m'attendre, je pense pouvoir mieux gérer mon temps et mon énergie pour la suite du projet. Il me reste beaucoup de travail. Il y a toute la partie graphique : les sprites \bsc{2D}, les modèles \bsc{3D}, les boutons des menus, un curseur adapté au jeu.
+
+
+\par
+Je devrais aussi implémenter un système de collision. Voir son personnage rentrer dans un mur peut en laisser plus d'un perplexe. Le personnage ne pourra évoluer que dans deux dimensions : aller en avant ou arrière, et sur la gauche ou la droite. On retire la dimension de la hauteur, donc tout ce qui est les sauts, les escaliers. J'utiliserai une méthode classique : la détection des collisions par rectangle. Si un rectangle entre en contact ou chevauche un autre rectangle, on estimera qu'il y a une collision. Voici un exemple : 
+
+ \begin{center}
+\includegraphics[scale=0.5]{collision}
+\end{center}
+
+Pour simplifier les tests, nous n'utiliserons que cette méthode. Pour faire les tests de collision, chaque élément du jeu sera ramené à une boîte rectangulaire. \\
+\par
+Enfin, nous devrons avoir bien commencé la boucle principale du jeu et l'intéraction entre les différents élements du jeu. C'est à ce moment que le jeu deviendra vraiment interactif. Les résultats se feront voir petit à petit. 
+\\
+La partie réseau, si nous travaillons bien jusque là, devra être terminée. A première vue, elle ne présente pas de grande difficultés. Une simple communication avec un serveur est à prévoir. Donc pas de dialogue entre deux ordinateurs (OUF !).
 \newpage
 
 \subsection{Khalis Chalabi}
@@ -264,5 +285,66 @@ Je vais essayer d'apporter mon aide pour la 3D, je pense que cet objectif sera l
 \underline{Les differents decors}
 \newline
 
+\newpage
+
+\section{Modification du planning}
+
+Avec les légers changement de direction que nous avons pris, le planning initialement établi a dû être quelque peu modifié pour coller au plus près de l'avancement de notre projet. C'est ainsi que les graphismes ne commenceront à être développé que pour la deuxième soutenance. En revanche, certains domaines ont été plus facile à réaliser. Nous avons pu prendre une certaine avance notamment dans la réalisation du site web et des sons. A l'avenir, nous pourrons nous concentrer avec plus d'ardeur sur les points importants.
+\begin{center}
+\begin{tabular}{|c|p{2cm}|p{2cm}|p{2cm}|}
+
+
+\hline
+   & Première soutenance & Deuxième soutenance & Troisième soutenance\\ 
+\hline
+
+Codage décors & 70\% & 100\% & 100\%\\
+\hline
+Codage objets & 70\% & 100\% & 100\%\\
+\hline
+Codage personnages & 70\% & 90\% & 100\%\\
+\hline
+
+Graphismes 2D/3D & - & 60\% & 100\%\\
+\hline
+
+Site web & 70\% & 100\% & 100\%\\
+\hline
+
+Son & 20\% & 80\% & 100\%\\
+\hline
+
+Collisions & - & 50\% & 100\%\\
+\hline
+
+Affichage & 70\% & 100\% & 100\%\\
+\hline
+
+Boucle de jeu & - & 50\% & 100\%\\
+\hline
+
+Interaction entre éléments du jeu & 20\% & 70\% & 100\%\\
+\hline
+
+Menu & 50\% & 100\% & 100\%\\
+\hline
+
+Réseau & - & 100\% & 100\%\\
+\hline
+
+Multijoueur & - & 60\% & 100\%\\
+\hline
+
+\end{tabular}
+\end{center}
+
+\section{Conclusion}
+
+\par
+C'est donc apres beaucoup de travail  pendant ces 3 mois que nous continuons notre projet en espérant que nous tiendrons nos objectifs. Nous restons tres motivés pour le terminer, et pensons constamment à de nouvelles améliorations et des perfectionnements. Notre travaille reste dur et le devient de plus en plus en fonction de notre avancement.
+\newline
+
+\par
+Maintenant place à la présentation de notre projet durant la première soutenance !
 
 \end{document}
