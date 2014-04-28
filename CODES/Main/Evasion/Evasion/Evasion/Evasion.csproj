@@ -108,6 +108,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Affichage\3D\Perso_Model.cs" />
     <Compile Include="Affichage\ActionBarre.cs" />
     <Compile Include="Affichage\AffichageHUD.cs" />
     <Compile Include="Affichage\Carte.cs" />
@@ -174,7 +175,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Affichage\3D\" />
     <Folder Include="Physique\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
