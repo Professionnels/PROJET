@@ -22,7 +22,7 @@ namespace Evasion
         // Personnage perso = new Personnage();
         Fenetre fenetre;
 
-                //PERSONNAGE
+        //PERSONNAGE
         private Model persoModel;
         private Vector3 persoPosition;
 
@@ -58,7 +58,21 @@ namespace Evasion
         public Game1()
         {
             fenetre = new Fenetre(this);
-@@ -43,6 +76,7 @@ namespace Evasion
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = Evasion.Affichage.Constantes.SCREEN_WIDTH;
+            graphics.PreferredBackBufferHeight = Evasion.Affichage.Constantes.SCREEN_HEIGHT;
+            this.Window.Title = "Evasion";
+            this.graphics.ApplyChanges();
+        }
+
+        /// <summary>
+        /// Allows the game to perform any initialization it needs to before starting to run.
+        /// This is where it can query for any required services and load any non-graphic
+        /// related content.  Calling base.Initialize will enumerate through any components
+        /// and initialize them as well.
+        /// </summary>
+        protected override void Initialize()
         {
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
@@ -66,7 +80,14 @@ namespace Evasion
             base.Initialize();
         }
 
-@@ -57,6 +91,7 @@ namespace Evasion
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content.
+        /// </summary>
+        protected override void LoadContent()
+        {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             Son.ChargerSon.Init(Content);
             ChargerImages.InitMenu(Content);
             fenetre.LoadContent(Content_t.Menu);
@@ -74,7 +95,40 @@ namespace Evasion
             // TODO: use this.Content to load your game content here
         }
 
-@@ -97,6 +132,8 @@ namespace Evasion
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// all content.
+        /// </summary>
+        protected override void UnloadContent()
+        {
+            // TODO: Unload any non ContentManager content here
+        }
+
+        /// <summary>
+        /// Allows the game to run logic such as updating the world,
+        /// checking for collisions, gathering input, and playing audio.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Update(GameTime gameTime)
+        {
+            // Allows the game to exit
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                this.Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                this.Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+
+                graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+                graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+                if (this.graphics.IsFullScreen)
+                {
+                    graphics.PreferredBackBufferWidth = Evasion.Affichage.Constantes.SCREEN_WIDTH;
+                    graphics.PreferredBackBufferHeight = Evasion.Affichage.Constantes.SCREEN_HEIGHT;
+                }
+                this.graphics.IsFullScreen = !(this.graphics.IsFullScreen);
+                this.graphics.ApplyChanges();
+            }
             fenetre.Update(Keyboard.GetState(), Mouse.GetState());
             // TODO: Add your update logic here
 
@@ -83,17 +137,15 @@ namespace Evasion
             base.Update(gameTime);
         }
 
-@@ -106,13 +143,141 @@ namespace Evasion
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
             GraphicsDevice.Clear(Color.Gray);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            fenetre.Display(spriteBatch);
-            spriteBatch.End();
             if (fenetre.ok)
             {
                 GraphicsDevice.DepthStencilState = DepthStencilState.Default;
@@ -227,8 +279,5 @@ namespace Evasion
                 mesh.Draw();
             }
         }
-    }
-}
-
     }
 }
