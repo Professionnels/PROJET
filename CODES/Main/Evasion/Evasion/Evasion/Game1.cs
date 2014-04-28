@@ -22,8 +22,13 @@ namespace Evasion
         // Personnage perso = new Personnage();
         Fenetre fenetre;
 
-        //PERSONNAGE
-        Affichage._3D.Perso_Model personnage;
+                //PERSONNAGE
+        private Model persoModel;
+        private Vector3 persoPosition;
+
+        private Vector3 Rotation;
+        private Vector3 Position;
+
         KeyboardState currentKeyboardState = new KeyboardState();
 
         private Vector3 cameraPosition;
@@ -53,38 +58,15 @@ namespace Evasion
         public Game1()
         {
             fenetre = new Fenetre(this);
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = Evasion.Affichage.Constantes.SCREEN_WIDTH;
-            graphics.PreferredBackBufferHeight = Evasion.Affichage.Constantes.SCREEN_HEIGHT;
-            this.Window.Title = "Evasion";
-            this.graphics.ApplyChanges();
-        }
-
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
-        protected override void Initialize()
+@@ -43,6 +76,7 @@ namespace Evasion
         {
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
-            Model modelperso = Content.Load<Model>("Models/perso");
-            personnage = new Affichage._3D.Perso_Model(modelperso, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
             InitPhysique();
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-        protected override void LoadContent()
-        {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+@@ -57,6 +91,7 @@ namespace Evasion
             Son.ChargerSon.Init(Content);
             ChargerImages.InitMenu(Content);
             fenetre.LoadContent(Content_t.Menu);
@@ -92,63 +74,30 @@ namespace Evasion
             // TODO: use this.Content to load your game content here
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-        }
-
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
-        {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                this.Exit();
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-            {
-
-                graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
-                graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-                if (this.graphics.IsFullScreen)
-                {
-                    graphics.PreferredBackBufferWidth = Evasion.Affichage.Constantes.SCREEN_WIDTH;
-                    graphics.PreferredBackBufferHeight = Evasion.Affichage.Constantes.SCREEN_HEIGHT;
-                }
-                this.graphics.IsFullScreen = !(this.graphics.IsFullScreen);
-                this.graphics.ApplyChanges();
-            }
+@@ -97,6 +132,8 @@ namespace Evasion
             fenetre.Update(Keyboard.GetState(), Mouse.GetState());
             // TODO: Add your update logic here
 
-            //UpdatePosition(gameTime);
-            personnage.updatePosition(gameTime, Keyboard.GetState());
+            UpdatePosition(gameTime);
 
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
+@@ -106,13 +143,141 @@ namespace Evasion
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
             GraphicsDevice.Clear(Color.Gray);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            fenetre.Display(spriteBatch);
+            spriteBatch.End();
             if (fenetre.ok)
             {
                 GraphicsDevice.DepthStencilState = DepthStencilState.Default;
                 DrawMeshes();
-                
             }
             else
             {
@@ -159,10 +108,32 @@ namespace Evasion
             base.Draw(gameTime);
         }
 
-       
+        private void UpdatePosition(GameTime gameTime)
+        {
+            currentKeyboardState = Keyboard.GetState();
+
+            float time = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            float vitesse = 0.01f;
+
+
+            if (currentKeyboardState.IsKeyDown(Keys.Right))
+                Rotation.Y -= time * vitesse * 10;
+            if (currentKeyboardState.IsKeyDown(Keys.Left))
+                Rotation.Y += time * vitesse * 10;
+
+
+            if (currentKeyboardState.IsKeyDown(Keys.Down))
+                persoPosition.Y += time * vitesse;
+
+            if (currentKeyboardState.IsKeyDown(Keys.Up))
+                persoPosition.Y -= time * vitesse;
+
+
+        }
 
         private void InitPhysique()
         {
+            persoPosition = new Vector3(0f, 3f, 0f);
             murPosition = new Vector3(1f, 0f, -1.37f);
             TmurPosition = new Vector3(-1f, 0f, -1.2f);
             solPosition = new Vector3(0f, 0f, -0.28f);
@@ -173,16 +144,19 @@ namespace Evasion
 
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
 
+            Position = Vector3.Zero;
+            Rotation = new Vector3(90.0f, 0f, 180f);
 
             murRotation = new Vector3(90.0f, 0f, 180f);
             TmurRotation = new Vector3(90.0f, 0f, 180f);
             solRotation = new Vector3(90.0f, 0f, 180f);
 
-            viewMatrix = Matrix.CreateLookAt(cameraPosition, personnage.getPosition(), Vector3.Up);
+            viewMatrix = Matrix.CreateLookAt(cameraPosition, persoPosition, Vector3.Up);
         }
 
         private void LoadModel()
         {
+            persoModel = Content.Load<Model>("Models/perso");
             mur = Content.Load<Model>("Models/mur");
             Tmur = Content.Load<Model>("Models/murtableau");
             sol = Content.Load<Model>("Models/sol");
@@ -190,7 +164,23 @@ namespace Evasion
 
         private void DrawMeshes()
         {
-            
+            Matrix[] transforms = new Matrix[persoModel.Bones.Count];
+            persoModel.CopyAbsoluteBoneTransformsTo(transforms);
+            foreach (ModelMesh mesh in persoModel.Meshes)
+            {
+                foreach (BasicEffect effect in mesh.Effects)
+                {
+                    effect.EnableDefaultLighting();
+                    effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(persoPosition) *
+                        Matrix.CreateScale(scale) * Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
+                        Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) * Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z));
+
+                    effect.View = viewMatrix;
+                    effect.Projection = projectionMatrix;
+                }
+                mesh.Draw();
+
+            }
 
             foreach (ModelMesh mesh in mur.Meshes)
             {
@@ -237,5 +227,8 @@ namespace Evasion
                 mesh.Draw();
             }
         }
+    }
+}
+
     }
 }

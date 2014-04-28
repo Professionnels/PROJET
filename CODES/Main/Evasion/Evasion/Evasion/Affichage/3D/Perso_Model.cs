@@ -22,10 +22,8 @@ namespace Evasion.Affichage._3D
         private Vector3 rotation;
 
         private Matrix orientation = Matrix.Identity;
-
         private float aspectRatio;
         private Vector3 cameraPosition;
-
         private float scale = 10f;
 
         public Vector3 getPosition()
@@ -33,7 +31,7 @@ namespace Evasion.Affichage._3D
             return persoPosition;
         }
 
-        public Perso_Model(Model model, Vector3 position, Vector3 rotation)
+        public Perso_Model(ContentManager Content, Model model, Vector3 position, Vector3 rotation)
         {
             this.persoModel = model;
             this.persoPosition = position;
@@ -50,6 +48,9 @@ namespace Evasion.Affichage._3D
 
         public void draw()
         {
+            if (persoModel == null)
+                throw new Exception("no model");
+
             Matrix[] transforms = new Matrix[persoModel.Bones.Count];
             persoModel.CopyAbsoluteBoneTransformsTo(transforms);
             foreach (ModelMesh mesh in persoModel.Meshes)
