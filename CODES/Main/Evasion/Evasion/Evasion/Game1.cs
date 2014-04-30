@@ -29,11 +29,6 @@ namespace Evasion
         string informations;
 
         //PERSONNAGE
-        private Model persoModel;
-        private Vector3 persoPosition;
-
-        private Vector3 Rotation;
-        private Vector3 Position;
 
         KeyboardState currentKeyboardState = new KeyboardState();
 
@@ -85,7 +80,7 @@ namespace Evasion
             InitPhysique();
             base.Initialize();
             bellick = new Affichage._3D.priso(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio);
-            michael = new Affichage._3D.Perso_Model(Content, new Vector3(20,0,20), Vector3.Zero, viewMatrix, aspectRatio);
+            michael = new Affichage._3D.Perso_Model(Content, new Vector3(20,0,20), viewMatrix, aspectRatio);
         }
 
         /// <summary>
@@ -161,10 +156,10 @@ namespace Evasion
             if (fenetre.ok)
             {
                 GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-                DrawMeshes();
+                
                 bellick.draw();
                 michael.draw();
-                
+                DrawMeshes();
                 spriteBatch.Begin();
                 spriteBatch.DrawString(this.textFont, bellick.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 spriteBatch.End();
@@ -178,69 +173,8 @@ namespace Evasion
             base.Draw(gameTime);
         }
 
-        private void UpdatePosition(GameTime gameTime)
-        {
-            currentKeyboardState = Keyboard.GetState();
-
-            float time = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            float vitesse = 0.1f;
-            float deplacement = time * vitesse;
-            float rotV = 0.4f;
-            float tour = time * rotV ;
-
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {
-                Rotation.Y = (float)((float)(Mouse.GetState().X) / (float)(Evasion.Affichage.Constantes.SCREEN_WIDTH) * 360.0);
-            }
-
-            if (currentKeyboardState.IsKeyDown(Keys.A))
-                Rotation.Y = (Rotation.Y - tour) % 360 ;
-            if (currentKeyboardState.IsKeyDown(Keys.Z))
-                Rotation.Y = (Rotation.Y + tour) % 360;
-
-            if (currentKeyboardState.IsKeyDown(Keys.Right))
-            {
-                //persoPosition.X += (float)(time * vitesse * Math.Cos((double)(MathHelper.ToRadians(Rotation.Y))));
-                //persoPosition.X+=
-            }
-            if (currentKeyboardState.IsKeyDown(Keys.Left))
-            {
-                //persoPosition.X -= (float)(time * vitesse * Math.Cos((double)(MathHelper.ToRadians(Rotation.Y))));
-            }
-            if (currentKeyboardState.IsKeyDown(Keys.Up))
-            {
-                persoPosition.Z += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
-                persoPosition.X -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
-            }
-            if (currentKeyboardState.IsKeyDown(Keys.Down))
-            {
-                persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
-                persoPosition.X += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
-            }
-
-            if (currentKeyboardState.IsKeyDown(Keys.Right))
-            {
-                persoPosition.Z -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
-                persoPosition.X -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
-            }
-            if (currentKeyboardState.IsKeyDown(Keys.Left))
-            {
-                persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
-                persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
-            }
-
-            informations = "";
-            informations += "Perso.X = " + persoPosition.X.ToString() + "\n";
-            informations += "Perso.Z = " + persoPosition.Z.ToString() + "\n";
-
-            informations += "Rotation.Y = " + Rotation.Y.ToString() + "\n";
-            informations += "cos(Rotation.Y) = " + Math.Cos(Math.PI / 180 * Rotation.Y).ToString() + "\n";
-            informations += "sin(Rotation.Y) = " + Math.Sin(Math.PI / 180 * Rotation.Y).ToString() + "\n";
-        }
-
         private void InitPhysique()
         {
-            persoPosition = new Vector3(0f, 3f, 0f);
             murPosition = new Vector3(1f, 0f, -1.37f);
             TmurPosition = new Vector3(-1f, 0f, -1.2f);
             solPosition = new Vector3(0f, 0f, -0.28f);
@@ -251,19 +185,15 @@ namespace Evasion
 
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
 
-            Position = Vector3.Zero;
-            Rotation = new Vector3(90.0f, 0f, 180f);
-
             murRotation = new Vector3(90.0f, 0f, 180f);
             TmurRotation = new Vector3(90.0f, 0f, 180f);
             solRotation = new Vector3(90.0f, 0f, 180f);
 
-            viewMatrix = Matrix.CreateLookAt(cameraPosition, persoPosition, Vector3.Up);
+            viewMatrix = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
         }
 
         private void LoadModel()
         {
-            persoModel = Content.Load<Model>("Models/perso");
             mur = Content.Load<Model>("Models/mur");
             Tmur = Content.Load<Model>("Models/murtableau");
             sol = Content.Load<Model>("Models/sol");
@@ -271,26 +201,8 @@ namespace Evasion
 
         private void DrawMeshes()
         {
-            Matrix[] transforms = new Matrix[persoModel.Bones.Count];
-            persoModel.CopyAbsoluteBoneTransformsTo(transforms);
-            //foreach (ModelMesh mesh in persoModel.Meshes)
-            //{
-            //    foreach (BasicEffect effect in mesh.Effects)
-            //    {
-            //        effect.EnableDefaultLighting();
-            //        effect.World = transforms[mesh.ParentBone.Index] *
-            //            Matrix.CreateScale(scale) *
-            //            Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
-            //            Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
-            //            Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z)) *
-            //            Matrix.CreateTranslation(persoPosition);
-
-            //        effect.View = viewMatrix;
-            //        effect.Projection = projectionMatrix;
-            //    }
-            //    mesh.Draw();
-
-            //}
+            Matrix[] transforms = new Matrix[michael.persoModel.Bones.Count];
+            michael.persoModel.CopyAbsoluteBoneTransformsTo(transforms);
 
             foreach (ModelMesh mesh in mur.Meshes)
             {

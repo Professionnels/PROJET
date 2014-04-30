@@ -14,7 +14,7 @@ namespace Evasion.Affichage._3D
 {
     class Perso_Model
     {
-        private Model persoModel;
+        public Model persoModel;
         private Vector3 persoPosition;
 
         private Matrix viewMatrix;
@@ -39,11 +39,10 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public Perso_Model(ContentManager Content, Vector3 position, Vector3 rotation, Matrix view, float aspectRatio)
+        public Perso_Model(ContentManager Content, Vector3 position, Matrix view, float aspectRatio)
         {
             this.persoModel = Content.Load<Model>("Models\\perso");
             this.persoPosition = position;
-            this.Rotation = rotation;
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
             viewMatrix = view;
             this.initPhyPerso();
