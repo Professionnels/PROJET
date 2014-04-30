@@ -157,7 +157,7 @@ namespace Evasion
                 DrawMeshes();
                 
                 spriteBatch.Begin();
-                spriteBatch.DrawString(this.textFont, informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
+                spriteBatch.DrawString(this.textFont, informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 spriteBatch.End();
             }
             else
@@ -209,15 +209,15 @@ namespace Evasion
                 persoPosition.X += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Left))
-            {
-                persoPosition.Z -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
-                persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
-            }
             if (currentKeyboardState.IsKeyDown(Keys.Right))
             {
-                persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                persoPosition.Z -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
                 persoPosition.X -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.Left))
+            {
+                persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
             }
 
             informations = "";
