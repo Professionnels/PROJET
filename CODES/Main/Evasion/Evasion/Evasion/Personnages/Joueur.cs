@@ -51,7 +51,7 @@ namespace Evasion.Personnages
             
         }
         
-        override public void Update(KeyboardState keyboardState, MouseState mouseState) // Methode pour charger les donnes
+        override public void Update(KeyboardState keyboardState, MouseState mouseState, GameTime gametime) // Methode pour charger les donnes
         {
             if(keyboardState.IsKeyDown(Keys.Up))
             {

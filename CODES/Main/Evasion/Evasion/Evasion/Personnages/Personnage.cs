@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Evasion.Personnages;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace Evasion
 {
@@ -33,7 +34,7 @@ namespace Evasion
         protected string nom;
         protected string fichier3D; // emplacement modele 3D du perso
         protected Objets.Objets objet;
-        protected Affichage._3D.Perso_Model modele3D;
+        protected Affichage._3D.Perso_Model model3D;
 
         public int _vie { get { return vie; } }
         public int _vitesse { get { return vitesse; } }
@@ -42,13 +43,14 @@ namespace Evasion
         public string _nom { get { return nom; } }
         public string _fichier3D { get { return fichier3D; } }
         public Objets.Objets _objet { get { return objet; } }
+        public Affichage._3D.Perso_Model _model3D { get { return model3D; } } 
 
         public Personnage()  // Constructeur sans parametres
         {
 
         }
 
-        public Personnage(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, string fichier3D, genre_t genrePerso) // Constructeur avec parametres
+        public Personnage(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, string fichier3D, genre_t genrePerso, ContentManager content, Matrix view, float aspectRatio) // Constructeur avec parametres
         {
             this.nom = nom;
             this.vie = vie;
@@ -56,6 +58,7 @@ namespace Evasion
             this.genrePerso = genrePerso;
             this.fichier3D = nom;
             this.objet = new Objets.Objets();
+            this.model3D = new Affichage._3D.Perso_Model(content, Vector3.Zero, Vector3.Zero, view, aspectRatio);
         }
 
         public void ChangerDeplacement(deplacement_t deplacement) // Methode pour changer le mode de deplacement
@@ -78,13 +81,14 @@ namespace Evasion
             
         }
 
-        virtual public void Update(KeyboardState keyboardState, MouseState mouseState) // Methode pour charger les donnees
+        virtual public void Update(KeyboardState keyboardState, MouseState mouseState, GameTime gametime) // Methode pour charger les donnees
         {
+            model3D.UpdatePosition(gametime);
         }
 
         virtual public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb) // Methode pour afficher les donnees
         {
-
+            model3D.draw();
         }
     }
 }
