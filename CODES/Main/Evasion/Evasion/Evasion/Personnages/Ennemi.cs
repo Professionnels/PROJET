@@ -70,7 +70,7 @@ namespace Evasion
             // mouv.txt
         }
 
-        override public void Update(KeyboardState keyboardState, MouseState mouseState)
+        override public void Update(KeyboardState keyboardState, MouseState mouseState, GameTime gametime)
         {
             if (Reperer())
             {
