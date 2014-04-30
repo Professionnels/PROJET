@@ -47,6 +47,7 @@ namespace Evasion.Affichage._3D
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
             viewMatrix = view;
             this.initPhyPerso();
+            this.initPerso();
         }
 
         public void initPhyPerso()
@@ -56,7 +57,6 @@ namespace Evasion.Affichage._3D
 
         private void initPerso()
         {
-            persoPosition = new Vector3(0f, 3f, 0f);
             Rotation = new Vector3(90.0f, 0f, 180f);
         }
 

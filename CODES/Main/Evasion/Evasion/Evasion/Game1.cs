@@ -23,6 +23,7 @@ namespace Evasion
         Fenetre fenetre;
 
         Evasion.Affichage._3D.priso   bellick;
+        Evasion.Affichage._3D.Perso_Model michael;
 
         SpriteFont textFont;
         string informations;
@@ -84,6 +85,7 @@ namespace Evasion
             InitPhysique();
             base.Initialize();
             bellick = new Affichage._3D.priso(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio);
+            michael = new Affichage._3D.Perso_Model(Content, new Vector3(20,0,20), Vector3.Zero, viewMatrix, aspectRatio);
         }
 
         /// <summary>
@@ -143,7 +145,7 @@ namespace Evasion
 
             //UpdatePosition(gameTime);
             bellick.UpdatePosition(gameTime);
-
+            michael.UpdatePosition(gameTime);
             base.Update(gameTime);
         }
 
@@ -161,7 +163,7 @@ namespace Evasion
                 GraphicsDevice.DepthStencilState = DepthStencilState.Default;
                 DrawMeshes();
                 bellick.draw();
-                
+                michael.draw();
                 
                 spriteBatch.Begin();
                 spriteBatch.DrawString(this.textFont, bellick.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);

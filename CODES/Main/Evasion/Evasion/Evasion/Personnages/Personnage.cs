@@ -33,6 +33,7 @@ namespace Evasion
         protected string nom;
         protected string fichier3D; // emplacement modele 3D du perso
         protected Objets.Objets objet;
+        protected Affichage._3D.Perso_Model modele3D;
 
         public int _vie { get { return vie; } }
         public int _vitesse { get { return vitesse; } }
@@ -74,7 +75,7 @@ namespace Evasion
 
         virtual public void Deplacer(int angle, direction_t direction) // Methode pour se deplacer
         {
-
+            
         }
 
         virtual public void Update(KeyboardState keyboardState, MouseState mouseState) // Methode pour charger les donnees
