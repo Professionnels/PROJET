@@ -22,6 +22,9 @@ namespace Evasion
         // Personnage perso = new Personnage();
         Fenetre fenetre;
 
+        SpriteFont textFont;
+        string informations;
+
         //PERSONNAGE
         private Model persoModel;
         private Vector3 persoPosition;
@@ -92,6 +95,8 @@ namespace Evasion
             ChargerImages.InitMenu(Content);
             fenetre.LoadContent(Content_t.Menu);
             LoadModel();
+            this.textFont = Content.Load<SpriteFont>("MyFont");
+            informations = "";
             // TODO: use this.Content to load your game content here
         }
 
@@ -150,6 +155,10 @@ namespace Evasion
             {
                 GraphicsDevice.DepthStencilState = DepthStencilState.Default;
                 DrawMeshes();
+                
+                spriteBatch.Begin();
+                spriteBatch.DrawString(this.textFont, informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.7f, SpriteEffects.None, 0);
+                spriteBatch.End();
             }
             else
             {
@@ -166,27 +175,58 @@ namespace Evasion
 
             float time = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             float vitesse = 0.1f;
+            float deplacement = time * vitesse;
+            float rotV = 0.4f;
+            float tour = time * rotV ;
 
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                Rotation.Y = (float)((float)(Mouse.GetState().X) / (float)(Evasion.Affichage.Constantes.SCREEN_WIDTH) * 360.0);
+            }
 
             if (currentKeyboardState.IsKeyDown(Keys.A))
-                Rotation.Y -= time * vitesse * 10;
+                Rotation.Y = (Rotation.Y - tour) % 360 ;
             if (currentKeyboardState.IsKeyDown(Keys.Z))
-                Rotation.Y += time * vitesse * 10;
-
+                Rotation.Y = (Rotation.Y + tour) % 360;
 
             if (currentKeyboardState.IsKeyDown(Keys.Right))
-                persoPosition.X += time * vitesse;
+            {
+                //persoPosition.X += (float)(time * vitesse * Math.Cos((double)(MathHelper.ToRadians(Rotation.Y))));
+                //persoPosition.X+=
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.Left))
+            {
+                //persoPosition.X -= (float)(time * vitesse * Math.Cos((double)(MathHelper.ToRadians(Rotation.Y))));
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.Up))
+            {
+                persoPosition.Z += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                persoPosition.X -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.Down))
+            {
+                persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                persoPosition.X += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+            }
 
             if (currentKeyboardState.IsKeyDown(Keys.Left))
-                persoPosition.X -= time * vitesse;
+            {
+                persoPosition.Z -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.Right))
+            {
+                persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                persoPosition.X -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+            }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Down))
-                persoPosition.Z += time * vitesse;
+            informations = "";
+            informations += "Perso.X = " + persoPosition.X.ToString() + "\n";
+            informations += "Perso.Z = " + persoPosition.Z.ToString() + "\n";
 
-            if (currentKeyboardState.IsKeyDown(Keys.Up))
-                persoPosition.Z -= time * vitesse;
-
-
+            informations += "Rotation.Y = " + Rotation.Y.ToString() + "\n";
+            informations += "cos(Rotation.Y) = " + Math.Cos(Math.PI / 180 * Rotation.Y).ToString() + "\n";
+            informations += "sin(Rotation.Y) = " + Math.Sin(Math.PI / 180 * Rotation.Y).ToString() + "\n";
         }
 
         private void InitPhysique()
