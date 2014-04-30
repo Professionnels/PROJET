@@ -12,7 +12,7 @@ using Evasion.Affichage;
 
 namespace Evasion.Affichage._3D
 {
-    class Perso_Model
+    class priso
     {
         private Model persoModel;
         private Vector3 persoPosition;
@@ -39,9 +39,9 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public Perso_Model(ContentManager Content, Vector3 position, Vector3 rotation, Matrix view, float aspectRatio)
+        public priso(ContentManager Content, Vector3 position, Vector3 rotation, Matrix view, float aspectRatio)
         {
-            this.persoModel = Content.Load<Model>("Models\\perso");
+            this.persoModel = Content.Load<Model>("Models\\priso");
             this.persoPosition = position;
             this.Rotation = rotation;
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
@@ -79,7 +79,7 @@ namespace Evasion.Affichage._3D
                                     Matrix.CreateTranslation(persoPosition);
                     effect.View = viewMatrix;
                     effect.Projection = projectionMatrix;
-                    
+
                 }
                 mesh.Draw();
             }

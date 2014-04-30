@@ -22,6 +22,8 @@ namespace Evasion
         // Personnage perso = new Personnage();
         Fenetre fenetre;
 
+        Evasion.Affichage._3D.priso   bellick;
+
         SpriteFont textFont;
         string informations;
 
@@ -81,6 +83,7 @@ namespace Evasion
             this.IsMouseVisible = true;
             InitPhysique();
             base.Initialize();
+            bellick = new Affichage._3D.priso(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio);
         }
 
         /// <summary>
@@ -97,6 +100,7 @@ namespace Evasion
             LoadModel();
             this.textFont = Content.Load<SpriteFont>("MyFont");
             informations = "";
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -137,7 +141,8 @@ namespace Evasion
             fenetre.Update(Keyboard.GetState(), Mouse.GetState());
             // TODO: Add your update logic here
 
-            UpdatePosition(gameTime);
+            //UpdatePosition(gameTime);
+            bellick.UpdatePosition(gameTime);
 
             base.Update(gameTime);
         }
@@ -155,9 +160,11 @@ namespace Evasion
             {
                 GraphicsDevice.DepthStencilState = DepthStencilState.Default;
                 DrawMeshes();
+                bellick.draw();
+                
                 
                 spriteBatch.Begin();
-                spriteBatch.DrawString(this.textFont, informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                spriteBatch.DrawString(this.textFont, bellick.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 spriteBatch.End();
             }
             else
@@ -264,24 +271,24 @@ namespace Evasion
         {
             Matrix[] transforms = new Matrix[persoModel.Bones.Count];
             persoModel.CopyAbsoluteBoneTransformsTo(transforms);
-            foreach (ModelMesh mesh in persoModel.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
-                    effect.World = transforms[mesh.ParentBone.Index] *
-                        Matrix.CreateScale(scale) *
-                        Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
-                        Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
-                        Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z)) *
-                        Matrix.CreateTranslation(persoPosition);
+            //foreach (ModelMesh mesh in persoModel.Meshes)
+            //{
+            //    foreach (BasicEffect effect in mesh.Effects)
+            //    {
+            //        effect.EnableDefaultLighting();
+            //        effect.World = transforms[mesh.ParentBone.Index] *
+            //            Matrix.CreateScale(scale) *
+            //            Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
+            //            Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
+            //            Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z)) *
+            //            Matrix.CreateTranslation(persoPosition);
 
-                    effect.View = viewMatrix;
-                    effect.Projection = projectionMatrix;
-                }
-                mesh.Draw();
+            //        effect.View = viewMatrix;
+            //        effect.Projection = projectionMatrix;
+            //    }
+            //    mesh.Draw();
 
-            }
+            //}
 
             foreach (ModelMesh mesh in mur.Meshes)
             {
