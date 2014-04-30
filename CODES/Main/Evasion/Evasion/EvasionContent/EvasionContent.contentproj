@@ -242,15 +242,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\prisonnier-2.jpg">
-      <Name>prisonnier-2</Name>
+    <Compile Include="Models\gardien.png">
+      <Name>gardien</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\gardien.png">
-      <Name>gardien</Name>
+    <Compile Include="Models\prisonnier-2.JPG">
+      <Name>prisonnier-2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
