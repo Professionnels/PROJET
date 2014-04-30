@@ -165,20 +165,26 @@ namespace Evasion
             currentKeyboardState = Keyboard.GetState();
 
             float time = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            float vitesse = 0.01f;
+            float vitesse = 0.1f;
 
 
-            if (currentKeyboardState.IsKeyDown(Keys.Right))
+            if (currentKeyboardState.IsKeyDown(Keys.A))
                 Rotation.Y -= time * vitesse * 10;
-            if (currentKeyboardState.IsKeyDown(Keys.Left))
+            if (currentKeyboardState.IsKeyDown(Keys.Z))
                 Rotation.Y += time * vitesse * 10;
 
 
+            if (currentKeyboardState.IsKeyDown(Keys.Right))
+                persoPosition.X += time * vitesse;
+
+            if (currentKeyboardState.IsKeyDown(Keys.Left))
+                persoPosition.X -= time * vitesse;
+
             if (currentKeyboardState.IsKeyDown(Keys.Down))
-                persoPosition.Y += time * vitesse;
+                persoPosition.Z += time * vitesse;
 
             if (currentKeyboardState.IsKeyDown(Keys.Up))
-                persoPosition.Y -= time * vitesse;
+                persoPosition.Z -= time * vitesse;
 
 
         }
@@ -223,9 +229,12 @@ namespace Evasion
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
-                    effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(persoPosition) *
-                        Matrix.CreateScale(scale) * Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
-                        Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) * Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z));
+                    effect.World = transforms[mesh.ParentBone.Index] *
+                        Matrix.CreateScale(scale) *
+                        Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
+                        Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
+                        Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z)) *
+                        Matrix.CreateTranslation(persoPosition);
 
                     effect.View = viewMatrix;
                     effect.Projection = projectionMatrix;
