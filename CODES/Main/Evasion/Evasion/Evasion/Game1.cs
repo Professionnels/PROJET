@@ -22,8 +22,9 @@ namespace Evasion
         // Personnage perso = new Personnage();
         Fenetre fenetre;
 
-        Evasion.Affichage._3D.priso   bellick;
+        Evasion.Affichage._3D.PNJ   bellick;
         Evasion.Affichage._3D.Perso_Model michael;
+        Evasion.Affichage._3D.Mur murchangeant;
 
         SpriteFont textFont;
         string informations;
@@ -41,16 +42,6 @@ namespace Evasion
         private float aspectRatio;
         private float scale = 10f;
 
-        //MUR
-        private Model mur;
-        private Vector3 murPosition;
-        private Vector3 murRotation;
-
-        //MUR2
-        private Model Tmur;
-        private Vector3 TmurPosition;
-        private Vector3 TmurRotation;
-
         //SOL
         private Model sol;
         private Vector3 solPosition;
@@ -66,30 +57,17 @@ namespace Evasion
             this.Window.Title = "Evasion";
             this.graphics.ApplyChanges();
         }
-
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
+        
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
             InitPhysique();
             base.Initialize();
-            bellick = new Affichage._3D.priso(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio);
-            michael = new Affichage._3D.Perso_Model(Content, new Vector3(20,0,20), viewMatrix, aspectRatio);
+            
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Son.ChargerSon.Init(Content);
             ChargerImages.InitMenu(Content);
@@ -97,14 +75,14 @@ namespace Evasion
             LoadModel();
             this.textFont = Content.Load<SpriteFont>("MyFont");
             informations = "";
+            Texture2D gardien = Content.Load<Texture2D>("Models\\gardien");
+
+            bellick = new Affichage._3D.PNJ(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio, gardien);
+            michael = new Affichage._3D.Perso_Model(Content, new Vector3(20, 0, 20), viewMatrix, aspectRatio);
+            murchangeant = new Affichage._3D.Mur(Content, new Vector3(20, 0, 0), viewMatrix, aspectRatio);
             
-            // TODO: use this.Content to load your game content here
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
@@ -138,7 +116,10 @@ namespace Evasion
             fenetre.Update(Keyboard.GetState(), Mouse.GetState());
             // TODO: Add your update logic here
 
-            //UpdatePosition(gameTime);
+            if (Keyboard.GetState().IsKeyDown(Keys.T))
+            {
+                murchangeant.indexMur = murchangeant.indexMur ^ 1;
+            }
             bellick.UpdatePosition(gameTime);
             michael.UpdatePosition(gameTime);
             base.Update(gameTime);
@@ -159,7 +140,10 @@ namespace Evasion
                 
                 bellick.draw();
                 michael.draw();
+                murchangeant.draw();
+
                 DrawMeshes();
+
                 spriteBatch.Begin();
                 spriteBatch.DrawString(this.textFont, bellick.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 spriteBatch.End();
@@ -175,9 +159,7 @@ namespace Evasion
 
         private void InitPhysique()
         {
-            murPosition = new Vector3(1f, 0f, -1.37f);
-            TmurPosition = new Vector3(-1f, 0f, -1.2f);
-            solPosition = new Vector3(0f, 0f, -0.28f);
+            solPosition = new Vector3(0f, 0f, 0f);
 
             cameraPosition = new Vector3(200.0f, 100f, 100f);
 
@@ -185,8 +167,6 @@ namespace Evasion
 
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
 
-            murRotation = new Vector3(90.0f, 0f, 180f);
-            TmurRotation = new Vector3(90.0f, 0f, 180f);
             solRotation = new Vector3(90.0f, 0f, 180f);
 
             viewMatrix = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
@@ -194,8 +174,6 @@ namespace Evasion
 
         private void LoadModel()
         {
-            mur = Content.Load<Model>("Models/mur");
-            Tmur = Content.Load<Model>("Models/murtableau");
             sol = Content.Load<Model>("Models/sol");
         }
 
@@ -204,44 +182,17 @@ namespace Evasion
             Matrix[] transforms = new Matrix[michael.persoModel.Bones.Count];
             michael.persoModel.CopyAbsoluteBoneTransformsTo(transforms);
 
-            foreach (ModelMesh mesh in mur.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
-                    effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(murPosition) *
-                        Matrix.CreateScale(scale) * Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(murRotation.X)) *
-                        Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(murRotation.Y)) * Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(murRotation.Z));
-
-                    effect.View = viewMatrix;
-                    effect.Projection = projectionMatrix;
-                }
-                mesh.Draw();
-            }
-
-            foreach (ModelMesh mesh in Tmur.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
-                    effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(TmurPosition) *
-                        Matrix.CreateScale(scale) * Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(TmurRotation.X)) *
-                        Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(TmurRotation.Y)) * Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(TmurRotation.Z));
-
-                    effect.View = viewMatrix;
-                    effect.Projection = projectionMatrix;
-                }
-                mesh.Draw();
-            }
-
             foreach (ModelMesh mesh in sol.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
-                    effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateTranslation(solPosition) *
-                        Matrix.CreateScale(100) * Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(TmurRotation.X)) *
-                        Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(TmurRotation.Y)) * Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(TmurRotation.Z));
+                    effect.World = transforms[mesh.ParentBone.Index] *
+                        Matrix.CreateScale(100) *
+                        Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(0)) *
+                        Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(90)) *
+                        Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(-90)) *
+                        Matrix.CreateTranslation(solPosition);
 
                     effect.View = viewMatrix;
                     effect.Projection = projectionMatrix;

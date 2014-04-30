@@ -58,7 +58,7 @@ namespace Evasion
             this.genrePerso = genrePerso;
             this.fichier3D = nom;
             this.objet = new Objets.Objets();
-            this.model3D = new Affichage._3D.Perso_Model(content, Vector3.Zero, Vector3.Zero, view, aspectRatio);
+            this.model3D = new Affichage._3D.Perso_Model(content, Vector3.Zero, view, aspectRatio);
         }
 
         public void ChangerDeplacement(deplacement_t deplacement) // Methode pour changer le mode de deplacement

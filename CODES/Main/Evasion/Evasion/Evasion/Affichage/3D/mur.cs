@@ -12,7 +12,7 @@ using Evasion.Affichage;
 
 namespace Evasion.Affichage._3D
 {
-    class mur
+    class Mur
     {
         public Model mur;
         private Vector3 murPosition;
@@ -21,13 +21,17 @@ namespace Evasion.Affichage._3D
         private Matrix projectionMatrix;
         private Vector3 Rotation;
 
+        public int indexMur;
+
         private Matrix orientation;
         private Vector3 cameraPosition;
         private float scale = 10f;
 
+        private Texture2D[] textures = new Texture2D[2];
+
         public Vector3 getPosition()
         {
-            return persoPosition;
+            return murPosition;
         }
 
         public Vector3 getRotation()
@@ -35,23 +39,26 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public Perso_Model(ContentManager Content, Vector3 position, Matrix view, float aspectRatio)
+        public Mur(ContentManager Content, Vector3 position, Matrix view, float aspectRatio)
         {
-            this.persoModel = Content.Load<Model>("Models\\mur");
-            this.persoPosition = position;
+            this.mur = Content.Load<Model>("Models\\mur");
+            this.murPosition = position;
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
             viewMatrix = view;
-            orientation = Matrix.Identity();
-            this.initPhyPerso();
-            this.initPerso();
+            orientation = Matrix.Identity;
+            textures[0] = Content.Load<Texture2D>("Models\\briques");
+            textures[1] = Content.Load<Texture2D>("Models\\mur_prison");
+            this.initPhyMur();
+            this.initMur();
+            indexMur = 0;
         }
 
-        public void initPhyPerso()
+        public void initPhyMur()
         {
             Rotation = new Vector3(90.0f, 0f, 180f);
         }
 
-        private void initPerso()
+        private void initMur()
         {
             Rotation = new Vector3(90.0f, 0f, 180f);
         }
@@ -59,20 +66,23 @@ namespace Evasion.Affichage._3D
         public void draw()
         {
 
-            Matrix[] transforms = new Matrix[persoModel.Bones.Count];
-            persoModel.CopyAbsoluteBoneTransformsTo(transforms);
+            Matrix[] transforms = new Matrix[mur.Bones.Count];
+            mur.CopyAbsoluteBoneTransformsTo(transforms);
 
-            foreach (ModelMesh mesh in persoModel.Meshes)
+            foreach (ModelMesh mesh in mur.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
+                    effect.TextureEnabled = true;
+
+                    effect.Texture = textures[indexMur];
                     effect.World = transforms[mesh.ParentBone.Index] *
                                     Matrix.CreateScale(scale) *
                                     Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
                                     Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
                                     Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z)) *
-                                    Matrix.CreateTranslation(persoPosition);
+                                    Matrix.CreateTranslation(murPosition);
                     effect.View = viewMatrix;
                     effect.Projection = projectionMatrix;
                     

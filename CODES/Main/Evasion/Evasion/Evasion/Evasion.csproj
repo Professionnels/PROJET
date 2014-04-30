@@ -108,8 +108,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Affichage\3D\mur.cs" />
-    <Compile Include="Affichage\3D\priso.cs" />
+    <Compile Include="Affichage\3D\Mur.cs" />
+    <Compile Include="Affichage\3D\PNJ.cs" />
     <Compile Include="Affichage\3D\Perso_Model.cs" />
     <Compile Include="Affichage\ActionBarre.cs" />
     <Compile Include="Affichage\AffichageHUD.cs" />

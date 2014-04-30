@@ -12,7 +12,7 @@ using Evasion.Affichage;
 
 namespace Evasion.Affichage._3D
 {
-    class priso
+    class PNJ
     {
         private Model persoModel;
         private Vector3 persoPosition;
@@ -27,6 +27,8 @@ namespace Evasion.Affichage._3D
         private Vector3 cameraPosition;
         private float scale = 10f;
 
+        private Texture2D texture;
+
         private KeyboardState currentKeyboardState;
 
         public Vector3 getPosition()
@@ -39,13 +41,14 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public priso(ContentManager Content, Vector3 position, Vector3 rotation, Matrix view, float aspectRatio)
+        public PNJ(ContentManager Content, Vector3 position, Vector3 rotation, Matrix view, float aspectRatio, Texture2D texture)
         {
             this.persoModel = Content.Load<Model>("Models\\priso");
             this.persoPosition = position;
             this.Rotation = rotation;
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
             viewMatrix = view;
+            this.texture = texture;
             this.initPhyPerso();
         }
 
@@ -71,6 +74,10 @@ namespace Evasion.Affichage._3D
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
+                    effect.TextureEnabled = true;
+
+                    effect.Texture = texture;
+
                     effect.World = transforms[mesh.ParentBone.Index] *
                                     Matrix.CreateScale(scale) *
                                     Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
