@@ -59,6 +59,7 @@ namespace Evasion.Affichage._3D
         private void initPerso()
         {
             Rotation = new Vector3(90.0f, 0f, 180f);
+            
         }
 
         public void draw()
