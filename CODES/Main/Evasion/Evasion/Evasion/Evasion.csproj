@@ -142,7 +142,6 @@
     <Compile Include="Son\Son.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Affichage\Informations\ImageBarreVie.png" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
