@@ -26,9 +26,11 @@ namespace Evasion.Affichage._3D
         private Matrix orientation = Matrix.Identity;
         private float scale = 10f;
 
-        private Texture2D texture;
+        private Texture2D[] texture = new Texture2D[4];
 
         private KeyboardState currentKeyboardState;
+
+        private TypePerso type;
 
         public Vector3 getPosition()
         {
@@ -40,13 +42,18 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public PNJ(ContentManager Content, Vector3 position, Vector3 rotation, Matrix view, float aspectRatio, Texture2D texture)
+        public PNJ(ContentManager Content, Vector3 position, Vector3 rotation, Matrix view, float aspectRatio, TypePerso type)
         {
-            this.persoModel = Content.Load<Model>("Models\\priso");
+            this.persoModel = Content.Load<Model>("Models\\perso");
             this.persoPosition = position;
             this.Rotation = rotation;
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
             viewMatrix = view;
+            this.type = type;
+            texture[0] = Content.Load<Texture2D>("Models\\michael");
+            texture[1] = Content.Load<Texture2D>("Models\\ennemidehors");
+            texture[2] = Content.Load<Texture2D>("Models\\gardien");
+            texture[3] = Content.Load<Texture2D>("Models\\prisonnier-2");
             this.texture = texture;
             this.initPhyPerso();
         }
@@ -75,7 +82,7 @@ namespace Evasion.Affichage._3D
                     effect.EnableDefaultLighting();
                     effect.TextureEnabled = true;
 
-                    effect.Texture = texture;
+                    effect.Texture = texture[((int)(type))];
 
                     effect.World = transforms[mesh.ParentBone.Index] *
                                     Matrix.CreateScale(scale) *

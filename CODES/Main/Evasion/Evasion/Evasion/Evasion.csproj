@@ -111,6 +111,7 @@
     <Compile Include="Affichage\3D\Mur.cs" />
     <Compile Include="Affichage\3D\PNJ.cs" />
     <Compile Include="Affichage\3D\Perso_Model.cs" />
+    <Compile Include="Affichage\3D\Sol.cs" />
     <Compile Include="Affichage\ActionBarre.cs" />
     <Compile Include="Affichage\AffichageHUD.cs" />
     <Compile Include="Affichage\Carte.cs" />

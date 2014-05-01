@@ -28,6 +28,8 @@ namespace Evasion.Affichage._3D
 
         private KeyboardState currentKeyboardState;
 
+        private Texture2D texture;
+
         public Vector3 getPosition()
         {
             return persoPosition;
@@ -44,6 +46,7 @@ namespace Evasion.Affichage._3D
             this.persoPosition = position;
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
             viewMatrix = view;
+            texture = Content.Load<Texture2D>("Models\\michael");
             this.initPhyPerso();
             this.initPerso();
         }
@@ -69,6 +72,8 @@ namespace Evasion.Affichage._3D
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
+                    effect.TextureEnabled = true;
+                    effect.Texture = texture;
                     effect.World = transforms[mesh.ParentBone.Index] *
                                     Matrix.CreateScale(scale) *
                                     Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *

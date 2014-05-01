@@ -21,22 +21,22 @@ namespace Evasion
         SpriteBatch spriteBatch;
         // Personnage perso = new Personnage();
         Fenetre fenetre;
-
-        Evasion.Affichage._3D.PNJ   bellick;
-        Evasion.Affichage._3D.Perso_Model michael;
-        Evasion.Affichage._3D.Mur murchangeant;
-
         SpriteFont textFont;
 
-        //PERSONNAGE
-
+        //VARIABLES NECESSAIRES POUR LE JEU
+        //NE PAS LES MODIFIER OU LES SUPPRIMER
         private Vector3 cameraPosition;
-
         private Matrix viewMatrix;
         private Matrix projectionMatrix;
         private Matrix orientation = Matrix.Identity;
-
         private float aspectRatio;
+
+        Evasion.Affichage._3D.PNJ bellick;
+        Evasion.Affichage._3D.Perso_Model michael;
+        Evasion.Affichage._3D.Mur murchangeant;
+        Evasion.Affichage._3D.Sol solChangeant;
+
+        
 
         //SOL
         private Model sol;
@@ -70,12 +70,11 @@ namespace Evasion
             fenetre.LoadContent(Content_t.Menu);
             LoadModel();
             this.textFont = Content.Load<SpriteFont>("MyFont");
-            Texture2D gardien = Content.Load<Texture2D>("Models\\gardien");
-            Texture2D prisonnier = Content.Load<Texture2D>("Models\\prisonnier-2");
 
-            bellick = new Affichage._3D.PNJ(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio, prisonnier);
+            bellick = new Affichage._3D.PNJ(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio, Affichage.TypePerso.bellick);
             michael = new Affichage._3D.Perso_Model(Content, new Vector3(20, 0, 20), viewMatrix, aspectRatio);
-            murchangeant = new Affichage._3D.Mur(Content, new Vector3(20, -20, 0), viewMatrix, aspectRatio, Affichage.TypeMur.brique);
+            murchangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton);
+            solChangeant = new Affichage._3D.Sol(Content, Vector3.Zero, viewMatrix, aspectRatio, TypeSol.prison);
             
         }
 
@@ -136,8 +135,9 @@ namespace Evasion
                 bellick.draw();
                 michael.draw();
                 murchangeant.draw();
+                solChangeant.draw();
 
-                DrawMeshes();
+                //DrawMeshes();
 
                 spriteBatch.Begin();
                 spriteBatch.DrawString(this.textFont, michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);

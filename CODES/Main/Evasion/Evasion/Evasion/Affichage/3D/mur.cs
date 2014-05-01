@@ -79,7 +79,7 @@ namespace Evasion.Affichage._3D
                     effect.EnableDefaultLighting();
                     effect.TextureEnabled = true;
 
-                    effect.Texture = textures[(int)(type)];
+                    //effect.Texture = textures[(int)(type)];
                     effect.World = transforms[mesh.ParentBone.Index] *
                                     Matrix.CreateScale(scale) *
                                     Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
