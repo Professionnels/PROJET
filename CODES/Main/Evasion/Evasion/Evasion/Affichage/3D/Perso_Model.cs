@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define DEBUG_BB
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -9,6 +11,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Evasion.Affichage;
+
+
 
 namespace Evasion.Affichage._3D
 {
@@ -27,8 +31,17 @@ namespace Evasion.Affichage._3D
         private float scale = 10f;
 
         private KeyboardState currentKeyboardState;
-
         private Texture2D texture;
+        private GraphicsDeviceManager graphic;
+
+        #if DEBUG_BB
+            private List<BoundingBox> boundingBoxes = new List<BoundingBox>();
+            private short[] bBoxIndices = {
+                                    0, 1, 1, 2, 2, 3, 3, 0, // Front edges
+                                    4, 5, 5, 6, 6, 7, 7, 4, // Back edges
+                                    0, 4, 1, 5, 2, 6, 3, 7 // Side edges connecting front and back
+                                   };
+        #endif
 
         public Vector3 getPosition()
         {
@@ -40,7 +53,7 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public Perso_Model(ContentManager Content, Vector3 position, Matrix view, float aspectRatio)
+        public Perso_Model(ContentManager Content, Vector3 position, Matrix view, float aspectRatio, GraphicsDeviceManager graphic)
         {
             this.persoModel = Content.Load<Model>("Models\\perso");
             this.persoPosition = position;
@@ -49,6 +62,7 @@ namespace Evasion.Affichage._3D
             texture = Content.Load<Texture2D>("Models\\michael");
             this.initPhyPerso();
             this.initPerso();
+            this.graphic = graphic;
         }
 
         public void initPhyPerso()
@@ -64,12 +78,15 @@ namespace Evasion.Affichage._3D
 
         public void draw()
         {
-
             Matrix[] transforms = new Matrix[persoModel.Bones.Count];
             persoModel.CopyAbsoluteBoneTransformsTo(transforms);
 
             foreach (ModelMesh mesh in persoModel.Meshes)
             {
+                #if DEBUG_BB
+                    Matrix meshTransform = transforms[mesh.ParentBone.Index];
+                    boundingBoxes.Add(BuildBoundingBox(mesh, meshTransform));
+                #endif
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
@@ -83,10 +100,31 @@ namespace Evasion.Affichage._3D
                                     Matrix.CreateTranslation(persoPosition);
                     effect.View = viewMatrix;
                     effect.Projection = projectionMatrix;
-                    
+#if DEBUG_BB
+                    foreach (BoundingBox box in boundingBoxes)
+                    {
+                        Vector3[] corners = box.GetCorners();
+                        VertexPositionColor[] primitiveList = new VertexPositionColor[corners.Length];
+
+                        // Assign the 8 box vertices
+                        for (int i = 0; i < corners.Length; i++)
+                        {
+                            primitiveList[i] = new VertexPositionColor(corners[i], Color.White);
+                        }
+                        foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                        {
+                            pass.Apply();
+                            graphic.GraphicsDevice.DrawUserIndexedPrimitives < VertexPositionColor(
+                                PrimitiveType.LineList, primitiveList, 0, 8,
+                                bBoxIndices, 0, 12);
+                        }
+                    }
                 }
+                #endif
                 mesh.Draw();
             }
+
+
         }
 
         public void UpdatePosition(GameTime gameTime)
@@ -147,6 +185,36 @@ namespace Evasion.Affichage._3D
             informations += "Rotation.Y = " + Rotation.Y.ToString() + "\n";
             informations += "cos(Rotation.Y) = " + Math.Cos(Math.PI / 180 * Rotation.Y).ToString() + "\n";
             informations += "sin(Rotation.Y) = " + Math.Sin(Math.PI / 180 * Rotation.Y).ToString() + "\n";
+        }
+
+        private BoundingBox BuildBoundingBox(ModelMesh mesh, Matrix meshTransform)
+        {
+            Vector3 meshMax = new Vector3(float.MinValue);
+            Vector3 meshMin = new Vector3(float.MaxValue);
+
+            foreach (ModelMeshPart part in mesh.MeshParts)
+            {
+                int stride = part.VertexBuffer.VertexDeclaration.VertexStride;
+
+                VertexPositionNormalTexture[] vertexData = new VertexPositionNormalTexture[part.NumVertices];
+                part.VertexBuffer.GetData(part.VertexOffset * stride, vertexData, 0, part.NumVertices, stride);
+
+                Vector3 vertPosition = new Vector3();
+
+                for (int i = 0; i < vertexData.Length; i++)
+                {
+                    vertPosition = vertexData[i].Position;
+
+                    meshMin = Vector3.Min(meshMin, vertPosition);
+                    meshMax = Vector3.Max(meshMax, vertPosition);
+                }
+            }
+
+            meshMin = Vector3.Transform(meshMin, meshTransform);
+            meshMax = Vector3.Transform(meshMax, meshTransform);
+
+            BoundingBox box = new BoundingBox(meshMin, meshMax);
+            return box;
         }
 
     }
