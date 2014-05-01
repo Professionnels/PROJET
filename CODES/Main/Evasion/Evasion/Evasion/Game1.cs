@@ -36,7 +36,7 @@ namespace Evasion
         Evasion.Affichage._3D.Mur murchangeant;
         Evasion.Affichage._3D.Sol solChangeant;
 
-        
+        Evasion.Affichage._3D.Camera camera;
 
         //SOL
         private Model sol;
@@ -61,7 +61,7 @@ namespace Evasion
         {
             this.IsMouseVisible = true;
             InitPhysique();
-            
+            camera = new Evasion.Affichage._3D.Camera(Vector3.Zero, aspectRatio);
             base.Initialize();
             
         }
@@ -72,12 +72,11 @@ namespace Evasion
             Son.ChargerSon.Init(Content);
             ChargerImages.InitMenu(Content);
             fenetre.LoadContent(Content_t.Menu);
-            LoadModel();
             this.textFont = Content.Load<SpriteFont>("MyFont");
 
             bellick = new Affichage._3D.PNJ(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio, Affichage.TypePerso.bellick);
-            michael = new Affichage._3D.Perso_Model(Content, new Vector3(20, 0, 20), viewMatrix, aspectRatio, graphics);
-            murchangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton);
+            michael = new Affichage._3D.Perso_Model(Content, new Vector3(20, 0, 20), aspectRatio, this.camera, graphics);
+            murchangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, camera, Affichage.TypeMur.beton);
             solChangeant = new Affichage._3D.Sol(Content, Vector3.Zero, viewMatrix, aspectRatio, TypeSol.prison);         
         }
 
@@ -118,6 +117,9 @@ namespace Evasion
             {
                 murchangeant.indexMur = murchangeant.indexMur ^ 1;
             }
+            
+            
+            //viewMatrix = Matrix.CreateLookAt(, Vector3.Zero, Vector3.Up);
             michael.UpdatePosition(gameTime);
             base.Update(gameTime);
         }
@@ -135,16 +137,14 @@ namespace Evasion
             {
                 GraphicsDevice.DepthStencilState = DepthStencilState.Default;
                 
-                bellick.draw();
+                //bellick.draw();
                 michael.draw();
                 murchangeant.draw();
-                solChangeant.draw();
-
-                //DrawMeshes();
+                //solChangeant.draw();
 
                 spriteBatch.Begin();
-                spriteBatch.DrawString(this.textFont, michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
-                Vie.Draw();
+                spriteBatch.DrawString(this.textFont, michael.informations + '\n' + camera.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                //Vie.Draw();
                 spriteBatch.End();
             }
             else
@@ -165,35 +165,6 @@ namespace Evasion
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
             solRotation = new Vector3(90.0f, 0f, 180f);
             viewMatrix = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
-        }
-
-        private void LoadModel()
-        {
-            sol = Content.Load<Model>("Models/sol");
-        }
-
-        private void DrawMeshes()
-        {
-            Matrix[] transforms = new Matrix[michael.persoModel.Bones.Count];
-            michael.persoModel.CopyAbsoluteBoneTransformsTo(transforms);
-
-            foreach (ModelMesh mesh in sol.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
-                    effect.World = transforms[mesh.ParentBone.Index] *
-                        Matrix.CreateScale(100) *
-                        Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(0)) *
-                        Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(90)) *
-                        Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(-90)) *
-                        Matrix.CreateTranslation(solPosition);
-
-                    effect.View = viewMatrix;
-                    effect.Projection = projectionMatrix;
-                }
-                mesh.Draw();
-            }
         }
     }
 }

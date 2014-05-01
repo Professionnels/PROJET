@@ -1,4 +1,4 @@
-﻿#define DEBUG_BB
+﻿//#define DEBUG_BB
 
 using System;
 using System.Collections.Generic;
@@ -21,14 +21,16 @@ namespace Evasion.Affichage._3D
         public Model persoModel;
         private Vector3 persoPosition;
 
-        private Matrix viewMatrix;
+        public Matrix viewMatrix;
         private Matrix projectionMatrix;
-        private Vector3 Rotation;
+        public Vector3 Rotation;
 
         public string informations;
 
         private Matrix orientation = Matrix.Identity;
         private float scale = 10f;
+
+        private Camera camera;
 
         private KeyboardState currentKeyboardState;
         private Texture2D texture;
@@ -53,16 +55,19 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public Perso_Model(ContentManager Content, Vector3 position, Matrix view, float aspectRatio, GraphicsDeviceManager graphic)
+        public Perso_Model(ContentManager Content, Vector3 position, float aspectRatio, Camera camera, GraphicsDeviceManager graphic)
         {
             this.persoModel = Content.Load<Model>("Models\\perso");
             this.persoPosition = position;
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
-            viewMatrix = view;
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 1.0f, 10000.0f);
+            viewMatrix = camera.viewMatrix;
             texture = Content.Load<Texture2D>("Models\\michael");
             this.initPhyPerso();
             this.initPerso();
             this.graphic = graphic;
+            this.camera = camera;
+
+            this.camera.initialize(this.persoPosition, this.Rotation);
         }
 
         public void initPhyPerso()
@@ -98,7 +103,7 @@ namespace Evasion.Affichage._3D
                                     Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
                                     Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z)) *
                                     Matrix.CreateTranslation(persoPosition);
-                    effect.View = viewMatrix;
+                    effect.View = camera.viewMatrix;
                     effect.Projection = projectionMatrix;
 #if DEBUG_BB
                     foreach (BoundingBox box in boundingBoxes)
@@ -114,14 +119,15 @@ namespace Evasion.Affichage._3D
                         foreach (EffectPass pass in effect.CurrentTechnique.Passes)
                         {
                             pass.Apply();
-                            graphic.GraphicsDevice.DrawUserIndexedPrimitives < VertexPositionColor(
+                            graphic.GraphicsDevice.DrawUserIndexedPrimitives(
                                 PrimitiveType.LineList, primitiveList, 0, 8,
                                 bBoxIndices, 0, 12);
                         }
                     }
-                }
+                
                 #endif
                 mesh.Draw();
+                }
             }
 
 
@@ -131,6 +137,9 @@ namespace Evasion.Affichage._3D
         {
             currentKeyboardState = Keyboard.GetState();
 
+            
+
+            this.viewMatrix = this.camera.viewMatrix;
             float time = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             float vitesse = 0.1f;
             float deplacement = time * vitesse;
@@ -177,6 +186,10 @@ namespace Evasion.Affichage._3D
                 persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
                 persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
             }
+
+            this.camera.initialize(this.persoPosition, this.Rotation);
+            this.camera.informations = "";
+            this.camera.informations += this.camera.position.ToString();
 
             informations = "";
             informations += "Perso.X = " + persoPosition.X.ToString() + "\n";

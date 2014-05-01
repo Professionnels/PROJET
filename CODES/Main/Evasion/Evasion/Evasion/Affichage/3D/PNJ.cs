@@ -47,7 +47,7 @@ namespace Evasion.Affichage._3D
             this.persoModel = Content.Load<Model>("Models\\perso");
             this.persoPosition = position;
             this.Rotation = rotation;
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 1.0f, 10000.0f);
             viewMatrix = view;
             this.type = type;
             texture[0] = Content.Load<Texture2D>("Models\\michael");

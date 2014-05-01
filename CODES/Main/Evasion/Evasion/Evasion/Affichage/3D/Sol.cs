@@ -35,7 +35,7 @@ namespace Evasion.Affichage._3D
         {
             this.sol = Content.Load<Model>("Models\\sol");
             this.solPosition = position;
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 1.0f, 10000.0f);
             viewMatrix = view;
             orientation = Matrix.Identity;
             textures[0] = Content.Load<Texture2D>("Models\\evasion");

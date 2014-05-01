@@ -26,6 +26,7 @@ namespace Evasion.Affichage._3D
 
         private Matrix orientation;
         private float scale = 10f;
+        public Camera camera;
 
         public TypeMur type;
 
@@ -41,11 +42,11 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public Mur(ContentManager Content, Vector3 position, Matrix view, float aspectRatio, TypeMur type)
+        public Mur(ContentManager Content, Vector3 position, Matrix view, float aspectRatio, Camera camera, TypeMur type)
         {
             this.mur = Content.Load<Model>("Models\\mur");
             this.murPosition = position;
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 1.0f, 10000.0f);
             viewMatrix = view;
             orientation = Matrix.Identity;
             textures[0] = Content.Load<Texture2D>("Models\\briques");
@@ -54,6 +55,7 @@ namespace Evasion.Affichage._3D
             this.initPhyMur();
             this.initMur();
             indexMur = 0;
+            this.camera = camera;
         }
 
         public void initPhyMur()
@@ -86,8 +88,8 @@ namespace Evasion.Affichage._3D
                                     Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
                                     Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z)) *
                                     Matrix.CreateTranslation(murPosition);
-                    effect.View = viewMatrix;
-                    effect.Projection = projectionMatrix;
+                    effect.View = camera.viewMatrix;
+                    effect.Projection = camera.projectionMatrix;
                     
                 }
                 mesh.Draw();
