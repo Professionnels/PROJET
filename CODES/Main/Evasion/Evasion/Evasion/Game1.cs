@@ -27,11 +27,8 @@ namespace Evasion
         Evasion.Affichage._3D.Mur murchangeant;
 
         SpriteFont textFont;
-        string informations;
 
         //PERSONNAGE
-
-        KeyboardState currentKeyboardState = new KeyboardState();
 
         private Vector3 cameraPosition;
 
@@ -40,7 +37,6 @@ namespace Evasion
         private Matrix orientation = Matrix.Identity;
 
         private float aspectRatio;
-        private float scale = 10f;
 
         //SOL
         private Model sol;
@@ -74,12 +70,12 @@ namespace Evasion
             fenetre.LoadContent(Content_t.Menu);
             LoadModel();
             this.textFont = Content.Load<SpriteFont>("MyFont");
-            informations = "";
             Texture2D gardien = Content.Load<Texture2D>("Models\\gardien");
+            Texture2D prisonnier = Content.Load<Texture2D>("Models\\prisonnier-2");
 
-            bellick = new Affichage._3D.PNJ(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio, gardien);
+            bellick = new Affichage._3D.PNJ(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio, prisonnier);
             michael = new Affichage._3D.Perso_Model(Content, new Vector3(20, 0, 20), viewMatrix, aspectRatio);
-            murchangeant = new Affichage._3D.Mur(Content, new Vector3(20, 0, 0), viewMatrix, aspectRatio);
+            murchangeant = new Affichage._3D.Mur(Content, new Vector3(20, -20, 0), viewMatrix, aspectRatio, Affichage.TypeMur.brique);
             
         }
 
@@ -120,7 +116,6 @@ namespace Evasion
             {
                 murchangeant.indexMur = murchangeant.indexMur ^ 1;
             }
-            bellick.UpdatePosition(gameTime);
             michael.UpdatePosition(gameTime);
             base.Update(gameTime);
         }
@@ -145,13 +140,14 @@ namespace Evasion
                 DrawMeshes();
 
                 spriteBatch.Begin();
-                spriteBatch.DrawString(this.textFont, bellick.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                spriteBatch.DrawString(this.textFont, michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 spriteBatch.End();
             }
             else
             {
                 spriteBatch.Begin();
                 fenetre.Display(spriteBatch);
+                spriteBatch.DrawString(this.textFont, "Menu", Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 spriteBatch.End();
             }
             base.Draw(gameTime);
@@ -160,15 +156,10 @@ namespace Evasion
         private void InitPhysique()
         {
             solPosition = new Vector3(0f, 0f, 0f);
-
             cameraPosition = new Vector3(200.0f, 100f, 100f);
-
             aspectRatio = graphics.GraphicsDevice.Viewport.AspectRatio;
-
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
-
             solRotation = new Vector3(90.0f, 0f, 180f);
-
             viewMatrix = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
         }
 

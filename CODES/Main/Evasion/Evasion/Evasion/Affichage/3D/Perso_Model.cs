@@ -24,7 +24,6 @@ namespace Evasion.Affichage._3D
         public string informations;
 
         private Matrix orientation = Matrix.Identity;
-        private Vector3 cameraPosition;
         private float scale = 10f;
 
         private KeyboardState currentKeyboardState;

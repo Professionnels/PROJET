@@ -43,6 +43,7 @@ namespace Evasion.Affichage.Menu
                     break;
                 case "Reprendre":
                     Fen.LoadContent(Content_t.LoadGame);
+                    Fen.ok = true;
                     break;
                 case "Quit":
                     Fen.LoadContent(Content_t.Quit);

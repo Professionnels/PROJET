@@ -12,6 +12,7 @@ using Evasion.Affichage;
 
 namespace Evasion.Affichage._3D
 {
+    
     class Mur
     {
         public Model mur;
@@ -24,8 +25,9 @@ namespace Evasion.Affichage._3D
         public int indexMur;
 
         private Matrix orientation;
-        private Vector3 cameraPosition;
         private float scale = 10f;
+
+        public TypeMur type;
 
         private Texture2D[] textures = new Texture2D[2];
 
@@ -39,7 +41,7 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public Mur(ContentManager Content, Vector3 position, Matrix view, float aspectRatio)
+        public Mur(ContentManager Content, Vector3 position, Matrix view, float aspectRatio, TypeMur type)
         {
             this.mur = Content.Load<Model>("Models\\mur");
             this.murPosition = position;
@@ -48,6 +50,7 @@ namespace Evasion.Affichage._3D
             orientation = Matrix.Identity;
             textures[0] = Content.Load<Texture2D>("Models\\briques");
             textures[1] = Content.Load<Texture2D>("Models\\mur_prison");
+            this.type = type;
             this.initPhyMur();
             this.initMur();
             indexMur = 0;
@@ -76,7 +79,7 @@ namespace Evasion.Affichage._3D
                     effect.EnableDefaultLighting();
                     effect.TextureEnabled = true;
 
-                    effect.Texture = textures[indexMur];
+                    effect.Texture = textures[(int)(type)];
                     effect.World = transforms[mesh.ParentBone.Index] *
                                     Matrix.CreateScale(scale) *
                                     Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
