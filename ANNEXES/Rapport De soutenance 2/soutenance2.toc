@@ -1,0 +1,12 @@
+\select@language {french}
+\contentsline {section}{\numberline {1}Introduction}{1}
+\contentsline {section}{\numberline {2}Avancements}{2}
+\contentsline {subsection}{\numberline {2.1}Louis\leavevmode {\color {pseudoblue}\textit {"El Parrain"}} Kedemos}{2}
+\contentsline {subsubsection}{\numberline {2.1.1}Exp\IeC {\'e}rience personnelle}{2}
+\contentsline {subsection}{\numberline {2.2}Khalis Chalabi}{3}
+\contentsline {subsubsection}{\numberline {2.2.1}Avancement du projet}{3}
+\contentsline {subsection}{\numberline {2.3}Lenny \leavevmode {\color {red}"Le Noob"} Danino}{4}
+\contentsline {subsubsection}{\numberline {2.3.1}Personnages/D\IeC {\'e}cors}{4}
+\contentsline {subsubsection}{\numberline {2.3.2}Et apr\IeC {\`e}s ?}{8}
+\contentsline {subsection}{\numberline {2.4}Anatole\leavevmode {\color {pseudoblue}\textit {"Totonut"}} Moreau}{9}
+\contentsline {section}{\numberline {3}Conclusion}{10}
