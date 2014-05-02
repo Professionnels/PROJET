@@ -284,6 +284,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bordure.png">
+      <Name>Bordure</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="ImageBarreVie.png">
       <Name>ImageBarreVie</Name>
       <Importer>TextureImporter</Importer>

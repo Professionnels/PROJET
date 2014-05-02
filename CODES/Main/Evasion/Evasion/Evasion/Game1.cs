@@ -61,9 +61,7 @@ namespace Evasion
         {
             this.IsMouseVisible = true;
             InitPhysique();
-            
             base.Initialize();
-            
         }
 
         protected override void LoadContent()
@@ -73,6 +71,7 @@ namespace Evasion
             ChargerImages.InitMenu(Content);
             fenetre.LoadContent(Content_t.Menu);
             LoadModel();
+            Vie = new Affichage.Informations.BarreVie(100, 100, 200, Content, spriteBatch);
             this.textFont = Content.Load<SpriteFont>("MyFont");
 
             bellick = new Affichage._3D.PNJ(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio, Affichage.TypePerso.bellick);
@@ -140,7 +139,6 @@ namespace Evasion
                 murchangeant.draw();
                 solChangeant.draw();
 
-                //DrawMeshes();
 
                 spriteBatch.Begin();
                 spriteBatch.DrawString(this.textFont, michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);

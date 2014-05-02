@@ -16,6 +16,7 @@ namespace Evasion.Affichage.Informations
         private float tailleBarre;
         private float tailleVie;
         public Texture2D barre;
+        public Texture2D bordure;
         private SpriteBatch sb;
         private SpriteFont font;
         private string pourcentageVie;
@@ -29,7 +30,8 @@ namespace Evasion.Affichage.Informations
             this.vieActu = vieActu;
             this.tailleBarre = tailleBarre;
             this.barre = Content.Load<Texture2D>("ImageBarreVie");
-            this.tailleVie = tailleBarre;
+            this.bordure = Content.Load<Texture2D>("Bordure");
+            this.tailleVie = 1;
             this.sb = sb;
             this.font = Content.Load<SpriteFont>("MyFont");
             pourcentageVie = vieActu.ToString() + " / " + vieMax.ToString();
@@ -59,8 +61,10 @@ namespace Evasion.Affichage.Informations
 
         public void Draw()
         {
-            sb.Draw(barre, position, null, Microsoft.Xna.Framework.Color.White, 0, Vector2.Zero, new Vector2(tailleVie, 1), SpriteEffects.None, 0);
-            sb.DrawString(font, pourcentageVie, new Vector2(50, 0), Color.Black);
+            Rectangle rect = new Rectangle(0, 0, (int)(tailleVie * tailleBarre), 50);
+            sb.Draw(bordure, Vector2.Zero, Microsoft.Xna.Framework.Color.White);          
+            sb.Draw(barre, position, rect, Microsoft.Xna.Framework.Color.White, 0, Vector2.Zero, new Vector2(1,1), SpriteEffects.None, 0);
+            sb.DrawString(font, pourcentageVie, new Vector2(30, 0), Color.Black);
         }
     }
 }
