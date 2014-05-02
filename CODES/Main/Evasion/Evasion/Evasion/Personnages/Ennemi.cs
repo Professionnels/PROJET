@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Evasion.Personnages;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace Evasion
 {
@@ -27,14 +28,14 @@ namespace Evasion
         public int _temps_assome { get { return temps_assome; } }
         public bool _mobile { get { return mobile; } }
 
-        public Ennemi()
-            : base("Ennemi", 100, deplacement_t.marche, new Vector3(0,0,0), 1, "fichier3D", genre_t.ennemi)
+        public Ennemi(ContentManager Content, Matrix view, float aspectRatio)
+            : base("Ennemi", 100, deplacement_t.marche, new Vector3(0, 0, 0), 1, "fichier3D", genre_t.ennemi, Content, view, aspectRatio)
         {
  
         }
 
-        public Ennemi(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, int id, string fichier3D, int argent_recompense, int timer_reperer, int champs_vision, bool mobile)
-            : base(nom, vie, deplacement, position, vitesse, fichier3D, genre_t.ennemi) // fichier mouv.txt
+        public Ennemi(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, int id, string fichier3D, int argent_recompense, int timer_reperer, int champs_vision, bool mobile, ContentManager Content, Matrix view, float aspectRatio)
+            : base(nom, vie, deplacement, position, vitesse, fichier3D, genre_t.ennemi, Content, view, aspectRatio) // fichier mouv.txt
         {
             this.argent_recompense = argent_recompense;
             this.timer_reperer = timer_reperer;

@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 
 namespace Evasion.Personnages
 {
@@ -29,14 +30,14 @@ namespace Evasion.Personnages
         public bool _reperer { get { return reperer; } }
         public Capacite _capacite_speciale { get { return capacite_speciale; } }
 
-        public Joueur() // Constructeur sans parametres
-            : base("Joueur", 100, deplacement_t.marche, new Vector3(0,0,0), 1, "joueur.3d", genre_t.joueur)
+        public Joueur(ContentManager Content, Matrix view, float aspectRatio) // Constructeur sans parametres
+            : base("Joueur", 100, deplacement_t.marche, new Vector3(0, 0, 0), 1, "joueur.3d", genre_t.joueur, Content, view, aspectRatio)
         {
  
         }
 
-        public Joueur(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, string fichier3D, Capacite capacite_speciale) // Constructeur avec parmetres
-            :base(nom, vie, deplacement, position, vitesse, fichier3D, genre_t.joueur)
+        public Joueur(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, string fichier3D, Capacite capacite_speciale, ContentManager Content, Matrix view, float aspectRatio, SpriteBatch sb) // Constructeur avec parmetres
+            : base(nom, vie, deplacement, position, vitesse, fichier3D, genre_t.joueur, Content, view, aspectRatio)
         {
  
         }

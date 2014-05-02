@@ -108,13 +108,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Affichage\3D\priso.cs" />
+    <Compile Include="Affichage\3D\Camera.cs" />
+    <Compile Include="Affichage\3D\Mur.cs" />
+    <Compile Include="Affichage\3D\PNJ.cs" />
     <Compile Include="Affichage\3D\Perso_Model.cs" />
+    <Compile Include="Affichage\3D\Sol.cs" />
     <Compile Include="Affichage\ActionBarre.cs" />
     <Compile Include="Affichage\AffichageHUD.cs" />
     <Compile Include="Affichage\Carte.cs" />
     <Compile Include="Affichage\Constantes.cs" />
     <Compile Include="Affichage\Fenetre.cs" />
+    <Compile Include="Affichage\Informations\BarreVie.cs" />
     <Compile Include="Affichage\Menu\Bouton.cs" />
     <Compile Include="Affichage\Menu\Menu.cs" />
     <Compile Include="Affichage\Menu\ChargerImages.cs" />
