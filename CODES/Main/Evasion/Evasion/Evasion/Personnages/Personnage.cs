@@ -50,7 +50,7 @@ namespace Evasion
 
         }
 
-        public Personnage(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, string fichier3D, genre_t genrePerso, ContentManager content, Matrix view, float aspectRatio) // Constructeur avec parametres
+        public Personnage(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, string fichier3D, genre_t genrePerso, ContentManager content, Matrix view, float aspectRatio ) // Constructeur avec parametres
         {
             this.nom = nom;
             this.vie = vie;
@@ -58,7 +58,7 @@ namespace Evasion
             this.genrePerso = genrePerso;
             this.fichier3D = nom;
             this.objet = new Objets.Objets();
-            this.model3D = new Affichage._3D.Perso_Model(content, Vector3.Zero, view, aspectRatio);
+            //this.model3D = new Affichage._3D.Perso_Model(content, Vector3.Zero, view, aspectRatio);
         }
 
         public void ChangerDeplacement(deplacement_t deplacement) // Methode pour changer le mode de deplacement
@@ -83,7 +83,7 @@ namespace Evasion
 
         virtual public void Update(KeyboardState keyboardState, MouseState mouseState, GameTime gametime) // Methode pour charger les donnees
         {
-            model3D.UpdatePosition(gametime);
+            //model3D.UpdatePosition(gametime);
         }
 
         virtual public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb) // Methode pour afficher les donnees

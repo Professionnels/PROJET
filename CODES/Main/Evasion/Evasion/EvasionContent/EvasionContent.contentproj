@@ -284,6 +284,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Bordure.png">
       <Name>Bordure</Name>
       <Importer>TextureImporter</Importer>
@@ -291,10 +292,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+=======
+<<<<<<< HEAD
+    <Compile Include="Models\Dialogues\test.txt">
+      <Name>test</Name>
+=======
+>>>>>>> 431d88ebd0b432beb6cf293cdd5c112ada8aff15
     <Compile Include="ImageBarreVie.png">
       <Name>ImageBarreVie</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+>>>>>>> bced317dd6600af5981c6f53317524153f726245
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

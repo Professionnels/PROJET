@@ -36,7 +36,7 @@ namespace Evasion.Personnages
  
         }
 
-        public Joueur(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, string fichier3D, Capacite capacite_speciale, ContentManager Content, Matrix view, float aspectRatio) // Constructeur avec parmetres
+        public Joueur(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, string fichier3D, Capacite capacite_speciale, ContentManager Content, Matrix view, float aspectRatio, SpriteBatch sb) // Constructeur avec parmetres
             : base(nom, vie, deplacement, position, vitesse, fichier3D, genre_t.joueur, Content, view, aspectRatio)
         {
  
