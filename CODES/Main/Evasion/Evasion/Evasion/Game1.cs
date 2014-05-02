@@ -67,10 +67,7 @@ namespace Evasion
         {
             this.IsMouseVisible = true;
             InitPhysique();
-<<<<<<< HEAD
-=======
             infoDeb = "";
->>>>>>> 431d88ebd0b432beb6cf293cdd5c112ada8aff15
             base.Initialize();
         }
 
@@ -80,11 +77,7 @@ namespace Evasion
             Son.ChargerSon.Init(Content);
             ChargerImages.InitMenu(Content);
             fenetre.LoadContent(Content_t.Menu);
-<<<<<<< HEAD
-            LoadModel();
             Vie = new Affichage.Informations.BarreVie(100, 100, 200, Content, spriteBatch);
-=======
->>>>>>> 431d88ebd0b432beb6cf293cdd5c112ada8aff15
             this.textFont = Content.Load<SpriteFont>("MyFont");
             Vie = new Affichage.Informations.BarreVie(100, 100, 200, Content, spriteBatch);
 
@@ -173,16 +166,15 @@ namespace Evasion
                 solChangeant.draw();
                 Tmur.draw();
 
-<<<<<<< HEAD
 
                 spriteBatch.Begin();
                 spriteBatch.DrawString(this.textFont, michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 Vie.Draw();
-=======
+
                 spriteBatch.Begin(); 
                 spriteBatch.DrawString(this.textFont, infoDeb, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 //Vie.Draw();
->>>>>>> 431d88ebd0b432beb6cf293cdd5c112ada8aff15
+
                 spriteBatch.End();
             }
             else

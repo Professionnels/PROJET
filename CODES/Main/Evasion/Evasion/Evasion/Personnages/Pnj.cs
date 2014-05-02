@@ -34,19 +34,20 @@ namespace Evasion.Personnages
             this.dialogue3 = dialogue3;
         }
 
-        public Action()
+        public void Action()
         {
 
         }
 
         public string Parler()
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.Escape))
-                this.Exit();
-            if(Keyboard.GetState().IsKeyDown(Keys.Enter))
-                this.
+            return "";
+            //if(Keyboard.GetState().IsKeyDown(Keys.Escape))
+                //this.Exit();
+            //if(Keyboard.GetState().IsKeyDown(Keys.Enter))
+                //this.
                 
         }
-        public int Echanger(){}
+        public int Echanger() { return 0; }
     }
 }
