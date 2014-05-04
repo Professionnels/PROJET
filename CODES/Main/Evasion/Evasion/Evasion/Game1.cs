@@ -1,5 +1,18 @@
 #define DEBUG_BB
+<<<<<<< HEAD
 //#define MULTI
+=======
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Evasion.Affichage;
+using Microsoft.Xna.Framework.Input;
+//<<<<<<< HEAD
+//#define MULTI
+//#define RES
+//=======
+//#define MULTI
+//>>>>>>> 8e5c8dbfa861787597d1676c9162eaf30c1fd40a
+>>>>>>> e345e141d6b9772518dc1f28788f3fed3659d368
 
 using System;
 using System.Collections.Generic;
@@ -157,11 +170,6 @@ namespace Evasion
             cameratwo.initialize(bellick.persoPosition, bellick.Rotation, this.graphics);
 #endif
 
-
-
-
-
-
             //BoundingBox b1 = new BoundingBox(new Vector3(0, 0, 0), new Vector3(1, 1, 1));
             //BoundingBox b2 = new BoundingBox(new Vector3(0.5f, 0.5f, 0.5f), new Vector3(1.5f, 1.5f, 1.5f));
 
@@ -174,7 +182,12 @@ namespace Evasion
 
             Vector3 pos = michael.getPosition();
             Vector3 rot = michael.getRotation();
+            
+#if RES
+            Evasion.Jeu.Client_L client = new Jeu.Client_L();
+            Evasion.Jeu.Server_L serveur = new Jeu.Server_L();
 
+#endif
             // michael.UpdatePosition(gameTime);
 
             // camera.initialize(michael.persoPosition, michael.Rotation, this.graphics);

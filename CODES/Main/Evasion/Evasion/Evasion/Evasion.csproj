@@ -125,10 +125,10 @@
     <Compile Include="Decors\Murs.cs" />
     <Compile Include="Decors\ObjetDecors.cs" />
     <Compile Include="Jeu\ChargementNiveau.cs" />
-    <Compile Include="Jeu\Client.cs" />
+    <Compile Include="Jeu\Client_L.cs" />
     <Compile Include="Jeu\Jeu.cs" />
     <Compile Include="Jeu\Niveau.cs" />
-    <Compile Include="Jeu\Server.cs" />
+    <Compile Include="Jeu\Server_L.cs" />
     <Compile Include="Objets\Armes.cs" />
     <Compile Include="Objets\Objets.cs" />
     <Compile Include="Objets\ObjetsUtilitaires.cs" />
