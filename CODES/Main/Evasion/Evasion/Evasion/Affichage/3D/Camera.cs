@@ -28,11 +28,11 @@ namespace Evasion.Affichage._3D
         public float aspectRatio;
         private float offset;
 
-        public Camera(Vector3 position, float aspectRatio)
+        public Camera(Vector3 position, float aspectRatio, bool multi)
         {
             this.thirdPersonReference = new Vector3(0, 75, -120);
             this.position = position;
-            this.viewMatrix = Matrix.CreateLookAt(this.position, new Vector3(0, 35 ,0), Vector3.Up);
+            this.viewMatrix = Matrix.CreateLookAt(this.position, new Vector3(0, 35, 0), Vector3.Up);
             this.projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
             this.cameraReference = new Vector3(0, 0, 1);
             this.transformedReference = Vector3.Zero;
@@ -55,15 +55,15 @@ namespace Evasion.Affichage._3D
             transformedReference = Vector3.Transform(thirdPersonReference, rotationMatrix);
             position = transformedReference + persoPos;
             cameraLookat = position + transformedReference;
-            viewMatrix = Matrix.CreateLookAt(position, Vector3.Add(persoPos, new Vector3(0,35,0)), new Vector3(0f, 1f, 0f));
+            viewMatrix = Matrix.CreateLookAt(position, Vector3.Add(persoPos, new Vector3(0, 35, 0)), new Vector3(0f, 1f, 0f));
             informations = "";
-            
-            
+
+
             Viewport viewport = graphics.GraphicsDevice.Viewport;
             float aspectRatio = (float)viewport.Width / (float)viewport.Height;
 #if MULTI
             aspectRatio /= 2;
-#endif 
+#endif
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(1.0f, aspectRatio,
                     1.0f, 10000.0f);
             //informations += this.position.ToString();

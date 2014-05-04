@@ -34,7 +34,7 @@ namespace Evasion.Affichage.Menu
             switch (type)
             {
                 case "Main menu":
-                    Elements = new Bouton[4] { new Bouton("New game", ChargerImages.bouton_nouveau_jeu, ChargerImages.bouton_nouveau_jeu_on), new Bouton("Load game", ChargerImages.bouton_charger_jeu, ChargerImages.bouton_charger_jeu_on), new Bouton("Options", ChargerImages.bouton_options, ChargerImages.bouton_options_on), new Bouton("Quit", ChargerImages.bouton_quitter, ChargerImages.bouton_quitter_on) };
+                    Elements = new Bouton[5] { new Bouton("New game", ChargerImages.bouton_nouveau_jeu, ChargerImages.bouton_nouveau_jeu_on), new Bouton("Multijoueur game", ChargerImages.bouton_multijoueur, ChargerImages.bouton_multijoueur_on), new Bouton("Load game", ChargerImages.bouton_charger_jeu, ChargerImages.bouton_charger_jeu_on), new Bouton("Options", ChargerImages.bouton_options, ChargerImages.bouton_options_on), new Bouton("Quit", ChargerImages.bouton_quitter, ChargerImages.bouton_quitter_on) };
                     Image = ChargerImages.menu_accueil;
                     break;
                 case "Pause":
@@ -53,6 +53,11 @@ namespace Evasion.Affichage.Menu
                     break;
                 case "New game":
                     Fen.LoadContent(Content_t.NewGame);
+                    break;
+                case "Multijoueur game":
+                    Fen.LoadContent(Content_t.NewGame);
+                    Fen.multi = true;
+                    Fen.ok = true;
                     break;
                 case "Load game":
                     //Fen.LoadContent(Content_t.LoadGame);

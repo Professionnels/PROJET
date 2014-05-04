@@ -165,7 +165,6 @@ namespace Evasion.Affichage._3D
                     }
                 }
             }
-
         }
 
         public void UpdatePosition(GameTime gameTime)

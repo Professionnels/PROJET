@@ -21,6 +21,7 @@ namespace Evasion.Affichage
     class Fenetre
     {
         public bool ok;
+        public bool multi;
         private Jeu.Jeu jeu;
         private Content_t content;
         private Microsoft.Xna.Framework.Game screen;
@@ -53,6 +54,7 @@ namespace Evasion.Affichage
                     ok = true;
                     menu = new Menu.Menu("Pause", this);
                     jeu = new Jeu.Jeu(this, 1);
+                    multi = true;
                     break;
                 case Content_t.LoadGame:
                     menu = new Menu.Menu("Pause", this);
