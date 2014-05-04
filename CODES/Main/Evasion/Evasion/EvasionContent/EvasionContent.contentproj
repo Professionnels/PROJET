@@ -193,6 +193,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\mur.fbx">
+      <Name>mur</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Models\briques.JPG">
       <Name>briques</Name>
       <Importer>TextureImporter</Importer>
@@ -221,6 +228,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\perso.fbx">
+      <Name>perso</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Models\priso.fbx">
       <Name>priso</Name>
       <Importer>FbxImporter</Importer>
@@ -235,31 +249,27 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\mur_prison.png">
-      <Name>mur_prison</Name>
+    <Compile Include="Models\prisonnier-2.JPG">
+      <Name>prisonnier-2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\sol_prison.PNG">
-      <Name>sol_prison</Name>
+    <Folder Include="Models\Dialogues\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ImageBarreVie.png">
+      <Name>ImageBarreVie</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\mur.fbx">
-      <Name>mur</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\perso.fbx">
-      <Name>perso</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
+    <Compile Include="Bordure.png">
+      <Name>Bordure</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -277,15 +287,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\prisonnier-2.jpg">
-      <Name>prisonnier-2</Name>
+    <Compile Include="Models\mur_prison.png">
+      <Name>mur_prison</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImageBarreVie.png">
-      <Name>ImageBarreVie</Name>
+    <Compile Include="Models\sol_prison.PNG">
+      <Name>sol_prison</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

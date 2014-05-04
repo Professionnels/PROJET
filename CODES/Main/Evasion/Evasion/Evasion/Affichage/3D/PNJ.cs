@@ -47,7 +47,7 @@ namespace Evasion.Affichage._3D
             this.persoModel = Content.Load<Model>("Models\\perso");
             this.persoPosition = position;
             this.Rotation = rotation;
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 1.0f, 10000.0f);
             viewMatrix = view;
             this.type = type;
             texture[0] = Content.Load<Texture2D>("Models\\michael");
@@ -69,7 +69,7 @@ namespace Evasion.Affichage._3D
             Rotation = new Vector3(90.0f, 0f, 180f);
         }
 
-        public void draw()
+        public void draw(Camera camera)
         {
 
             Matrix[] transforms = new Matrix[persoModel.Bones.Count];
@@ -90,8 +90,8 @@ namespace Evasion.Affichage._3D
                                     Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
                                     Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z)) *
                                     Matrix.CreateTranslation(persoPosition);
-                    effect.View = viewMatrix;
-                    effect.Projection = projectionMatrix;
+                    effect.View = camera.viewMatrix;
+                    effect.Projection = camera.projectionMatrix;
 
                 }
                 mesh.Draw();

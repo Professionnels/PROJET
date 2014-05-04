@@ -83,12 +83,12 @@ namespace Evasion
 
         virtual public void Update(KeyboardState keyboardState, MouseState mouseState, GameTime gametime) // Methode pour charger les donnees
         {
-            model3D.UpdatePosition(gametime);
+            //model3D.UpdatePosition(gametime);
         }
 
         virtual public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb) // Methode pour afficher les donnees
         {
-            model3D.draw();
+            //model3D.draw();
         }
     }
 }

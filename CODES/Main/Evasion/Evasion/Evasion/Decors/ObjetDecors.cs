@@ -25,5 +25,6 @@ namespace Evasion.Decors
             this.identifiant = identifiant;
             this.position = position;
         }
+        
     }
 }
