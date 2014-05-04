@@ -26,6 +26,7 @@ namespace Evasion.Affichage._3D
         public Vector3 thirdPersonReference;
         public string informations;
         public float aspectRatio;
+        private float offset;
 
         public Camera(Vector3 position, float aspectRatio)
         {
@@ -40,7 +41,17 @@ namespace Evasion.Affichage._3D
 
         public void initialize(Vector3 persoPos, Vector3 persoRot, GraphicsDeviceManager graphics)
         {
-            rotationMatrix = Matrix.CreateRotationY(MathHelper.ToRadians(-persoRot.Y));
+
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad8))
+                thirdPersonReference.Y += 5;
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad2))
+                thirdPersonReference.Y -= 5;
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad6))
+                offset += 5;
+            if (Keyboard.GetState().IsKeyDown(Keys.NumPad4))
+                offset -= 5;
+
+            rotationMatrix = Matrix.CreateRotationY(MathHelper.ToRadians(-persoRot.Y + offset));
             transformedReference = Vector3.Transform(thirdPersonReference, rotationMatrix);
             position = transformedReference + persoPos;
             cameraLookat = position + transformedReference;
