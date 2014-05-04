@@ -1,5 +1,6 @@
 #define DEBUG_BB
 //#define MULTI
+#define RES
 
 using System;
 using System.Collections.Generic;
@@ -161,11 +162,6 @@ namespace Evasion
             cameratwo.initialize(bellick.persoPosition, bellick.Rotation, this.graphics);
 #endif
 
-
-
-
-
-
             //BoundingBox b1 = new BoundingBox(new Vector3(0, 0, 0), new Vector3(1, 1, 1));
             //BoundingBox b2 = new BoundingBox(new Vector3(0.5f, 0.5f, 0.5f), new Vector3(1.5f, 1.5f, 1.5f));
 
@@ -180,7 +176,12 @@ namespace Evasion
 
             Vector3 pos = michael.getPosition();
             Vector3 rot = michael.getRotation();
+            
+#if RES
+            Evasion.Jeu.Client_L client = new Jeu.Client_L();
+            Evasion.Jeu.Server_L serveur = new Jeu.Server_L();
 
+#endif
             // michael.UpdatePosition(gameTime);
 
             // camera.initialize(michael.persoPosition, michael.Rotation, this.graphics);
