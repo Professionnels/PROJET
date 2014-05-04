@@ -88,7 +88,7 @@ namespace Evasion
 
         virtual public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb) // Methode pour afficher les donnees
         {
-            model3D.draw();
+            //model3D.draw();
         }
     }
 }

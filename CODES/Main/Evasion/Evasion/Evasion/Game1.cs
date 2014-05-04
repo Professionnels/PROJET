@@ -42,7 +42,7 @@ namespace Evasion
         Evasion.Affichage._3D.Sol solChangeant;
         Evasion.Affichage._3D.Mur Tmur;
 
-        
+        Evasion.Affichage._3D.Camera camera;
 
         //SOL
         private Model sol;
@@ -86,6 +86,8 @@ namespace Evasion
             murchangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton);
             solChangeant = new Affichage._3D.Sol(Content, Vector3.Zero, viewMatrix, aspectRatio, TypeSol.prison);
             Tmur = new Affichage._3D.Mur(Content, new Vector3(1, 0, 0), viewMatrix, aspectRatio, TypeMur.brique);
+
+            camera = new Affichage._3D.Camera(michael.persoPosition, aspectRatio);
         }
 
         protected override void UnloadContent()
@@ -129,13 +131,14 @@ namespace Evasion
 
             infoDeb += (1000.0 / gameTime.ElapsedGameTime.TotalMilliseconds).ToString()+'\n';
             infoDeb += michael.informations + '\n';
-            infoDeb +='\n' + murchangeant.informations +
-                '\n' + Tmur.informations;
+            infoDeb += camera.position.ToString();
 
             Vector3 pos = michael.getPosition();
             Vector3 rot = michael.getRotation();
 
             michael.UpdatePosition(gameTime);
+
+            camera.initialize(michael.persoPosition, michael.Rotation, this.graphics);
 
             if (michael.boundingBoxes.Intersects(murchangeant.boundingBoxes)
                 || michael.boundingBoxes.Intersects(Tmur.boundingBoxes))
@@ -143,10 +146,6 @@ namespace Evasion
                 michael.persoPosition = pos;
                 michael.Rotation = rot;
             }
-
-            
-                
-            
 
             base.Update(gameTime);
         }
@@ -159,22 +158,18 @@ namespace Evasion
             if (fenetre.ok)
             {
                 GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-                
-                bellick.draw();
-                michael.draw();
-                murchangeant.draw();
-                solChangeant.draw();
-                Tmur.draw();
+
+                bellick.draw(camera);
+
+                murchangeant.draw(camera);
+                solChangeant.draw(camera);
+                Tmur.draw(camera);
+                michael.draw(camera);
 
 
                 spriteBatch.Begin();
-                spriteBatch.DrawString(this.textFont, michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
-                Vie.Draw();
-
-                spriteBatch.Begin(); 
                 spriteBatch.DrawString(this.textFont, infoDeb, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
-                //Vie.Draw();
-
+                Vie.Draw();
                 spriteBatch.End();
             }
             else
