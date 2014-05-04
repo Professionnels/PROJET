@@ -24,6 +24,8 @@ namespace Evasion.Affichage._3D
         private Matrix projectionMatrix;
         private Vector3 Rotation;
 
+        private GraphicsDeviceManager graphic;
+
         public int indexMur;
 
         private Matrix orientation;
@@ -35,7 +37,13 @@ namespace Evasion.Affichage._3D
         private Texture2D[] textures = new Texture2D[2];
 
 #if DEBUG_BB
-        public BoundingBox boundingBoxes = new BoundingBox();
+        public List<BoundingBox> boundingBoxes = new List<BoundingBox>();
+
+        public short[] bBoxIndices = {
+                                        0, 1, 1, 2, 2, 3, 3, 0, // Front edges
+                                        4, 5, 5, 6, 6, 7, 7, 4, // Back edges
+                                        0, 4, 1, 5, 2, 6, 3, 7 // Side edges connecting front and back
+                                    };
 #endif
 
         public Vector3 getPosition()
@@ -48,7 +56,7 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public Mur(ContentManager Content, Vector3 position, Matrix view, float aspectRatio, TypeMur type)
+        public Mur(ContentManager Content, Vector3 position, Matrix view, float aspectRatio, TypeMur type, GraphicsDeviceManager graphic)
         {
             this.mur = Content.Load<Model>("Models\\mur");
             this.murPosition = position;
@@ -61,6 +69,7 @@ namespace Evasion.Affichage._3D
             this.initPhyMur();
             this.initMur();
             indexMur = 0;
+            this.graphic = graphic;
         }
 
         public void initPhyMur()
@@ -79,10 +88,7 @@ namespace Evasion.Affichage._3D
             Matrix[] transforms = new Matrix[mur.Bones.Count];
             mur.CopyAbsoluteBoneTransformsTo(transforms);
 
-            this.informations = "";
-
-            Vector3 meshMax = new Vector3(float.MinValue);
-            Vector3 meshMin = new Vector3(float.MaxValue);
+            boundingBoxes.Clear();
 
             foreach (ModelMesh mesh in mur.Meshes)
             {
@@ -90,7 +96,6 @@ namespace Evasion.Affichage._3D
                 {
                     effect.EnableDefaultLighting();
                     effect.TextureEnabled = true;
-
                     effect.Texture = textures[(int)(type)];
                     effect.World = transforms[mesh.ParentBone.Index] *
                                     Matrix.CreateScale(scale) *
@@ -102,27 +107,53 @@ namespace Evasion.Affichage._3D
                     effect.Projection = camera.projectionMatrix;
 
 #if DEBUG_BB
-                    BuildBoundingBox(mesh, effect.World, ref meshMin, ref meshMax);
+                    boundingBoxes.Add(BuildBoundingBox(mesh, transforms[mesh.ParentBone.Index]));
 #endif
-
+                    mesh.Draw();
                 }
-                mesh.Draw();
-
-
             }
 
-#if DEBUG_BB
-            boundingBoxes = new BoundingBox(Vector3.Min(meshMin, meshMax),
-                Vector3.Max(meshMin, meshMax));
-            this.informations = "Mur : " + "Min : " + boundingBoxes.Min.ToString() + '\n' + "Max : " + boundingBoxes.Max.ToString();
-#endif
+            foreach (ModelMesh mesh in mur.Meshes)
+            {
+                foreach (BasicEffect effect in mesh.Effects)
+                {
+                    foreach (BoundingBox box in boundingBoxes)
+                    {
+                        Vector3[] corners = box.GetCorners();
+                        VertexPositionColor[] primitiveList = new VertexPositionColor[corners.Length];
+
+                        // Assign the 8 box vertices
+                        for (int i = 0; i < corners.Length; i++)
+                        {
+                            primitiveList[i] = new VertexPositionColor(corners[i], Color.White);
+                        }
+
+                        /* Set your own effect parameters here */
+
+                        effect.LightingEnabled = false;
+                        effect.TextureEnabled = false;
+                        // Draw the box with a LineList
+                        foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                        {
+                            pass.Apply();
+                            graphic.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                                PrimitiveType.LineList, primitiveList, 0, 8,
+                                bBoxIndices, 0, 12);
+                        }
+                    }
+                }
+            }
+
         }
 
-        private void BuildBoundingBox(ModelMesh mesh, Matrix meshTransform, ref Vector3 meshMin, ref Vector3 meshMax)
+        private BoundingBox BuildBoundingBox(ModelMesh mesh, Matrix meshTransform)
         {
+            Vector3 meshMax = new Vector3(float.MinValue);
+            Vector3 meshMin = new Vector3(float.MaxValue);
 
             foreach (ModelMeshPart part in mesh.MeshParts)
             {
+
                 int stride = part.VertexBuffer.VertexDeclaration.VertexStride;
 
                 VertexPositionNormalTexture[] vertexData = new VertexPositionNormalTexture[part.NumVertices];
@@ -142,8 +173,9 @@ namespace Evasion.Affichage._3D
             meshMin = Vector3.Transform(meshMin, meshTransform);
             meshMax = Vector3.Transform(meshMax, meshTransform);
 
+            BoundingBox box = new BoundingBox(meshMin, meshMax);
+            return box;
         }
-
 
     }
 }
