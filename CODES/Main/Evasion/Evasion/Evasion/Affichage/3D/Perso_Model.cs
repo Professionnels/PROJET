@@ -129,7 +129,7 @@ namespace Evasion.Affichage._3D
                     mesh.Draw();
 
 #if DEBUG_BB
-                    boundingBoxes.Add(BuildBoundingBox(mesh, transforms[mesh.ParentBone.Index]));
+                    boundingBoxes.Add(BuildBoundingBox(mesh, effect.World));
 #endif
                 }
 
@@ -147,7 +147,8 @@ namespace Evasion.Affichage._3D
                         // Assign the 8 box vertices
                         for (int i = 0; i < corners.Length; i++)
                         {
-                            primitiveList[i] = new VertexPositionColor(corners[i], Color.White);
+                            primitiveList[i] = new VertexPositionColor(corners[i], Color.Red);
+                            this.informations += primitiveList[i] + "\n";
                         }
 
                         /* Set your own effect parameters here */
@@ -160,7 +161,7 @@ namespace Evasion.Affichage._3D
                             pass.Apply();
                             graphic.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
                                 PrimitiveType.LineList, primitiveList, 0, 8,
-                                bBoxIndices, 0, 12);
+                                bBoxIndices, 0, 12 );
                         }
                     }
                 }

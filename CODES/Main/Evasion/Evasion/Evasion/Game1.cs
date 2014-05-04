@@ -1,5 +1,5 @@
 #define DEBUG_BB
-#define MULTI
+//#define MULTI
 
 using System;
 using System.Collections.Generic;
@@ -171,8 +171,6 @@ namespace Evasion
             //    infoDeb += "FALSE\n";
 
             infoDeb += (1000.0 / gameTime.ElapsedGameTime.TotalMilliseconds).ToString() + '\n';
-            infoDeb += michael.informations + '\n';
-            infoDeb += camera.position.ToString();
 
             Vector3 pos = michael.getPosition();
             Vector3 rot = michael.getRotation();
@@ -181,12 +179,19 @@ namespace Evasion
 
             // camera.initialize(michael.persoPosition, michael.Rotation, this.graphics);
 
-            //if (michael.boundingBoxes.Intersects(murchangeant.boundingBoxes)
-            //    || michael.boundingBoxes.Intersects(Tmur.boundingBoxes))
-            //{
-            //    michael.persoPosition = pos;
-            //    michael.Rotation = rot;
-            //}
+            foreach (BoundingBox box in michael.boundingBoxes)
+            {
+                foreach (BoundingBox mBox in murchangeant.boundingBoxes)
+                {
+                    if (box.Intersects(mBox))
+                    {
+                        michael.persoPosition = pos;
+                        michael.Rotation = rot;
+                        infoDeb += "\nCollision\n";
+                        infoDeb += box.Min.ToString() + " " + box.Max.ToString() + "\n";
+                    }
+                }
+            }
 
             base.Update(gameTime);
         }
@@ -205,9 +210,9 @@ namespace Evasion
                 GraphicsDevice.Viewport = leftview;
                     bellick.draw(camera);
 #endif
-                    murchangeant.draw(camera);
+                    //murchangeant.draw(camera);
                     solChangeant.draw(camera);
-                    Tmur.draw(camera);
+                    //Tmur.draw(camera);
                     michael.draw(camera);
 
 #if MULTI
@@ -226,7 +231,8 @@ namespace Evasion
 #endif
 
                 spriteBatch.Begin();
-                spriteBatch.DrawString(this.textFont, infoDeb, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                
+                spriteBatch.DrawString(this.textFont, infoDeb + michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 Vie.Draw();
                 spriteBatch.End();
 
