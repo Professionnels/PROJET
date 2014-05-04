@@ -1,5 +1,5 @@
 #define DEBUG_BB
-//#define MULTI
+#define MULTI
 
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,6 @@ namespace Evasion
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //Multijoueur
         Viewport defaultview;
         Viewport leftview;
         Viewport rightview;
@@ -45,7 +44,7 @@ namespace Evasion
 
         //Evasion.Affichage._3D.PNJ bellick;
         Evasion.Affichage._3D.Perso_Model michael;
-        Evasion.Affichage._3D.Perso_Model bellick;   // Multijoueur
+        Evasion.Affichage._3D.Perso_Model bellick;
         Evasion.Affichage._3D.Mur murchangeant;
         Evasion.Affichage._3D.Sol solChangeant;
         Evasion.Affichage._3D.Mur Tmur;
@@ -53,7 +52,7 @@ namespace Evasion
         Evasion.Affichage._3D.Camera camera;
 
 #if MULTI
-        Evasion.Affichage._3D.Camera cameratwo;   // Multijoueur
+        Evasion.Affichage._3D.Camera cameratwo;
 #endif
 
         //SOL
@@ -63,6 +62,7 @@ namespace Evasion
 
         //Barre de Vie
         private Evasion.Affichage.Informations.BarreVie Vie;
+        private Evasion.Affichage.Informations.BarreVie Vie2;
 
         public Game1()
         {
@@ -86,40 +86,37 @@ namespace Evasion
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Multijoueur
 #if MULTI
             IsMouseVisible = true;
             defaultview = GraphicsDevice.Viewport;
             leftview = defaultview;
             rightview = defaultview;
             leftview.Width = leftview.Width / 2;
-            rightview.Width = rightview.Width / 2;
-            rightview.X = leftview.Width;
+            rightview.Width = rightview.Width / 2 - 9;
+            rightview.X = leftview.Width+9;
 #endif
 
             Son.ChargerSon.Init(Content);
             ChargerImages.InitMenu(Content);
             fenetre.LoadContent(Content_t.Menu);
             Vie = new Affichage.Informations.BarreVie(100, 100, 200, Content, spriteBatch);
+            Vie2 = new Affichage.Informations.BarreVie(100, 100, 200, Content, spriteBatch);
             this.textFont = Content.Load<SpriteFont>("MyFont");
 
-            // bellick = new Affichage._3D.PNJ(Content, Vector3.Zero, Vector3.Zero, viewMatrix, aspectRatio, Affichage.TypePerso.bellick);
-            // michael = new Affichage._3D.Perso_Model(Content, new Vector3(20, 0, 20), viewMatrix, aspectRatio, graphics);
-
-            michael = new Affichage._3D.Perso_Model(Content, new Vector3(20, 0, 20), viewMatrix, aspectRatio, graphics, 1); // Multijoueur
+            michael = new Affichage._3D.Perso_Model(Content, new Vector3(20, 0, 20), viewMatrix, aspectRatio, graphics, 1); 
 
 #if MULTI
-            bellick = new Affichage._3D.Perso_Model(Content, new Vector3(40, 0, -20), viewMatrix, aspectRatio, graphics, 2); // Multijoueur
+            bellick = new Affichage._3D.Perso_Model(Content, new Vector3(40, 0, -20), viewMatrix, aspectRatio, graphics, 2); 
 #endif
 
-            murchangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton);
+            murchangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton, graphics);
             solChangeant = new Affichage._3D.Sol(Content, Vector3.Zero, viewMatrix, aspectRatio, TypeSol.prison);
-            Tmur = new Affichage._3D.Mur(Content, new Vector3(1, 0, 0), viewMatrix, aspectRatio, TypeMur.brique);
+            Tmur = new Affichage._3D.Mur(Content, new Vector3(1, 0, 0), viewMatrix, aspectRatio, TypeMur.brique, graphics);
 
-            camera = new Affichage._3D.Camera(michael.persoPosition, aspectRatio);
+            camera = new Affichage._3D.Camera(michael.persoPosition, aspectRatio, fenetre.multi);
 
 #if MULTI
-            cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio); // Multijoueur
+            cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi);
 #endif
         }
 
@@ -152,7 +149,6 @@ namespace Evasion
 
             infoDeb = "";
 
-            // Multijoueur
             michael.UpdatePosition(gameTime);
             camera.initialize(michael.persoPosition, michael.Rotation, this.graphics);
 
@@ -204,10 +200,10 @@ namespace Evasion
 
                 GraphicsDevice.Clear(Color.Gray);
 
-                // Multijoueur
+                
 #if MULTI
                 GraphicsDevice.Viewport = leftview;
-                    bellick.draw(camera); // Multijoueur
+                    bellick.draw(camera);
 #endif
                     murchangeant.draw(camera);
                     solChangeant.draw(camera);
@@ -216,7 +212,7 @@ namespace Evasion
 
 #if MULTI
                 GraphicsDevice.Viewport = rightview;
-                    bellick.draw(cameratwo); // Multijoueur
+                    bellick.draw(cameratwo); 
                     murchangeant.draw(cameratwo);
                     solChangeant.draw(cameratwo);
                     Tmur.draw(cameratwo);
@@ -225,7 +221,7 @@ namespace Evasion
                 GraphicsDevice.Viewport = defaultview;
 
                 spriteBatch.Begin();
-                spriteBatch.Draw(Content.Load<Texture2D>("Separation"), new Vector2(800 / 2 -2, 0), Color.White); 
+                spriteBatch.Draw(Content.Load<Texture2D>("Separation"), new Vector2(800 / 2 -2, 0), Color.White);
                 spriteBatch.End();
 #endif
 
@@ -233,6 +229,13 @@ namespace Evasion
                 spriteBatch.DrawString(this.textFont, infoDeb, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 Vie.Draw();
                 spriteBatch.End();
+
+#if MULTI
+                GraphicsDevice.Viewport = rightview;
+                spriteBatch.Begin();
+                Vie2.Draw();
+                spriteBatch.End();
+#endif
             }
             else
             {

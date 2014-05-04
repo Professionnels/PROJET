@@ -1,6 +1,4 @@
-﻿//#define MULTI
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -26,8 +24,10 @@ namespace Evasion.Affichage._3D
         public Vector3 thirdPersonReference;
         public string informations;
         public float aspectRatio;
+        private bool multi;
 
-        public Camera(Vector3 position, float aspectRatio)
+
+        public Camera(Vector3 position, float aspectRatio, bool multi)
         {
             this.thirdPersonReference = new Vector3(0, 75, -120);
             this.position = position;
@@ -36,6 +36,7 @@ namespace Evasion.Affichage._3D
             this.cameraReference = new Vector3(0, 0, 1);
             this.transformedReference = Vector3.Zero;
             this.aspectRatio = aspectRatio;
+            this.multi = multi;
         }
 
         public void initialize(Vector3 persoPos, Vector3 persoRot, GraphicsDeviceManager graphics)
@@ -50,9 +51,10 @@ namespace Evasion.Affichage._3D
             
             Viewport viewport = graphics.GraphicsDevice.Viewport;
             float aspectRatio = (float)viewport.Width / (float)viewport.Height;
-#if MULTI
-            aspectRatio /= 2;
-#endif 
+
+            if(multi)
+                aspectRatio /= 2;
+
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(1.0f, aspectRatio,
                     1.0f, 10000.0f);
             //informations += this.position.ToString();
