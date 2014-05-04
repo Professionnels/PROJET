@@ -28,7 +28,7 @@ namespace Evasion.Affichage._3D
         public float aspectRatio;
         private float offset;
 
-        public Camera(Vector3 position, float aspectRatio)
+        public Camera(Vector3 position, float aspectRatio, bool multi)
         {
             this.thirdPersonReference = new Vector3(0, 75, -120);
             this.position = position;
