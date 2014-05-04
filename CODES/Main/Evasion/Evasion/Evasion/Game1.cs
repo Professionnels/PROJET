@@ -1,18 +1,6 @@
 #define DEBUG_BB
-<<<<<<< HEAD
-//#define MULTI
-=======
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Evasion.Affichage;
-using Microsoft.Xna.Framework.Input;
-//<<<<<<< HEAD
-//#define MULTI
+#define MULTI
 //#define RES
-//=======
-//#define MULTI
-//>>>>>>> 8e5c8dbfa861787597d1676c9162eaf30c1fd40a
->>>>>>> e345e141d6b9772518dc1f28788f3fed3659d368
 
 using System;
 using System.Collections.Generic;
@@ -223,9 +211,9 @@ namespace Evasion
                 GraphicsDevice.Viewport = leftview;
                     bellick.draw(camera);
 #endif
-                    //murchangeant.draw(camera);
+                    murchangeant.draw(camera);
                     solChangeant.draw(camera);
-                    //Tmur.draw(camera);
+                    Tmur.draw(camera);
                     michael.draw(camera);
 
 #if MULTI

@@ -70,7 +70,7 @@ namespace Evasion.Affichage._3D
             this.initPerso();
             this.graphic = graphic;
 
-            controles1 = new Dictionary<string,Keys>();
+            controles1 = new Dictionary<string, Keys>();
             controles1.Add("haut", Keys.Up);
             controles1.Add("bas", Keys.Down);
             controles1.Add("gauche", Keys.Left);
@@ -129,7 +129,7 @@ namespace Evasion.Affichage._3D
                     mesh.Draw();
 
 #if DEBUG_BB
-                    boundingBoxes.Add(BuildBoundingBox(mesh, effect.World));
+                    boundingBoxes.Add(BuildBoundingBox(mesh, transforms[mesh.ParentBone.Index]));
 #endif
                 }
 
@@ -147,8 +147,7 @@ namespace Evasion.Affichage._3D
                         // Assign the 8 box vertices
                         for (int i = 0; i < corners.Length; i++)
                         {
-                            primitiveList[i] = new VertexPositionColor(corners[i], Color.Red);
-                            this.informations += primitiveList[i] + "\n";
+                            primitiveList[i] = new VertexPositionColor(corners[i], Color.White);
                         }
 
                         /* Set your own effect parameters here */
@@ -161,11 +160,12 @@ namespace Evasion.Affichage._3D
                             pass.Apply();
                             graphic.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
                                 PrimitiveType.LineList, primitiveList, 0, 8,
-                                bBoxIndices, 0, 12 );
+                                bBoxIndices, 0, 12);
                         }
                     }
                 }
             }
+
         }
 
         public void UpdatePosition(GameTime gameTime)
@@ -189,15 +189,7 @@ namespace Evasion.Affichage._3D
 
                 Rotation.Y = (Rotation.Y + tour) % 360;
 
-            if (currentKeyboardState.IsKeyDown(Keys.Right))
-            {
-                //persoPosition.X += (float)(time * vitesse * Math.Cos((double)(MathHelper.ToRadians(Rotation.Y))));
-                //persoPosition.X+=
-            }
-            if (currentKeyboardState.IsKeyDown(Keys.Left))
-            {
-                //persoPosition.X -= (float)(time * vitesse * Math.Cos((double)(MathHelper.ToRadians(Rotation.Y))));
-            }
+            
             if (currentKeyboardState.IsKeyDown(touches["haut"]))
             {
                 persoPosition.Z += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
@@ -220,12 +212,12 @@ namespace Evasion.Affichage._3D
                 persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
             }
 
-            informations = "";  
+            informations = "";
             informations += "Perso.X = " + persoPosition.X.ToString() + "\n";
             informations += "Perso.Z = " + persoPosition.Z.ToString() + "\n";
         }
 
-        
+
 
         private BoundingBox BuildBoundingBox(ModelMesh mesh, Matrix meshTransform)
         {
