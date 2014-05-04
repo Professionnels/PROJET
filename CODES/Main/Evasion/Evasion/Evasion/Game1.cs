@@ -1,10 +1,14 @@
 #define DEBUG_BB
-<<<<<<< HEAD
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Evasion.Affichage;
+using Microsoft.Xna.Framework.Input;
+//<<<<<<< HEAD
 //#define MULTI
-#define RES
-=======
-#define MULTI
->>>>>>> 8e5c8dbfa861787597d1676c9162eaf30c1fd40a
+//#define RES
+//=======
+//#define MULTI
+//>>>>>>> 8e5c8dbfa861787597d1676c9162eaf30c1fd40a
 
 using System;
 using System.Collections.Generic;
