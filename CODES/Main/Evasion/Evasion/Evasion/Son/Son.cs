@@ -30,8 +30,8 @@ namespace Evasion.Son
         {
             if (!musique)
                 son.Play();
-            else
-                MediaPlayer.Play(song);
+            /*else
+                MediaPlayer.Play(song);*/
         }
     }
 }
