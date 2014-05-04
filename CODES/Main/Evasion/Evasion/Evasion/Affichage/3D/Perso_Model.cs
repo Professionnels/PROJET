@@ -34,9 +34,9 @@ namespace Evasion.Affichage._3D
         private Texture2D texture;
         private GraphicsDeviceManager graphic;
 
-        #if DEBUG_BB
-            public BoundingBox boundingBoxes = new BoundingBox();
-        #endif
+#if DEBUG_BB
+        public BoundingBox boundingBoxes = new BoundingBox();
+#endif
 
         public Vector3 getPosition()
         {
@@ -68,10 +68,10 @@ namespace Evasion.Affichage._3D
         private void initPerso()
         {
             Rotation = new Vector3(90.0f, 0f, 180f);
-            
+
         }
 
-        public void draw()
+        public void draw(Camera camera)
         {
             Matrix[] transforms = new Matrix[persoModel.Bones.Count];
             persoModel.CopyAbsoluteBoneTransformsTo(transforms);
@@ -81,7 +81,7 @@ namespace Evasion.Affichage._3D
 
             foreach (ModelMesh mesh in persoModel.Meshes)
             {
-                
+
 
                 foreach (BasicEffect effect in mesh.Effects)
                 {
@@ -94,8 +94,8 @@ namespace Evasion.Affichage._3D
                                     Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
                                     Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z)) *
                                     Matrix.CreateTranslation(persoPosition);
-                    effect.View = viewMatrix;
-                    effect.Projection = projectionMatrix;
+                    effect.View = camera.viewMatrix;
+                    effect.Projection = camera.projectionMatrix;
 
                     mesh.Draw();
 
@@ -105,7 +105,7 @@ namespace Evasion.Affichage._3D
 
                 }
 
-                
+
             }
 
 #if DEBUG_BB
@@ -126,7 +126,7 @@ namespace Evasion.Affichage._3D
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                Rotation.Y = (float)((float)(Mouse.GetState().X) / (float)(Evasion.Affichage.Constantes.SCREEN_WIDTH) * 360.0);
+                //Rotation.Y = (float)((float)(Mouse.GetState().X) / (float)(Evasion.Affichage.Constantes.SCREEN_WIDTH) * 360.0);
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.A))

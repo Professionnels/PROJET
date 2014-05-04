@@ -42,7 +42,7 @@ namespace Evasion
         Evasion.Affichage._3D.Sol solChangeant;
         Evasion.Affichage._3D.Mur Tmur;
 
-        
+        Evasion.Affichage._3D.Camera camera;
 
         //SOL
         private Model sol;
@@ -62,14 +62,13 @@ namespace Evasion
             this.Window.Title = "Evasion";
             this.graphics.ApplyChanges();
         }
-        
+
         protected override void Initialize()
         {
             this.IsMouseVisible = true;
             InitPhysique();
             infoDeb = "";
             base.Initialize();
-            
         }
 
         protected override void LoadContent()
@@ -78,6 +77,7 @@ namespace Evasion
             Son.ChargerSon.Init(Content);
             ChargerImages.InitMenu(Content);
             fenetre.LoadContent(Content_t.Menu);
+            Vie = new Affichage.Informations.BarreVie(100, 100, 200, Content, spriteBatch);
             this.textFont = Content.Load<SpriteFont>("MyFont");
             Vie = new Affichage.Informations.BarreVie(100, 100, 200, Content, spriteBatch);
 
@@ -86,6 +86,8 @@ namespace Evasion
             murchangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton);
             solChangeant = new Affichage._3D.Sol(Content, Vector3.Zero, viewMatrix, aspectRatio, TypeSol.prison);
             Tmur = new Affichage._3D.Mur(Content, new Vector3(1, 0, 0), viewMatrix, aspectRatio, TypeMur.brique);
+
+            camera = new Affichage._3D.Camera(michael.persoPosition, aspectRatio);
         }
 
         protected override void UnloadContent()
@@ -117,7 +119,7 @@ namespace Evasion
 
             infoDeb = "";
 
-            
+
 
             //BoundingBox b1 = new BoundingBox(new Vector3(0, 0, 0), new Vector3(1, 1, 1));
             //BoundingBox b2 = new BoundingBox(new Vector3(0.5f, 0.5f, 0.5f), new Vector3(1.5f, 1.5f, 1.5f));
@@ -127,15 +129,16 @@ namespace Evasion
             //else
             //    infoDeb += "FALSE\n";
 
-            infoDeb += (1000.0 / gameTime.ElapsedGameTime.TotalMilliseconds).ToString()+'\n';
+            infoDeb += (1000.0 / gameTime.ElapsedGameTime.TotalMilliseconds).ToString() + '\n';
             infoDeb += michael.informations + '\n';
-            infoDeb +='\n' + murchangeant.informations +
-                '\n' + Tmur.informations;
+            infoDeb += camera.position.ToString();
 
             Vector3 pos = michael.getPosition();
             Vector3 rot = michael.getRotation();
 
             michael.UpdatePosition(gameTime);
+
+            camera.initialize(michael.persoPosition, michael.Rotation, this.graphics);
 
             if (michael.boundingBoxes.Intersects(murchangeant.boundingBoxes)
                 || michael.boundingBoxes.Intersects(Tmur.boundingBoxes))
@@ -143,10 +146,6 @@ namespace Evasion
                 michael.persoPosition = pos;
                 michael.Rotation = rot;
             }
-
-            
-                
-            
 
             base.Update(gameTime);
         }
@@ -159,15 +158,18 @@ namespace Evasion
             if (fenetre.ok)
             {
                 GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-                
-                bellick.draw();
-                michael.draw();
-                murchangeant.draw();
-                solChangeant.draw();
-                Tmur.draw();
 
-                spriteBatch.Begin(); spriteBatch.DrawString(this.textFont, infoDeb, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
-                //Vie.Draw();
+                bellick.draw(camera);
+
+                murchangeant.draw(camera);
+                solChangeant.draw(camera);
+                Tmur.draw(camera);
+                michael.draw(camera);
+
+
+                spriteBatch.Begin();
+                spriteBatch.DrawString(this.textFont, infoDeb, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                Vie.Draw();
                 spriteBatch.End();
             }
             else
