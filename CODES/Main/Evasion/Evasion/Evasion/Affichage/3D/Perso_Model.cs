@@ -34,6 +34,11 @@ namespace Evasion.Affichage._3D
         private Texture2D texture;
         private GraphicsDeviceManager graphic;
 
+        private Dictionary<string, Keys> controles1;
+        private Dictionary<string, Keys> controles2;
+
+        private Dictionary<string, Keys> touches;
+
 #if DEBUG_BB
         public BoundingBox boundingBoxes = new BoundingBox();
 #endif
@@ -48,7 +53,7 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public Perso_Model(ContentManager Content, Vector3 position, Matrix view, float aspectRatio, GraphicsDeviceManager graphic)
+        public Perso_Model(ContentManager Content, Vector3 position, Matrix view, float aspectRatio, GraphicsDeviceManager graphic, int nbJoueur)
         {
             this.persoModel = Content.Load<Model>("Models\\perso");
             this.persoPosition = position;
@@ -58,6 +63,27 @@ namespace Evasion.Affichage._3D
             this.initPhyPerso();
             this.initPerso();
             this.graphic = graphic;
+
+            controles1 = new Dictionary<string,Keys>();
+            controles1.Add("haut", Keys.Up);
+            controles1.Add("bas", Keys.Down);
+            controles1.Add("gauche", Keys.Left);
+            controles1.Add("droite", Keys.Right);
+            controles1.Add("tourneG", Keys.N);
+            controles1.Add("tourneD", Keys.M);
+
+            controles2 = new Dictionary<string, Keys>();
+            controles2.Add("haut", Keys.W);
+            controles2.Add("bas", Keys.S);
+            controles2.Add("gauche", Keys.A);
+            controles2.Add("droite", Keys.D);
+            controles2.Add("tourneG", Keys.T);
+            controles2.Add("tourneD", Keys.Y);
+
+            if (nbJoueur == 1)
+                touches = controles1;
+            else
+                touches = controles2;
         }
 
         public void initPhyPerso()
@@ -129,9 +155,10 @@ namespace Evasion.Affichage._3D
                 //Rotation.Y = (float)((float)(Mouse.GetState().X) / (float)(Evasion.Affichage.Constantes.SCREEN_WIDTH) * 360.0);
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.A))
+            if (currentKeyboardState.IsKeyDown(touches["tourneG"]))
                 Rotation.Y = (Rotation.Y - tour) % 360;
-            if (currentKeyboardState.IsKeyDown(Keys.Z))
+            if (currentKeyboardState.IsKeyDown(touches["tourneD"]))
+
                 Rotation.Y = (Rotation.Y + tour) % 360;
 
             if (currentKeyboardState.IsKeyDown(Keys.Right))
@@ -143,23 +170,23 @@ namespace Evasion.Affichage._3D
             {
                 //persoPosition.X -= (float)(time * vitesse * Math.Cos((double)(MathHelper.ToRadians(Rotation.Y))));
             }
-            if (currentKeyboardState.IsKeyDown(Keys.Up))
+            if (currentKeyboardState.IsKeyDown(touches["haut"]))
             {
                 persoPosition.Z += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
                 persoPosition.X -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
             }
-            if (currentKeyboardState.IsKeyDown(Keys.Down))
+            if (currentKeyboardState.IsKeyDown(touches["bas"]))
             {
                 persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
                 persoPosition.X += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Right))
+            if (currentKeyboardState.IsKeyDown(touches["droite"]))
             {
                 persoPosition.Z -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
                 persoPosition.X -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
             }
-            if (currentKeyboardState.IsKeyDown(Keys.Left))
+            if (currentKeyboardState.IsKeyDown(touches["gauche"]))
             {
                 persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
                 persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
