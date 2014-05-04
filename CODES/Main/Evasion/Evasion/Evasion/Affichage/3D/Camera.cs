@@ -1,6 +1,4 @@
-﻿//#define MULTI
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -26,9 +24,10 @@ namespace Evasion.Affichage._3D
         public Vector3 thirdPersonReference;
         public string informations;
         public float aspectRatio;
-        private float offset;
+        private bool multi;
 
-        public Camera(Vector3 position, float aspectRatio)
+
+        public Camera(Vector3 position, float aspectRatio, bool multi)
         {
             this.thirdPersonReference = new Vector3(0, 75, -120);
             this.position = position;
@@ -37,21 +36,12 @@ namespace Evasion.Affichage._3D
             this.cameraReference = new Vector3(0, 0, 1);
             this.transformedReference = Vector3.Zero;
             this.aspectRatio = aspectRatio;
+            this.multi = multi;
         }
 
         public void initialize(Vector3 persoPos, Vector3 persoRot, GraphicsDeviceManager graphics)
         {
-
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad8))
-                thirdPersonReference.Y += 5;
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad2))
-                thirdPersonReference.Y -= 5;
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad6))
-                offset += 5;
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad4))
-                offset -= 5;
-
-            rotationMatrix = Matrix.CreateRotationY(MathHelper.ToRadians(-persoRot.Y + offset));
+            rotationMatrix = Matrix.CreateRotationY(MathHelper.ToRadians(-persoRot.Y));
             transformedReference = Vector3.Transform(thirdPersonReference, rotationMatrix);
             position = transformedReference + persoPos;
             cameraLookat = position + transformedReference;
@@ -61,9 +51,10 @@ namespace Evasion.Affichage._3D
             
             Viewport viewport = graphics.GraphicsDevice.Viewport;
             float aspectRatio = (float)viewport.Width / (float)viewport.Height;
-#if MULTI
-            aspectRatio /= 2;
-#endif 
+
+            if(multi)
+                aspectRatio /= 2;
+
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(1.0f, aspectRatio,
                     1.0f, 10000.0f);
             //informations += this.position.ToString();
