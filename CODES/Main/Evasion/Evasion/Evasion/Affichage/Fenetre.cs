@@ -56,12 +56,13 @@ namespace Evasion.Affichage
                 case Content_t.NewGame:
                     ok = true;
                     menu = new Menu.Menu("Pause", this);
-                    jeu = new Jeu.Jeu(this, 1, false);
+                    jeu = new Jeu.Jeu(this, 1);
+                    multi = false;
                     break;
                 case Content_t.NewGameMulti:
                     ok = true;
                     menu = new Menu.Menu("Pause", this);
-                    jeu = new Jeu.Jeu(this, 1, true);
+                    jeu = new Jeu.Jeu(this, 1);
                     multi = true;
                     break;
                 case Content_t.LoadGame:
@@ -86,6 +87,7 @@ namespace Evasion.Affichage
                     break;
                 case Content_t.NewGame:
                 case Content_t.LoadGame:
+                case Content_t.NewGameMulti:
                     jeu.Update(keyboardState, mouseState);
                     break;
                 case Content_t.Save:

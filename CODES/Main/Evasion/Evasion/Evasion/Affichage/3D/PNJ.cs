@@ -17,7 +17,6 @@ namespace Evasion.Affichage._3D
         private Model persoModel;
         private Vector3 persoPosition;
 
-        private Matrix viewMatrix;
         private Matrix projectionMatrix;
         private Vector3 Rotation;
 
@@ -31,6 +30,11 @@ namespace Evasion.Affichage._3D
         private KeyboardState currentKeyboardState;
 
         private TypePerso type;
+        private bool traque;
+
+        private Vector3 depart, arrivee;
+        private bool isGoingToArrivee;
+        private float vitesse;
 
         public Vector3 getPosition()
         {
@@ -42,20 +46,23 @@ namespace Evasion.Affichage._3D
             return Rotation;
         }
 
-        public PNJ(ContentManager Content, Vector3 position, Vector3 rotation, Matrix view, float aspectRatio, TypePerso type)
+        public PNJ(ContentManager Content, Vector3 position, float aspectRatio, TypePerso type)
         {
             this.persoModel = Content.Load<Model>("Models\\perso");
-            this.persoPosition = position;
-            this.Rotation = rotation;
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 1.0f, 10000.0f);
-            viewMatrix = view;
             this.type = type;
             texture[0] = Content.Load<Texture2D>("Models\\michael");
             texture[1] = Content.Load<Texture2D>("Models\\ennemidehors");
             texture[2] = Content.Load<Texture2D>("Models\\gardien");
             texture[3] = Content.Load<Texture2D>("Models\\prisonnier-2");
+            this.vitesse = 0.1f;
             this.texture = texture;
             this.initPhyPerso();
+            this.traque = false;
+            this.persoPosition = position;
+            this.depart = position;
+            this.arrivee = new Vector3(position.X + 100, position.Y, position.Z + 300) ;
+            this.isGoingToArrivee = true;
         }
 
         public void initPhyPerso()
@@ -98,5 +105,41 @@ namespace Evasion.Affichage._3D
             }
         }
 
+        public void UpDate(bool traque, GameTime gt)
+        {
+            float time = (float)gt.ElapsedGameTime.TotalMilliseconds;
+            float deplacement = time * vitesse;
+
+
+            if (traque)
+                this.traque = true;
+
+            if (this.traque)
+            {
+                this.traque = true;
+            }
+
+            else
+            {
+                int diffX, diffY;
+
+                if (isGoingToArrivee)
+                {
+                    if (arrivee.X < persoPosition.X)
+                    {
+                        persoPosition.X += deplacement;
+                        if(persoPosition.X>arrivee.X)
+                            persoPosition.X=arrivee.X;
+                    }
+
+                    if (arrivee.Z < persoPosition.Z)
+                    {
+                        persoPosition.Z += deplacement;
+                        if (persoPosition.Z > arrivee.Z)
+                            persoPosition.Z = arrivee.Z;
+                    }
+                }
+            }
+        }
     }
 }

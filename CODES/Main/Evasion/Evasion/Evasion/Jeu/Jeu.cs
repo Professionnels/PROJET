@@ -23,6 +23,7 @@ namespace Evasion.Jeu
         private Niveau niveau;
         public bool multi;
         private List<Evasion.Affichage._3D.Mur> murs;
+      //  public bool multi;
         List<Personnage> joueurs;
         List<Ennemi> pnjs;
         private int TAILLE_BLOC;
@@ -36,7 +37,7 @@ namespace Evasion.Jeu
         Evasion.Affichage._3D.Sol solChangeant;
         Evasion.Affichage._3D.Mur Tmur; */
 
-        public Jeu(Fenetre fen, int nombreJoueurs, bool multi)
+    /*   public Jeu(Fenetre fen, int nombreJoueurs, bool multi)
         {
             TAILLE_BLOC = 30;
             Niveau niveau = ChargementNiveau.Load();
@@ -51,7 +52,7 @@ namespace Evasion.Jeu
                 //joueurs.Add(new Joueur("Joueur "+i, 100, deplacement_t.marche, new Vector3(0,0,0), 1, "fichier3D", new Capacite("capacite3D")));
             //for (int j=0; j<niveau.Persos.Count; j++)
                 //joueurs.Add(niveau.Persos[j]);
-        }
+        }*/
 
         public Jeu(Fenetre fen, int nombreJoueurs)
         {

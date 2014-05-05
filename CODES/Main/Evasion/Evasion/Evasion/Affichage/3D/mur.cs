@@ -1,4 +1,4 @@
-﻿#define DEBUG_BB
+﻿//#define DEBUG_BB
 
 using System;
 using System.Collections.Generic;
@@ -88,7 +88,9 @@ namespace Evasion.Affichage._3D
             Matrix[] transforms = new Matrix[mur.Bones.Count];
             mur.CopyAbsoluteBoneTransformsTo(transforms);
 
-            boundingBoxes.Clear();
+            this.informations = "";
+
+            //boundingBoxes.Clear();
 
             foreach (ModelMesh mesh in mur.Meshes)
             {
@@ -105,14 +107,16 @@ namespace Evasion.Affichage._3D
                                     Matrix.CreateTranslation(murPosition);
                     effect.View = camera.viewMatrix;
                     effect.Projection = camera.projectionMatrix;
-
+mesh.Draw();
 #if DEBUG_BB
                     boundingBoxes.Add(BuildBoundingBox(mesh, transforms[mesh.ParentBone.Index]));
+
+                    
+                    this.informations += boundingBoxes.Last().Min.ToString() + boundingBoxes.Last().Max.ToString() + "\n";
 #endif
-                    mesh.Draw();
                 }
             }
-
+#if DEBUG_BB
             foreach (ModelMesh mesh in mur.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
@@ -143,6 +147,7 @@ namespace Evasion.Affichage._3D
                     }
                 }
             }
+#endif
 
         }
 

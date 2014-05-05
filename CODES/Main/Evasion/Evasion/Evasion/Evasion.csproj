@@ -145,6 +145,7 @@
     <Compile Include="Son\Son.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Affichage\3D\BoundingSphereRenderer.cs" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
