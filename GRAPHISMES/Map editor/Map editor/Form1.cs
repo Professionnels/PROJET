@@ -33,14 +33,15 @@ namespace Map_editor
         public Form1()
         {
             InitializeComponent();
-            blanc = new Bitmap(@"E:\Visual Studio 2010\Projects\Map editor\Map editor\Resources\Blanc.bmp");
-            mur = new Bitmap(@"E:\Visual Studio 2010\Projects\Map editor\Map editor\Resources\mur_prison.bmp");
-            assassin = new Bitmap(@"E:\Visual Studio 2010\Projects\Map editor\Map editor\Resources\assassin.bmp");
-            gardien = new Bitmap(@"E:\Visual Studio 2010\Projects\Map editor\Map editor\Resources\gardien.bmp");
-            munitions = new Bitmap(@"E:\Visual Studio 2010\Projects\Map editor\Map editor\Resources\Munitions.bmp");
-            spawn = new Bitmap(@"E:\Visual Studio 2010\Projects\Map editor\Map editor\Resources\Spawn.bmp");
-            heros = new Bitmap(@"E:\Visual Studio 2010\Projects\Map editor\Map editor\Resources\heros.bmp");
-            prisonnier = new Bitmap(@"E:\Visual Studio 2010\Projects\Map editor\Map editor\Resources\prisonnier.bmp");
+            string path = Directory.GetCurrentDirectory() + @"\Resources\Blanc.bmp";
+            blanc = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\Blanc.bmp");
+            mur = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\mur_prison.bmp");
+            assassin = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\assassin.bmp");
+            gardien = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\gardien.bmp");
+            munitions = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\Munitions.bmp");
+            spawn = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\Spawn.bmp");
+            heros = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\heros.bmp");
+            prisonnier = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\prisonnier.bmp");
             tile = blanc;
             elements = new Elements();
             Display = new Bitmap(Screen.FromControl(this).Bounds.Size.Width, Screen.FromControl(this).Bounds.Size.Height);
