@@ -1,5 +1,5 @@
 #define DEBUG_BB
-#define MULTI
+//#define MULTI
 //#define RES
 
 using System;
@@ -179,13 +179,7 @@ namespace Evasion
             cameratwo.initialize(bellick.persoPosition, bellick.Rotation, this.graphics);
 #endif
 
-            //BoundingBox b1 = new BoundingBox(new Vector3(0, 0, 0), new Vector3(1, 1, 1));
-            //BoundingBox b2 = new BoundingBox(new Vector3(0.5f, 0.5f, 0.5f), new Vector3(1.5f, 1.5f, 1.5f));
-
-            //if (b1.Intersects(b2))
-            //    infoDeb += "COLLISION\n";
-            //else
-            //    infoDeb += "FALSE\n";
+            
 
             infoDeb += (1000.0 / gameTime.ElapsedGameTime.TotalMilliseconds).ToString() + '\n';
 
@@ -197,23 +191,6 @@ namespace Evasion
             Evasion.Jeu.Server_L serveur = new Jeu.Server_L();
 
 #endif
-            // michael.UpdatePosition(gameTime);
-
-            // camera.initialize(michael.persoPosition, michael.Rotation, this.graphics);
-
-            foreach (BoundingBox box in michael.boundingBoxes)
-            {
-                foreach (BoundingBox mBox in murchangeant.boundingBoxes)
-                {
-                    if (box.Intersects(mBox))
-                    {
-                        michael.persoPosition = pos;
-                        michael.Rotation = rot;
-                        infoDeb += "\nCollision\n";
-                        infoDeb += box.Min.ToString() + " " + box.Max.ToString() + "\n";
-                    }
-                }
-            }
 
             base.Update(gameTime);
         }
@@ -257,7 +234,7 @@ namespace Evasion
 #endif
                 spriteBatch.Begin();
                 spriteBatch.DrawString(this.textFont, infoDeb + michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
-                Vie.Draw();
+                //Vie.Draw();
                 spriteBatch.End();
 
 #if MULTI
