@@ -55,9 +55,7 @@ namespace Evasion.Affichage.Menu
                     Fen.LoadContent(Content_t.NewGame);
                     break;
                 case "Multijoueur game":
-                    Fen.LoadContent(Content_t.NewGame);
-                    Fen.multi = true;
-                    Fen.ok = true;
+                    Fen.LoadContent(Content_t.NewGameMulti);
                     break;
                 case "Load game":
                     //Fen.LoadContent(Content_t.LoadGame);

@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Content;
 
 namespace Evasion.Affichage
 {
@@ -14,21 +15,23 @@ namespace Evasion.Affichage
         Options,
         Quit,
         NewGame,
+        NewGameMulti,
         LoadGame,
         Save
     };
 
     class Fenetre
     {
-        public bool ok;
         public bool multi;
-        private Jeu.Jeu jeu;
+        public bool ok;
+        public Jeu.Jeu jeu;
         private Content_t content;
         private Microsoft.Xna.Framework.Game screen;
         private Menu.Menu menu;
 
         public Fenetre(Microsoft.Xna.Framework.Game screen)
         {
+            multi = false;
             content = Content_t.Menu;
             this.screen=screen;
             menu = new Menu.Menu("Main menu", this);
@@ -53,7 +56,12 @@ namespace Evasion.Affichage
                 case Content_t.NewGame:
                     ok = true;
                     menu = new Menu.Menu("Pause", this);
-                    jeu = new Jeu.Jeu(this, 1);
+                    jeu = new Jeu.Jeu(this, 1, false);
+                    break;
+                case Content_t.NewGameMulti:
+                    ok = true;
+                    menu = new Menu.Menu("Pause", this);
+                    jeu = new Jeu.Jeu(this, 1, true);
                     multi = true;
                     break;
                 case Content_t.LoadGame:
@@ -88,7 +96,7 @@ namespace Evasion.Affichage
             }
         }
 
-        public void Display(SpriteBatch sb)
+        public void Display(SpriteBatch sb, GraphicsDevice gd, ContentManager cm)
         {
             switch (content)
             {
@@ -96,8 +104,9 @@ namespace Evasion.Affichage
                     menu.Display(screen, sb);
                     break;
                 case Content_t.NewGame:
+                case Content_t.NewGameMulti:
                 case Content_t.LoadGame:
-                    jeu.Display(screen, sb);
+                    jeu.Display(screen, sb, gd, cm);
                     break;
                 default:
                     break;

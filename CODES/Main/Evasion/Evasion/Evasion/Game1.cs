@@ -86,17 +86,15 @@ namespace Evasion
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-#if MULTI
             IsMouseVisible = true;
+#if MULTI
             defaultview = GraphicsDevice.Viewport;
             leftview = defaultview;
             rightview = defaultview;
             leftview.Width = leftview.Width / 2;
             rightview.Width = rightview.Width / 2 - 9;
-            rightview.X = leftview.Width+9;
+            rightview.X = leftview.Width + 9;
 #endif
-
             Son.ChargerSon.Init(Content);
             ChargerImages.InitMenu(Content);
             fenetre.LoadContent(Content_t.Menu);
@@ -138,11 +136,34 @@ namespace Evasion
 
                 graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
                 graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+                int ratioX = graphics.PreferredBackBufferWidth / Evasion.Affichage.Constantes.SCREEN_WIDTH;
+                int ratioY = graphics.PreferredBackBufferHeight / Evasion.Affichage.Constantes.SCREEN_HEIGHT;
                 if (this.graphics.IsFullScreen)
                 {
                     graphics.PreferredBackBufferWidth = Evasion.Affichage.Constantes.SCREEN_WIDTH;
                     graphics.PreferredBackBufferHeight = Evasion.Affichage.Constantes.SCREEN_HEIGHT;
+#if MULTI
+                    leftview.Width /= ratioX;
+                    rightview.Width /= ratioX;
+                    leftview.Height /= ratioY;
+                    rightview.Height /= ratioY;
+#endif
                 }
+                else
+                {
+#if MULTI
+                    leftview.Width *= ratioX;
+                    rightview.Width *= ratioX;
+                    leftview.Height *= ratioY;
+                    rightview.Height *= ratioY;
+#endif
+                }
+#if MULTI
+                leftview.Y = (graphics.PreferredBackBufferHeight / 2)-(leftview.Height/2);
+                rightview.Y = (graphics.PreferredBackBufferHeight / 2) - (rightview.Height / 2);
+                leftview.X = (graphics.PreferredBackBufferWidth / 2) - leftview.Width;
+                rightview.X = leftview.X+leftview.Width + 9;
+#endif
                 this.graphics.IsFullScreen = !(this.graphics.IsFullScreen);
                 this.graphics.ApplyChanges();
             }
@@ -207,6 +228,7 @@ namespace Evasion
                 GraphicsDevice.Clear(Color.Gray);
 
                 
+
 #if MULTI
                 GraphicsDevice.Viewport = leftview;
                     bellick.draw(camera);
@@ -227,12 +249,13 @@ namespace Evasion
                 GraphicsDevice.Viewport = defaultview;
 
                 spriteBatch.Begin();
-                spriteBatch.Draw(Content.Load<Texture2D>("Separation"), new Vector2(800 / 2 -2, 0), Color.White);
+                spriteBatch.Draw(Content.Load<Texture2D>("Separation"), new Vector2(graphics.PreferredBackBufferWidth/2, 0), Color.White);
                 spriteBatch.End();
 #endif
-
+#if MULTI
+                GraphicsDevice.Viewport = leftview;
+#endif
                 spriteBatch.Begin();
-                
                 spriteBatch.DrawString(this.textFont, infoDeb + michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 Vie.Draw();
                 spriteBatch.End();
@@ -247,7 +270,7 @@ namespace Evasion
             else
             {
                 spriteBatch.Begin();
-                fenetre.Display(spriteBatch);
+                fenetre.Display(spriteBatch, GraphicsDevice, Content);
 #if DEBUG_BB
                 spriteBatch.DrawString(this.textFont, "Menu", Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
 #else
