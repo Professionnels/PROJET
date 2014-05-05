@@ -116,7 +116,7 @@ namespace Evasion
 #if MULTI
             cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi);
 #endif
-            load(Directory.GetCurrentDirectory() + @"\Maps\prison_1.txt");
+            load(Directory.GetCurrentDirectory() + @"\..\..\..\..\EvasionContent\Maps\prison_1.txt");
         }
 
         public void load(string fileName)
