@@ -77,7 +77,7 @@ namespace Evasion.Affichage.Menu
                 if (mouseState.LeftButton == ButtonState.Pressed && mouseState.Y >= Elements[i].Pos.Y && mouseState.Y <= Elements[i].Pos.Y + Elements[i].size.Height && mouseState.X >= Elements[i].Pos.X && mouseState.X <= Elements[i].Pos.X + Elements[i].size.Width)
                 {
                     type=Elements[i].Name;
-                    if (Elements[i].Name == "New game" || Elements[i].Name == "Reprendre" || Elements[i].Name == "Main menu")
+                    if (Elements[i].Name == "New game" || Elements[i].Name == "Reprendre" || Elements[i].Name == "Main menu" || Elements[i].Name == "Multijoueur game")
                         Elements[i].Press();
                     LoadContent(screen);
                 }

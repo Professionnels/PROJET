@@ -232,14 +232,15 @@ namespace Evasion
                     GraphicsDevice.Viewport = defaultview;
 
                     spriteBatch.Begin();
-                    spriteBatch.Draw(Content.Load<Texture2D>("Separation"), new Vector2(graphics.PreferredBackBufferWidth / 2, 0), Color.White);
+                    spriteBatch.Draw(Content.Load<Texture2D>("Separation"), new Vector2(graphics.PreferredBackBufferWidth / 2, 0), null, Microsoft.Xna.Framework.Color.White, 0, Vector2.Zero, new Vector2(1, graphics.PreferredBackBufferWidth/600), SpriteEffects.None, 0);
+                    spriteBatch.Draw(Content.Load<Texture2D>("Separation"), new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight/2-300), Color.White);
                     spriteBatch.End();
                     GraphicsDevice.Viewport = leftview;
                 }
 
                 spriteBatch.Begin();
                 spriteBatch.DrawString(this.textFont, infoDeb + michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
-                //Vie.Draw();
+                Vie.Draw();
                 spriteBatch.End();
 
                 if (fenetre.multi)
