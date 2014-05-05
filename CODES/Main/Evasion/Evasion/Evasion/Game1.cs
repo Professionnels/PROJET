@@ -46,6 +46,7 @@ namespace Evasion
         //Evasion.Affichage._3D.PNJ bellick;
         Evasion.Affichage._3D.Perso_Model michael;
         Evasion.Affichage._3D.Perso_Model bellick;
+        Evasion.Affichage._3D.PNJ prisonnier;
         Evasion.Affichage._3D.Mur murchangeant;
         Evasion.Affichage._3D.Sol solChangeant;
         Evasion.Affichage._3D.Mur Tmur;
@@ -94,8 +95,7 @@ namespace Evasion
             this.textFont = Content.Load<SpriteFont>("MyFont");
 
             michael = new Affichage._3D.Perso_Model(Content, new Vector3(20, 0, 20), viewMatrix, aspectRatio, graphics, 1);
-
-
+            prisonnier = new Affichage._3D.PNJ(Content, new Vector3(-20, 0, -20), aspectRatio, TypePerso.prisonnier); 
             murchangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton, graphics);
             solChangeant = new Affichage._3D.Sol(Content, Vector3.Zero, viewMatrix, aspectRatio, TypeSol.prison);
             Tmur = new Affichage._3D.Mur(Content, new Vector3(1, 0, 0), viewMatrix, aspectRatio, TypeMur.brique, graphics);
@@ -186,12 +186,9 @@ namespace Evasion
                 cameratwo.initialize(bellick.persoPosition, bellick.Rotation, this.graphics);
             }
 
-            
+            prisonnier.UpDate(false, gameTime);
 
             infoDeb += (1000.0 / gameTime.ElapsedGameTime.TotalMilliseconds).ToString() + '\n';
-
-            Vector3 pos = michael.getPosition();
-            Vector3 rot = michael.getRotation();
 
 #if RES
             Evasion.Jeu.Client_L client = new Jeu.Client_L();
@@ -221,6 +218,7 @@ namespace Evasion
                 solChangeant.draw(camera);
                 Tmur.draw(camera);
                 michael.draw(camera);
+                prisonnier.draw(camera);
 
                 if (fenetre.multi)
                 {
