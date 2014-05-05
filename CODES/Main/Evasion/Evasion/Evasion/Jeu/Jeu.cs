@@ -20,7 +20,7 @@ namespace Evasion.Jeu
         private Son.Son pause;
         private Fenetre Fen;
         private Niveau niveau;
-        public bool multi;
+      //  public bool multi;
         List<Personnage> joueurs;
        /* Viewport defaultview;
         Viewport leftview;
@@ -32,7 +32,7 @@ namespace Evasion.Jeu
         Evasion.Affichage._3D.Sol solChangeant;
         Evasion.Affichage._3D.Mur Tmur; */
 
-        public Jeu(Fenetre fen, int nombreJoueurs, bool multi)
+    /*   public Jeu(Fenetre fen, int nombreJoueurs, bool multi)
         {
             Niveau niveau = ChargementNiveau.Load();
             SonAmbiance1 = new Son.Son(Son.ChargerSon.theme1);
@@ -45,7 +45,7 @@ namespace Evasion.Jeu
                 //joueurs.Add(new Joueur("Joueur "+i, 100, deplacement_t.marche, new Vector3(0,0,0), 1, "fichier3D", new Capacite("capacite3D")));
             //for (int j=0; j<niveau.Persos.Count; j++)
                 //joueurs.Add(niveau.Persos[j]);
-        }
+        }*/
 
         public Jeu(Fenetre fen, int nombreJoueurs)
         {
