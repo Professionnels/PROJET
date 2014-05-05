@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Media;
 using Evasion.Personnages;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using System.IO;
 
 namespace Evasion.Jeu
 {
@@ -21,7 +22,10 @@ namespace Evasion.Jeu
         private Fenetre Fen;
         private Niveau niveau;
         public bool multi;
+        private List<Evasion.Affichage._3D.Mur> murs;
         List<Personnage> joueurs;
+        List<Ennemi> pnjs;
+        private int TAILLE_BLOC;
        /* Viewport defaultview;
         Viewport leftview;
         Viewport rightview;
@@ -34,6 +38,7 @@ namespace Evasion.Jeu
 
         public Jeu(Fenetre fen, int nombreJoueurs, bool multi)
         {
+            TAILLE_BLOC = 30;
             Niveau niveau = ChargementNiveau.Load();
             SonAmbiance1 = new Son.Son(Son.ChargerSon.theme1);
             SonAmbiance2 = new Son.Son(Son.ChargerSon.theme2);
@@ -41,6 +46,7 @@ namespace Evasion.Jeu
             current = SonAmbiance1;
             Fen = fen;
             this.multi = multi;
+         //   load(@"C:\Users\epita\Desktop\2\prison_1.txt");
             //for (i = 0; i < nombreJoueurs; i++ )
                 //joueurs.Add(new Joueur("Joueur "+i, 100, deplacement_t.marche, new Vector3(0,0,0), 1, "fichier3D", new Capacite("capacite3D")));
             //for (int j=0; j<niveau.Persos.Count; j++)
@@ -49,12 +55,14 @@ namespace Evasion.Jeu
 
         public Jeu(Fenetre fen, int nombreJoueurs)
         {
+            TAILLE_BLOC = 30;
             Niveau niveau = ChargementNiveau.Load();
             SonAmbiance1 = new Son.Son(Son.ChargerSon.theme1);
             SonAmbiance2 = new Son.Son(Son.ChargerSon.theme2);
             pause = new Son.Son(Son.ChargerSon.son_pause);
             current = SonAmbiance1;
             Fen = fen;
+          //  load(@"C:\Users\epita\Desktop\2\prison_1.txt");
 
             // charger niveau
 
@@ -63,6 +71,41 @@ namespace Evasion.Jeu
             //for (int j=0; j<niveau.Persos.Count; j++)
             //joueurs.Add(niveau.Persos[j]);
         }
+
+     /*   public void load(string fileName)
+        {
+            FileStream file = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Read);
+            StreamReader str = new StreamReader(file);
+            for (int i = 0; i < 40; i++)
+            {
+                for (int j = 0; j < 40; j++)
+                    switch ((int)str.Read())
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            murs.Add(new Evasion.Affichage._3D.Mur());
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 7:
+                            break;
+                        default:
+                            break;
+                    
+                    }
+                str.ReadLine();
+            }
+            file.Close();
+        }  */
 
         public void Update(KeyboardState keyboardState, MouseState mouseState)
         {

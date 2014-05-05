@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Evasion.Affichage;
+using System.IO;
 
 namespace Evasion
 {
@@ -31,6 +32,8 @@ namespace Evasion
         // Personnage perso = new Personnage();
         Fenetre fenetre;
         SpriteFont textFont;
+        FileStream file;
+        StreamReader str;
 
         private string infoDeb;
 
@@ -44,11 +47,13 @@ namespace Evasion
         private float aspectRatio;
 
         //Evasion.Affichage._3D.PNJ bellick;
+        private List<Evasion.Affichage._3D.Mur> murs;
+        private List<Affichage._3D.Perso_Model> pnjs;
         Evasion.Affichage._3D.Perso_Model michael;
         Evasion.Affichage._3D.Perso_Model bellick;
         Evasion.Affichage._3D.Mur murchangeant;
         Evasion.Affichage._3D.Sol solChangeant;
-        Evasion.Affichage._3D.Mur Tmur;
+     //   Evasion.Affichage._3D.Mur Tmur;
 
         Evasion.Affichage._3D.Camera camera;
 
@@ -60,6 +65,7 @@ namespace Evasion
         private Model sol;
         private Vector3 solPosition;
         private Vector3 solRotation;
+        private Vector3 position;
 
         //Barre de Vie
         private Evasion.Affichage.Informations.BarreVie Vie;
@@ -67,6 +73,8 @@ namespace Evasion
 
         public Game1()
         {
+            murs = new List<Affichage._3D.Mur>();
+            pnjs = new List<Affichage._3D.Perso_Model>();
             fenetre = new Fenetre(this);
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -110,14 +118,58 @@ namespace Evasion
 
             murchangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton, graphics);
             solChangeant = new Affichage._3D.Sol(Content, Vector3.Zero, viewMatrix, aspectRatio, TypeSol.prison);
-            Tmur = new Affichage._3D.Mur(Content, new Vector3(1, 0, 0), viewMatrix, aspectRatio, TypeMur.brique, graphics);
+           // Tmur = new Affichage._3D.Mur(Content, new Vector3(1, 0, 0), viewMatrix, aspectRatio, TypeMur.brique, graphics);
 
             camera = new Affichage._3D.Camera(michael.persoPosition, aspectRatio, fenetre.multi);
 
 #if MULTI
             cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi);
 #endif
+            load(@"C:\Users\epita\Desktop\2\prison_1.txt");
         }
+
+        public void load(string fileName)
+        {
+            file = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Read);
+            str = new StreamReader(file);
+            for (int i = 0; i < 40; i++)
+            {
+                for (int j = 0; j < 40; j++)
+                {
+                    int a = (int)str.Read()-48;
+                    switch (a)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            murs.Add(new Evasion.Affichage._3D.Mur(Content, new Vector3(30 * j, 0, 30 * i), viewMatrix, aspectRatio, TypeMur.brique, graphics));
+                            break;
+                        case 2:
+                            pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(30 * j, 0, 30 * i), viewMatrix, aspectRatio, graphics, 1));
+                            break;
+                        case 3:
+                            pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(30 * j, 0, 30 * i), viewMatrix, aspectRatio, graphics, 2));
+                            break;
+                        case 4:
+                            pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(30 * j, 0, 30 * i), viewMatrix, aspectRatio, graphics, 3));
+                            break;
+                        case 5:
+                            pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(30 * j, 0, 30 * i), viewMatrix, aspectRatio, graphics, 4));
+                            break;
+                        case 6:
+                            michael.persoPosition = new Vector3(30 * j, 0, 30 * i);
+                            break;
+                        case 7:
+                            break;
+                        default:
+                            break;
+
+                    }
+                }
+                str.ReadLine();
+            }
+            file.Close();
+        } 
 
         protected override void UnloadContent()
         {
@@ -212,7 +264,13 @@ namespace Evasion
 #endif
                     murchangeant.draw(camera);
                     solChangeant.draw(camera);
-                    Tmur.draw(camera);
+                //    Tmur.draw(camera);
+                    int i = 0;
+                    for (i = 0; i < murs.Count(); i++)
+                        murs[i].draw(camera);
+                    int j = 0;
+                    for (j= 0; j < pnjs.Count(); j++)
+                        pnjs[j].draw(camera);
                     michael.draw(camera);
 
 #if MULTI
