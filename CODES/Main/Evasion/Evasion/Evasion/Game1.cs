@@ -50,7 +50,7 @@ namespace Evasion
 
         //Evasion.Affichage._3D.PNJ bellick;
         private List<Evasion.Affichage._3D.Mur> murs;
-        private List<Affichage._3D.Perso_Model> pnjs;
+        private List<Evasion.Affichage._3D.PNJ> pnjs;
         private List<Evasion.Affichage._3D.Sol> sols;
         private List<Evasion.Affichage._3D.Sol> plafonds;
         Evasion.Affichage._3D.Perso_Model michael;
@@ -61,7 +61,7 @@ namespace Evasion
         Evasion.Affichage._3D.Camera camera;
 
         Evasion.Affichage._3D.Camera cameratwo;
-
+        public int scale;
         //SOL
         private Model sol;
         private Vector3 solPosition;
@@ -74,8 +74,9 @@ namespace Evasion
 
         public Game1()
         {
+            scale = 20;
             murs = new List<Affichage._3D.Mur>();
-            pnjs = new List<Affichage._3D.Perso_Model>();
+            pnjs = new List<Evasion.Affichage._3D.PNJ>();
             sols = new List<Affichage._3D.Sol>();
             plafonds = new List<Affichage._3D.Sol>();
             multijoueurCharge = false;
@@ -116,7 +117,7 @@ namespace Evasion
 #if MULTI
             cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi);
 #endif
-            load(@"C:\Users\epita\Desktop\2\prison_1.txt");
+            load(@"C:\Users\epita\Desktop\2\prison_2.txt");
         }
 
         public void load(string fileName)
@@ -129,28 +130,28 @@ namespace Evasion
                 {
                     int a = (int)str.Read()-48;
                     if (j%5==0)
-                        sols.Add(new Evasion.Affichage._3D.Sol(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, TypeSol.prison));
+                        sols.Add(new Evasion.Affichage._3D.Sol(Content, new Vector3(scale * j, 0, scale * i), viewMatrix, aspectRatio, TypeSol.prison));
                     switch (a)
                     {
                         case 0:
                             break;
                         case 1:
-                            murs.Add(new Evasion.Affichage._3D.Mur(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, TypeMur.brique, graphics));
+                            murs.Add(new Evasion.Affichage._3D.Mur(Content, new Vector3(scale * j, 0, scale * i), viewMatrix, aspectRatio, TypeMur.brique, graphics));
                             break;
                         case 2:
-                            pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, graphics, 1));
+                            pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(scale * j, 0, scale * i), aspectRatio, TypePerso.bellick));
                             break;
                         case 3:
-                            pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, graphics, 2));
+                            pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(scale * j, 0, scale * i), aspectRatio, TypePerso.gardien));
                             break;
                         case 4:
-                            pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, graphics, 3));
+                            pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(scale * j, 0, scale * i), aspectRatio, TypePerso.prisonnier));
                             break;
                         case 5:
-                            pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, graphics, 4));
+                            pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(20 * j, 0, 20 * i), aspectRatio, TypePerso.perso));
                             break;
                         case 6:
-                            michael.persoPosition = new Vector3(20 * j, 0, 20 * i);
+                            michael.persoPosition = new Vector3(scale * j, 0, scale * i);
                             break;
                         case 7:
                             break;
