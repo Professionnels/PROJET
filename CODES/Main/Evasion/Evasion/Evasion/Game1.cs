@@ -111,7 +111,7 @@ namespace Evasion
             murChangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton, graphics);
             Tmur = new Affichage._3D.Mur(Content, new Vector3(1, 0, 0), viewMatrix, aspectRatio, TypeMur.brique, graphics);
 
-            camera = new Affichage._3D.Camera(michael.persoPosition, aspectRatio, fenetre.multi);
+            camera = new Affichage._3D.Camera(michael.persoPosition, aspectRatio, fenetre.multi,1);
 
 #if MULTI
             cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi);
@@ -233,7 +233,7 @@ namespace Evasion
                 rightview.Width = rightview.Width / 2 - 9;
                 rightview.X = leftview.Width + 9;
                 bellick = new Affichage._3D.Perso_Model(Content, new Vector3(40, 0, -20), viewMatrix, aspectRatio, graphics, 2);
-                cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi);
+                cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi,1);
             }
 
             infoDeb = "";
