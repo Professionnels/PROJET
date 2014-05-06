@@ -62,11 +62,12 @@ namespace Evasion
 
         Evasion.Affichage._3D.Camera cameratwo;
         public int scale;
+        Random rnd;
         //SOL
         private Model sol;
         private Vector3 solPosition;
         private Vector3 solRotation;
-        private Vector3 position;
+        private List<Vector3> positionSpawn;
 
         //Barre de Vie
         private Evasion.Affichage.Informations.BarreVie Vie;
@@ -74,6 +75,8 @@ namespace Evasion
 
         public Game1()
         {
+            rnd = new Random();
+            positionSpawn = new List<Vector3>();
             scale = 20;
             murs = new List<Affichage._3D.Mur>();
             pnjs = new List<Evasion.Affichage._3D.PNJ>();
@@ -112,12 +115,12 @@ namespace Evasion
             //murchangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton, graphics);
             //Tmur = new Affichage._3D.Mur(Content, new Vector3(1, 0, 0), viewMatrix, aspectRatio, TypeMur.brique, graphics);
 
-            camera = new Affichage._3D.Camera(michael.persoPosition, aspectRatio, fenetre.multi);
+            camera = new Affichage._3D.Camera(michael.persoPosition, aspectRatio, fenetre.multi,1);
 
 #if MULTI
-            cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi);
+            cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi,2);
 #endif
-            load(@"C:\Users\epita\Desktop\2\prison_1.txt");
+            load(@"C:\Users\epita\Desktop\2\prison_2.txt");
         }
 
         public void load(string fileName)
@@ -151,7 +154,7 @@ namespace Evasion
                             pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(20 * j, 0, 20 * i), aspectRatio, TypePerso.perso));
                             break;
                         case 6:
-                            michael.persoPosition = new Vector3(scale * j, 0, scale * i);
+                            positionSpawn.Add(new Vector3(scale * j, 0, scale * i));
                             break;
                         case 7:
                             break;
@@ -163,6 +166,7 @@ namespace Evasion
                 str.ReadLine();
             }
             file.Close();
+            michael.persoPosition = positionSpawn[rnd.Next(positionSpawn.Count)];
         } 
 
         protected override void UnloadContent()
@@ -178,6 +182,12 @@ namespace Evasion
                 this.Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                michael.persoPosition = positionSpawn[rnd.Next(positionSpawn.Count)];
+                if (fenetre.multi)
+                    bellick.persoPosition = positionSpawn[rnd.Next(positionSpawn.Count)];
+            }
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
 
@@ -234,7 +244,8 @@ namespace Evasion
                 rightview.Width = rightview.Width / 2 - 9;
                 rightview.X = leftview.Width + 9;
                 bellick = new Affichage._3D.Perso_Model(Content, new Vector3(40, 0, -20), viewMatrix, aspectRatio, graphics, 2);
-                cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi);
+                bellick.persoPosition = positionSpawn[rnd.Next(positionSpawn.Count)];
+                cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi,2);
             }
 
             infoDeb = "";
@@ -326,7 +337,7 @@ namespace Evasion
                 }
 
                 spriteBatch.Begin();
-                spriteBatch.DrawString(this.textFont, infoDeb + michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                //spriteBatch.DrawString(this.textFont, infoDeb + michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
                 Vie.Draw();
                 spriteBatch.End();
 
@@ -347,7 +358,7 @@ namespace Evasion
 
                 fenetre.Display(spriteBatch, GraphicsDevice, Content);
 #if DEBUG_BB
-                spriteBatch.DrawString(this.textFont, "Menu", Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                //spriteBatch.DrawString(this.textFont, "Menu", Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
 #else
                 spriteBatch.DrawString(this.textFont, "Menu", Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
 #endif

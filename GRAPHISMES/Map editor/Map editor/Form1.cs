@@ -33,7 +33,6 @@ namespace Map_editor
         public Form1()
         {
             InitializeComponent();
-            string path = Directory.GetCurrentDirectory() + @"\Resources\Blanc.bmp";
             blanc = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\Blanc.bmp");
             mur = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\mur_prison.bmp");
             assassin = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\assassin.bmp");
