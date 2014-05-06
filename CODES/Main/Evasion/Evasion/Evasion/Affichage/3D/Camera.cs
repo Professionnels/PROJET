@@ -34,7 +34,7 @@ namespace Evasion.Affichage._3D
 
         public Camera(Vector3 position, float aspectRatio, bool multi, int nbCam)
         {
-            this.thirdPersonReference = new Vector3(0, 75, -120);
+            this.thirdPersonReference = new Vector3(0, 40, -40);
             this.position = position;
             this.viewMatrix = Matrix.CreateLookAt(this.position, new Vector3(0, 35, 0), Vector3.Up);
             this.projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
