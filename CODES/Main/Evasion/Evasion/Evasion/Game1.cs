@@ -50,24 +50,23 @@ namespace Evasion
 
         //Evasion.Affichage._3D.PNJ bellick;
         private List<Evasion.Affichage._3D.Mur> murs;
-        private List<Evasion.Affichage._3D.PNJ> pnjs;
+        private List<Affichage._3D.Perso_Model> pnjs;
         private List<Evasion.Affichage._3D.Sol> sols;
         private List<Evasion.Affichage._3D.Sol> plafonds;
         Evasion.Affichage._3D.Perso_Model michael;
         Evasion.Affichage._3D.Perso_Model bellick;
         Evasion.Affichage._3D.PNJ prisonnier;
-      //  Evasion.Affichage._3D.Mur Tmur;
-
+        Evasion.Affichage._3D.Mur Tmur;
+        Evasion.Affichage._3D.Mur murChangeant;
         Evasion.Affichage._3D.Camera camera;
 
         Evasion.Affichage._3D.Camera cameratwo;
-        public int scale;
-        Random rnd;
+
         //SOL
         private Model sol;
         private Vector3 solPosition;
         private Vector3 solRotation;
-        private List<Vector3> positionSpawn;
+        private Vector3 position;
 
         //Barre de Vie
         private Evasion.Affichage.Informations.BarreVie Vie;
@@ -75,11 +74,8 @@ namespace Evasion
 
         public Game1()
         {
-            rnd = new Random();
-            positionSpawn = new List<Vector3>();
-            scale = 20;
             murs = new List<Affichage._3D.Mur>();
-            pnjs = new List<Evasion.Affichage._3D.PNJ>();
+            pnjs = new List<Affichage._3D.Perso_Model>();
             sols = new List<Affichage._3D.Sol>();
             plafonds = new List<Affichage._3D.Sol>();
             multijoueurCharge = false;
@@ -111,63 +107,62 @@ namespace Evasion
             this.textFont = Content.Load<SpriteFont>("MyFont");
 
             michael = new Affichage._3D.Perso_Model(Content, new Vector3(20, 0, 20), viewMatrix, aspectRatio, graphics, 1);
-            prisonnier = new Affichage._3D.PNJ(Content, new Vector3(-20, 0, -20), aspectRatio, TypePerso.prisonnier); 
-            //murchangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton, graphics);
-            //Tmur = new Affichage._3D.Mur(Content, new Vector3(1, 0, 0), viewMatrix, aspectRatio, TypeMur.brique, graphics);
+            prisonnier = new Affichage._3D.PNJ(Content, new Vector3(-20, 0, -20), aspectRatio, TypePerso.prisonnier);
+            murChangeant = new Affichage._3D.Mur(Content, new Vector3(0, 0, 0), viewMatrix, aspectRatio, Affichage.TypeMur.beton, graphics);
+            Tmur = new Affichage._3D.Mur(Content, new Vector3(1, 0, 0), viewMatrix, aspectRatio, TypeMur.brique, graphics);
 
-            camera = new Affichage._3D.Camera(michael.persoPosition, aspectRatio, fenetre.multi,1);
+            camera = new Affichage._3D.Camera(michael.persoPosition, aspectRatio, fenetre.multi);
 
 #if MULTI
-            cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi,2);
+            cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi);
 #endif
-            load(Directory.GetCurrentDirectory() + @"\..\..\..\..\EvasionContent\Maps\prison_2.txt");
+            //load(Directory.GetCurrentDirectory() + @"\..\..\..\..\EvasionContent\Maps\prison_1.txt");
         }
 
-        public void load(string fileName)
-        {
-            file = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Read);
-            str = new StreamReader(file);
-            for (int i = 0; i < 40; i++)
-            {
-                for (int j = 0; j < 40; j++)
-                {
-                    int a = (int)str.Read()-48;
-                    if (j%5==0)
-                        sols.Add(new Evasion.Affichage._3D.Sol(Content, new Vector3(scale * j, 0, scale * i), viewMatrix, aspectRatio, TypeSol.prison));
-                    switch (a)
-                    {
-                        case 0:
-                            break;
-                        case 1:
-                            murs.Add(new Evasion.Affichage._3D.Mur(Content, new Vector3(scale * j, 0, scale * i), viewMatrix, aspectRatio, TypeMur.brique, graphics));
-                            break;
-                        case 2:
-                            pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(scale * j, 0, scale * i), aspectRatio, TypePerso.bellick));
-                            break;
-                        case 3:
-                            pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(scale * j, 0, scale * i), aspectRatio, TypePerso.gardien));
-                            break;
-                        case 4:
-                            pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(scale * j, 0, scale * i), aspectRatio, TypePerso.prisonnier));
-                            break;
-                        case 5:
-                            pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(20 * j, 0, 20 * i), aspectRatio, TypePerso.perso));
-                            break;
-                        case 6:
-                            positionSpawn.Add(new Vector3(scale * j, 0, scale * i));
-                            break;
-                        case 7:
-                            break;
-                        default:
-                            break;
+        //public void load(string fileName)
+        //{
+        //    file = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Read);
+        //    str = new StreamReader(file);
+        //    for (int i = 0; i < 40; i++)
+        //    {
+        //        for (int j = 0; j < 40; j++)
+        //        {
+        //            int a = (int)str.Read()-48;
+        //            if (j%5==0)
+        //                sols.Add(new Evasion.Affichage._3D.Sol(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, TypeSol.prison));
+        //            switch (a)
+        //            {
+        //                case 0:
+        //                    break;
+        //                case 1:
+        //                    murs.Add(new Evasion.Affichage._3D.Mur(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, TypeMur.brique, graphics));
+        //                    break;
+        //                case 2:
+        //                    pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, graphics, 1));
+        //                    break;
+        //                case 3:
+        //                    pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, graphics, 2));
+        //                    break;
+        //                case 4:
+        //                    pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, graphics, 3));
+        //                    break;
+        //                case 5:
+        //                    pnjs.Add(new Affichage._3D.Perso_Model(Content, new Vector3(20 * j, 0, 20 * i), viewMatrix, aspectRatio, graphics, 4));
+        //                    break;
+        //                case 6:
+        //                    michael.persoPosition = new Vector3(20 * j, 0, 20 * i);
+        //                    break;
+        //                case 7:
+        //                    break;
+        //                default:
+        //                    break;
 
-                    }
-                }
-                str.ReadLine();
-            }
-            file.Close();
-            michael.persoPosition = positionSpawn[rnd.Next(positionSpawn.Count)];
-        } 
+        //            }
+        //        }
+        //        str.ReadLine();
+        //    }
+        //    file.Close();
+        //} 
 
         protected override void UnloadContent()
         {
@@ -182,12 +177,6 @@ namespace Evasion
                 this.Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-            {
-                michael.persoPosition = positionSpawn[rnd.Next(positionSpawn.Count)];
-                if (fenetre.multi)
-                    bellick.persoPosition = positionSpawn[rnd.Next(positionSpawn.Count)];
-            }
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
 
@@ -244,8 +233,7 @@ namespace Evasion
                 rightview.Width = rightview.Width / 2 - 9;
                 rightview.X = leftview.Width + 9;
                 bellick = new Affichage._3D.Perso_Model(Content, new Vector3(40, 0, -20), viewMatrix, aspectRatio, graphics, 2);
-                bellick.persoPosition = positionSpawn[rnd.Next(positionSpawn.Count)];
-                cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi,2);
+                cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi);
             }
 
             infoDeb = "";
@@ -269,6 +257,19 @@ namespace Evasion
 
 #endif
 
+
+            if (michael.boundingBoxes.Intersects(murChangeant.boundingBoxes))
+            {
+                infoDeb += "\nCollision\n";
+                infoDeb += michael.boundingBoxes.Max.ToString() + " " + michael.boundingBoxes.Min.ToString();
+                infoDeb += "\n" + murChangeant.boundingBoxes.Max.ToString() + " " + murChangeant.boundingBoxes.Min.ToString();
+                //michael.persoPosition = pos;
+                //michael.Rotation = rot;
+            }
+
+
+
+
             base.Update(gameTime);
         }
 
@@ -287,58 +288,58 @@ namespace Evasion
                     GraphicsDevice.Viewport = leftview;
                     bellick.draw(camera);
                 }
-                 //   murchangeant.draw(camera);
-                 //   solChangeant.draw(camera);
+                //   murchangeant.draw(camera);
+                //   solChangeant.draw(camera);
                 //    Tmur.draw(camera);
-                    int i = 0;
-                    for (i = 0; i < murs.Count(); i++)
-                        murs[i].draw(camera);
-                    int j = 0;
-                    for (j= 0; j < pnjs.Count(); j++)
-                        pnjs[j].draw(camera);
-                    for (j = 0; j < sols.Count(); j++)
-                        sols[j].draw(camera);
-                    michael.draw(camera);
-
-                    if (fenetre.multi)
-                    {
-                        GraphicsDevice.Viewport = rightview;
-                        bellick.draw(cameratwo);
-                        for (i = 0; i < murs.Count(); i++)
-                            murs[i].draw(cameratwo);
-                        for (j = 0; j < pnjs.Count(); j++)
-                            pnjs[j].draw(cameratwo);
-                        for (j = 0; j < sols.Count(); j++)
-                            sols[j].draw(cameratwo);
-                        michael.draw(cameratwo);
-                    }
-             //   murchangeant.draw(camera);
-             //   solChangeant.draw(camera);
-             //   Tmur.draw(camera);
-              //  michael.draw(camera);
-           //     prisonnier.draw(camera);
+                int i = 0;
+                for (i = 0; i < murs.Count(); i++)
+                    murs[i].draw(camera);
+                int j = 0;
+                for (j = 0; j < pnjs.Count(); j++)
+                    pnjs[j].draw(camera);
+                for (j = 0; j < sols.Count(); j++)
+                    sols[j].draw(camera);
+                michael.draw(camera);
 
                 if (fenetre.multi)
                 {
                     GraphicsDevice.Viewport = rightview;
-                  //  bellick.draw(cameratwo);
-              //      murchangeant.draw(cameratwo);
-               //     solChangeant.draw(cameratwo);
-             //       Tmur.draw(cameratwo);
-                //    michael.draw(cameratwo);
+                    bellick.draw(cameratwo);
+                    for (i = 0; i < murs.Count(); i++)
+                        murs[i].draw(cameratwo);
+                    for (j = 0; j < pnjs.Count(); j++)
+                        pnjs[j].draw(cameratwo);
+                    for (j = 0; j < sols.Count(); j++)
+                        sols[j].draw(cameratwo);
+                    michael.draw(cameratwo);
+                }
+                murChangeant.draw(camera);
+                //   solChangeant.draw(camera);
+                //Tmur.draw(camera);
+                michael.draw(camera);
+                //     prisonnier.draw(camera);
+
+                if (fenetre.multi)
+                {
+                    GraphicsDevice.Viewport = rightview;
+                    bellick.draw(cameratwo);
+                    //      murchangeant.draw(cameratwo);
+                    //     solChangeant.draw(cameratwo);
+                    //       Tmur.draw(cameratwo);
+                    michael.draw(cameratwo);
 
                     GraphicsDevice.Viewport = defaultview;
 
                     spriteBatch.Begin();
-                    spriteBatch.Draw(Content.Load<Texture2D>("Separation"), new Vector2(graphics.PreferredBackBufferWidth / 2, 0), null, Microsoft.Xna.Framework.Color.White, 0, Vector2.Zero, new Vector2(1, graphics.PreferredBackBufferWidth/600), SpriteEffects.None, 0);
-                    spriteBatch.Draw(Content.Load<Texture2D>("Separation"), new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight/2-300), Color.White);
+                    spriteBatch.Draw(Content.Load<Texture2D>("Separation"), new Vector2(graphics.PreferredBackBufferWidth / 2, 0), null, Microsoft.Xna.Framework.Color.White, 0, Vector2.Zero, new Vector2(1, graphics.PreferredBackBufferWidth / 600), SpriteEffects.None, 0);
+                    spriteBatch.Draw(Content.Load<Texture2D>("Separation"), new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2 - 300), Color.White);
                     spriteBatch.End();
                     GraphicsDevice.Viewport = leftview;
                 }
 
                 spriteBatch.Begin();
-                //spriteBatch.DrawString(this.textFont, infoDeb + michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
-                Vie.Draw();
+                spriteBatch.DrawString(this.textFont, infoDeb + michael.informations, Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                //Vie.Draw();
                 spriteBatch.End();
 
                 if (fenetre.multi)
@@ -358,7 +359,7 @@ namespace Evasion
 
                 fenetre.Display(spriteBatch, GraphicsDevice, Content);
 #if DEBUG_BB
-                //spriteBatch.DrawString(this.textFont, "Menu", Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                spriteBatch.DrawString(this.textFont, "Menu", Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
 #else
                 spriteBatch.DrawString(this.textFont, "Menu", Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
 #endif

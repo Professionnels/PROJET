@@ -19,7 +19,8 @@ namespace Map_editor
         prisonnier=4,
         heros=5,
         spawn=6,
-        munitions=7
+        munitions=7,
+        barreaux=8
     }
 
     public partial class Form1 : Form
@@ -29,7 +30,7 @@ namespace Map_editor
         Bitmap tile;
         Bitmap Display;
         element type;
-        Bitmap blanc, mur, assassin, spawn, gardien, munitions, heros, prisonnier;
+        Bitmap blanc, mur, assassin, spawn, gardien, munitions, heros, prisonnier, barreaux;
         public Form1()
         {
             InitializeComponent();
@@ -41,7 +42,8 @@ namespace Map_editor
             spawn = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\Spawn.bmp");
             heros = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\heros.bmp");
             prisonnier = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\prisonnier.bmp");
-            tile = blanc;
+            barreaux = new Bitmap(Directory.GetCurrentDirectory() + @"\Resources\barreau.bmp");
+            tile = blanc;rrea
             elements = new Elements();
             Display = new Bitmap(Screen.FromControl(this).Bounds.Size.Width, Screen.FromControl(this).Bounds.Size.Height);
             pictureBox1.Image = Display;
@@ -193,6 +195,13 @@ namespace Map_editor
             tile = munitions;
             pictureBox2.Image = tile;
             type = element.munitions;
+        }
+
+        private void pictureBox11_Click(object sender, EventArgs e)
+        {
+            tile = barreaux;
+            pictureBox2.Image = tile;
+            type = element.barreaux;
         }
     }
 }
