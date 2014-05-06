@@ -315,17 +315,17 @@ namespace Evasion
              //   murchangeant.draw(camera);
              //   solChangeant.draw(camera);
              //   Tmur.draw(camera);
-                michael.draw(camera);
+              //  michael.draw(camera);
            //     prisonnier.draw(camera);
 
                 if (fenetre.multi)
                 {
                     GraphicsDevice.Viewport = rightview;
-                    bellick.draw(cameratwo);
+                  //  bellick.draw(cameratwo);
               //      murchangeant.draw(cameratwo);
                //     solChangeant.draw(cameratwo);
              //       Tmur.draw(cameratwo);
-                    michael.draw(cameratwo);
+                //    michael.draw(cameratwo);
 
                     GraphicsDevice.Viewport = defaultview;
 
