@@ -6,12 +6,14 @@
 \usepackage{fancyhdr}
 \usepackage{eurosym}
 \usepackage{color}
+\usepackage{graphicx}
 \usepackage{soul}
 
 \pagestyle{fancyplain} \chead{}\lhead{\textit{Les Professionnels}} \rhead{\emph{\textit{Evasion}}}
 
 \definecolor{pseudorouge}{RGB}{200, 50, 50}
 \definecolor{pseudoblue}{RGB}{20,10,230}
+\definecolor{texteGris}{RGB}{50,50,75}
 
 \begin{document}
 \thispagestyle{empty}
@@ -67,6 +69,54 @@ Khalis Chalabi - chalab\_k
 \subsection{Louis\textcolor{pseudoblue}{\textit{"El Parrain"}} Kedemos}
 
 \subsubsection{Expérience personnelle}
+Avant cette soutenance, nous avons disposé de deux semaines de vacances, ou du moins, de deux semaines sans cours. Je pense que cela a été bénéfique pour réaliser une grosse avancée dans notre projet. En effet, nous n'avons pas eu cette fois-ci le stress lié aux révisions ou aux cours. Se réunir pendant ces deux semaines a été plus facile qu'en période de cours. \newline
+Comme à la première soutenance, j'ai dû laisser de côté certaines idées de réalisations. J'espère avoir le temps, pour la troisième soutenance, de les réaliser. En revanche, certaines choses, que je n'avais pas prévu à l'origine, ont été développées.
+
+\subsubsection{Avancement de la 3D}
+Notre jeu est développé en \bsc{3D}. Mettre de côté ce point pendant le développement du jeu est impensable. C'est pourquoi de gros progrès ont été réalisés à ce niveau. Au moment de la première soutenance, pour créer un personnage ou un mur en \bsc{3D}, il fallait faire tout un tas de déclarations dans le fichier du jeu principal. Il devenait urgent de rendre la création \bsc{3D} plus facile, pour permettre des phases de tests le plus tôt possible. J'ai donc écrit des classes qui rendent possible l'instanciation, l'affichage et la manipulation des modèles \bsc{3D} aisés :
+
+\begin{quote}
+\textcolor{texteGris}{
+Evasion.Affichage.\_3D.Perso\_Model michael;\\
+michael = new Affichage.\_3D.Perso\_Model(Content, new Vector3(20, 0, 20), viewMatrix, aspectRatio, graphics, 1);\\
+michael.Update();\\
+michael.Draw();}
+\end{quote}
+
+Ces quatre lignes, placées au bon endroit, nous permettent de manipuler un personnage en \bsc{3D}. On peut le faire se déplacer dans les quatre directions, on peut le faire tourner sur lui même.\\
+
+Les déplacements ont été l'un des principaux problèmes que j'ai rencontré. Pour modifier la position ou la rotation d'un modèle dans son espace \bsc{3D}, l'utilisation de matrices est nécessaire. Il faut effectuer plusieurs produits matriciels à la suite. En premier, on multiplie la matrice de position du squelette du modèle par l'échelle souhaitée. Cela permet un redimensionnement. On multiplie ensuite le résultat par trois matrices de rotation, une pour chaque axe. Enfin, on multiplie le résultat par la translation que l'on souhaite faire faire au modèle. Tout cela permet d'obtenir une bonne rotation et une bonne translation du modèle \bsc{3D}. 
+Or, le produit matriciel n'est pas commutatif. C'est à dire que pour deux matrices A et B, le produit \bsc{AB} est différent du produit \bsc{BA}. Pour la première soutenance, je n'avais pas suivi le même ordre que celui énoncé précédemment. Le résultat obtenu n'était donc pas celui espéré. Les cours de math qui ont suivi la première soutenance portaient sur les matrices. J'ai ainsi pu me rendre compte de mon erreur. La première illustration montre comment le personnage se déplaçait lors de la première soutenance : 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{deplac1.jpg}
+\caption{Déplacement première soutenance}
+\end{center}
+\end{figure}
+On peut voir que le personnage ne pouvait que se rapprocher ou s'éloigner du centre et tourner par rapport au centre. Régler le problème des matrices a permis de rendre le déplacement plus naturel. Le personnage peut maintenant se déplacer dans quatre directions et tourner sur lui-même. La seconde figure illustre ces déplacements : 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{deplac2.jpg} 
+\caption{Déplacement deuxième soutenance}
+\end{center}
+\end{figure}
+
+\subsubsection{Travail sur les collisions}
+Après avoir régler l'affichage et le déplacement des modèles, il a fallut s'occuper des collisions. Dans le monde du jeu vidéo, les collisions sont ce qu'il y a de plus important. Si les collisions sont mal gérées, lors d'un combat par exmple, l'ennemi peut nous frapper mais pas le contraire. \\
+Je suis allé cherché des informations concernant les collisions sur internet. Les résultats ne manquaient pas. De nombreuses techniques sont expliquées. Il y a par exemple celle utilisant des \bsc{BoundingBox}. Des coordonnées définissent une boîte en trois dimensions contenant le modèle. Ensuite une méthode permet de savoir si deux \bsc{BoundingBox} sont en collisions. Une autre méthode consiste à utiliser les coordonnées d'un modèle et à regarder où il se situe par rapport aux autres modèles. Si deux coordonnées sont trop proches, alors on estime qu'il y a collision.\\
+Nous avons choisi de retenir la méthode utilisant les \bsc{BoundingBox}. Elle permet de tester les collisions de manière souple et rapide. Voici une illustration qui montre comment sont gérés les \bsc{BoundingBox} par XNA : 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.7]{BoundingBox.jpg}
+\caption{Gestion des \bsc{BoundingBox}}
+\end{center}
+\end{figure}
+
+
+
 \newpage
 
 \subsection{Khalis Chalabi}
@@ -146,7 +196,7 @@ Je compte rajouter des sons pour que l'ambiance du jeu soit complète lors de la
 \underline{L'éditeur de map}
 \newline
 \par
-Enfin, je compte participer à l'édition des maps pour donner une dimension à notre jeu.
+Enfin, je compte participer à l'édition des maps pour donner une dimension esthétique à notre jeu.
 \newline
 
 \par
