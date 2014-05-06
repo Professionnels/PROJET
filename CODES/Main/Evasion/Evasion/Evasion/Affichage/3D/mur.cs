@@ -34,7 +34,7 @@ namespace Evasion.Affichage._3D
 
         public TypeMur type;
 
-        private Texture2D[] textures = new Texture2D[2];
+        private Texture2D[] textures = new Texture2D[3];
 
 #if DEBUG_BB
         public List<BoundingBox> boundingBoxes = new List<BoundingBox>();
@@ -65,6 +65,7 @@ namespace Evasion.Affichage._3D
             orientation = Matrix.Identity;
             textures[0] = Content.Load<Texture2D>("Models\\briques");
             textures[1] = Content.Load<Texture2D>("Models\\mur_prison");
+            textures[2] = Content.Load<Texture2D>("Models\\barreau");
             this.type = type;
             this.initPhyMur();
             this.initMur();

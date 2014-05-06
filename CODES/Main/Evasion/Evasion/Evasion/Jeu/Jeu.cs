@@ -22,6 +22,8 @@ namespace Evasion.Jeu
         private Fenetre Fen;
         private Niveau niveau;
         public bool multi;
+        public bool son;
+        public bool appuieSon;
         private List<Evasion.Affichage._3D.Mur> murs;
       //  public bool multi;
         List<Personnage> joueurs;
@@ -56,6 +58,8 @@ namespace Evasion.Jeu
 
         public Jeu(Fenetre fen, int nombreJoueurs)
         {
+            appuieSon = false;
+            son = true;
             TAILLE_BLOC = 30;
             Niveau niveau = ChargementNiveau.Load();
             SonAmbiance1 = new Son.Son(Son.ChargerSon.theme1);
@@ -110,9 +114,26 @@ namespace Evasion.Jeu
 
         public void Update(KeyboardState keyboardState, MouseState mouseState)
         {
+            if (Keyboard.GetState().IsKeyUp(Keys.P))
+                appuieSon=false;
+            if (Keyboard.GetState().IsKeyDown(Keys.P) && !appuieSon)
+            {
+                if (son)
+                {
+                    current.Stop();
+                    son = false;
+                }
+                else
+                {
+                    current = current == SonAmbiance1 ? SonAmbiance2 : SonAmbiance1;
+                    current.Play();
+                    son = true;
+                }
+                appuieSon = true;
+            }
 
             // Sons
-            if (MediaPlayer.State == MediaState.Stopped)
+            if (MediaPlayer.State == MediaState.Stopped && son)
             {
                 current.Play();
                 current = current == SonAmbiance1 ? SonAmbiance2 : SonAmbiance1;

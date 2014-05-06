@@ -151,12 +151,15 @@ namespace Evasion
                             pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(scale * j, 0, scale * i), aspectRatio, TypePerso.prisonnier));
                             break;
                         case 5:
-                            pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(20 * j, 0, 20 * i), aspectRatio, TypePerso.perso));
+                            pnjs.Add(new Evasion.Affichage._3D.PNJ(Content, new Vector3(scale * j, 0, scale * i), aspectRatio, TypePerso.perso));
                             break;
                         case 6:
                             positionSpawn.Add(new Vector3(scale * j, 0, scale * i));
                             break;
                         case 7:
+                            break;
+                        case 8:
+                            murs.Add(new Evasion.Affichage._3D.Mur(Content, new Vector3(scale * j, 0, scale * i), viewMatrix, aspectRatio, TypeMur.barreaux, graphics));
                             break;
                         default:
                             break;
