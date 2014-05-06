@@ -120,7 +120,7 @@ namespace Evasion
 #if MULTI
             cameratwo = new Affichage._3D.Camera(bellick.persoPosition, aspectRatio, fenetre.multi,2);
 #endif
-            load(Directory.GetCurrentDirectory() + @"\..\..\..\..\EvasionContent\Maps\prison_2.txt");
+            load(Directory.GetCurrentDirectory() + @"\..\..\..\..\EvasionContent\Maps\prison_3.txt");
         }
 
         public void load(string fileName)
