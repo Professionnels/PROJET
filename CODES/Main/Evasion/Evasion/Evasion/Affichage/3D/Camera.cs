@@ -28,27 +28,48 @@ namespace Evasion.Affichage._3D
         public float aspectRatio;
         private float offset;
 
-        public Camera(Vector3 position, float aspectRatio, bool multi)
+        private Dictionary<string, Keys> controles1;
+        private Dictionary<string, Keys> controles2;
+        private Dictionary<string, Keys> touches;
+
+        public Camera(Vector3 position, float aspectRatio, bool multi, int nbCam)
         {
-            this.thirdPersonReference = new Vector3(0, 75, -120);
+            this.thirdPersonReference = new Vector3(0, 40, -40);
             this.position = position;
             this.viewMatrix = Matrix.CreateLookAt(this.position, new Vector3(0, 35, 0), Vector3.Up);
             this.projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
             this.cameraReference = new Vector3(0, 0, 1);
             this.transformedReference = Vector3.Zero;
             this.aspectRatio = aspectRatio;
+
+            controles1 = new Dictionary<string, Keys>();
+            controles1.Add("haut", Keys.NumPad8);
+            controles1.Add("bas", Keys.NumPad2);
+            controles1.Add("gauche", Keys.NumPad4);
+            controles1.Add("droite", Keys.NumPad6);
+
+            controles2 = new Dictionary<string, Keys>();
+            controles2.Add("haut", Keys.R);
+            controles2.Add("bas", Keys.F);
+            controles2.Add("gauche", Keys.Q);
+            controles2.Add("droite", Keys.E);
+
+            if (nbCam == 1)
+                touches = controles1;
+            else
+                touches = controles2;
         }
 
         public void initialize(Vector3 persoPos, Vector3 persoRot, GraphicsDeviceManager graphics)
         {
 
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad8))
+            if (Keyboard.GetState().IsKeyDown(touches["haut"]))
                 thirdPersonReference.Y += 5;
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad2))
+            if (Keyboard.GetState().IsKeyDown(touches["bas"]))
                 thirdPersonReference.Y -= 5;
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad6))
+            if (Keyboard.GetState().IsKeyDown(touches["droite"]))
                 offset += 5;
-            if (Keyboard.GetState().IsKeyDown(Keys.NumPad4))
+            if (Keyboard.GetState().IsKeyDown(touches["gauche"]))
                 offset -= 5;
 
             rotationMatrix = Matrix.CreateRotationY(MathHelper.ToRadians(-persoRot.Y + offset));

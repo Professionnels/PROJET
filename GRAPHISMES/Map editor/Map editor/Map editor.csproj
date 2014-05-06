@@ -99,6 +99,7 @@
     <None Include="Resources\heros.png" />
     <None Include="Resources\mur_prison.bmp" />
     <None Include="Resources\mur_prison.png" />
+    <None Include="bin\Debug\Resources\barreau.bmp" />
     <Content Include="Resources\Noir.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

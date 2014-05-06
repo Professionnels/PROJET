@@ -73,6 +73,16 @@ namespace Map_editor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap barreau {
+            get {
+                object obj = ResourceManager.GetObject("barreau", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Blanc {
             get {
                 object obj = ResourceManager.GetObject("Blanc", resourceCulture);
