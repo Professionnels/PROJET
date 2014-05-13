@@ -39,5 +39,11 @@ namespace Evasion.Son
             if (musique)
                 MediaPlayer.Stop();
         }
+
+        public void Stop()
+        {
+            if (musique)
+                MediaPlayer.Stop();
+        }
     }
 }
