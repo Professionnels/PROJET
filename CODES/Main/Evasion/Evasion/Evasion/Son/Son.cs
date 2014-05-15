@@ -30,14 +30,8 @@ namespace Evasion.Son
         {
             if (!musique)
                 son.Play();
-            //else
-             //   MediaPlayer.Play(song);
-        }
-
-        public void Stop()
-        {
-            if (musique)
-                MediaPlayer.Stop();
+            else
+                MediaPlayer.Play(song);
         }
 
         public void Stop()

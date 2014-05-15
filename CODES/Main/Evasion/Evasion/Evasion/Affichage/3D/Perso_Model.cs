@@ -1,4 +1,4 @@
-﻿#define DEBUG_BB
+﻿//#define DEBUG_BB
 
 using System;
 using System.Collections.Generic;
@@ -133,7 +133,7 @@ namespace Evasion.Affichage._3D
                     mesh.Draw();
 
 #if DEBUG_BB
-                    BuildBoundingBox(mesh, transforms[mesh.ParentBone.Index], ref meshMin, ref meshMax);
+                    BuildBoundingBox(mesh, Matrix.Identity, ref meshMin, ref meshMax);
 #endif
 
                 }
@@ -144,41 +144,41 @@ namespace Evasion.Affichage._3D
 #if DEBUG_BB
             boundingBoxes = new BoundingBox(Vector3.Min(meshMin, meshMax),
                 Vector3.Max(meshMin, meshMax));
+#endif
 
-
-            foreach (ModelMesh mesh in persoModel.Meshes)
+#if DEBUG_BB
+            foreach(ModelMesh mesh in persoModel.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    this.informations += "/n" + boundingBoxes.ToString();
-                    Vector3[] corners = boundingBoxes.GetCorners();
-                    VertexPositionColor[] primitiveList = new VertexPositionColor[corners.Length];
+                        this.informations += "/n" + boundingBoxes.ToString();
+                        Vector3[] corners = boundingBoxes.GetCorners();
+                        VertexPositionColor[] primitiveList = new VertexPositionColor[corners.Length];
 
-                    // Assign the 8 box vertices
-                    for (int i = 0; i < corners.Length; i++)
-                    {
-                        primitiveList[i] = new VertexPositionColor(corners[i], Color.White);
-                        primitiveList[i].Position.Z += 1.1f;
-                    }
+                        // Assign the 8 box vertices
+                        for (int i = 0; i < corners.Length; i++)
+                        {
+                            primitiveList[i] = new VertexPositionColor(corners[i], Color.White);
+                        }
 
-                    effect.TextureEnabled = false;
-                    effect.LightingEnabled = false;
+                        effect.TextureEnabled = false;
+                        effect.LightingEnabled = false;
 
-                    // Draw the box with a LineList
-                    foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-                    {
-                        pass.Apply();
-                        graphic.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
-                            PrimitiveType.LineList, primitiveList, 0, 8,
-                            bBoxIndices, 0, 12);
-                    }
-
+                        // Draw the box with a LineList
+                        foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+                        {
+                            pass.Apply();
+                            graphic.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                                PrimitiveType.LineList, primitiveList, 0, 8,
+                                bBoxIndices, 0, 12);
+                        }
+                    
                 }
             }
 #endif
+                
 
-
-
+            
         }
 
         public void UpdatePosition(GameTime gameTime)
@@ -202,7 +202,7 @@ namespace Evasion.Affichage._3D
 
                 Rotation.Y = (Rotation.Y + tour) % 360;
 
-
+            
             if (currentKeyboardState.IsKeyDown(touches["haut"]))
             {
                 persoPosition.Z += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
@@ -225,7 +225,7 @@ namespace Evasion.Affichage._3D
                 persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
             }
 
-            informations = "";
+            informations = "\n";
             informations += "Perso.X = " + persoPosition.X.ToString() + "\n";
             informations += "Perso.Z = " + persoPosition.Z.ToString() + "\n";
         }
@@ -234,30 +234,19 @@ namespace Evasion.Affichage._3D
 #if DEBUG_BB
         private void BuildBoundingBox(ModelMesh mesh, Matrix meshTransform, ref Vector3 meshMin, ref Vector3 meshMax)
         {
+            Vector3 trans = new Vector3(-persoPosition.X, persoPosition.Z, -persoPosition.Y);
 
-            foreach (ModelMeshPart meshPart in mesh.MeshParts)
-            {
-                // Vertex buffer parameters
-                int vertexStride = meshPart.VertexBuffer.VertexDeclaration.VertexStride;
-                int vertexBufferSize = meshPart.NumVertices * vertexStride;
+            meshMin = Vector3.Transform(Vector3.Add(new Vector3(-1.3f, -0.6f, 0), trans), meshTransform);
+            meshMax = Vector3.Transform(Vector3.Add(new Vector3(1.3f, 0.6f, 5.2f), trans), meshTransform);
 
-                // Get vertex data as float
-                float[] vertexData = new float[vertexBufferSize / sizeof(float)];
-                meshPart.VertexBuffer.GetData<float>(vertexData);
+            //meshMin.X = -1.3f - persoPosition.X;
+            //meshMax.X = 1.3f - persoPosition.X;
 
-                // Iterate through vertices (possibly) growing bounding box, all calculations are done in world space
-                for (int i = 0; i < vertexBufferSize / sizeof(float); i += vertexStride / sizeof(float))
-                {
-                    Vector3 transformedPosition = Vector3.Transform(new Vector3(vertexData[i], vertexData[i + 1], vertexData[i + 2]), meshTransform);
+            //meshMin.Y = -1.3f + persoPosition.Z;
+            //meshMax.Y = 1.3f + persoPosition.Z;
 
-                    meshMin = Vector3.Min(meshMin, transformedPosition);
-                    meshMax = Vector3.Max(meshMax, transformedPosition);
-                }
-            }
-
-            meshMin = Vector3.Transform(meshMin, meshTransform);
-            meshMax = Vector3.Transform(meshMax, meshTransform);
-
+            //meshMin.Z = -1.3f - persoPosition.Y;
+            //meshMax.Z = 1.3f - persoPosition.Y;
         }
 #endif
 
