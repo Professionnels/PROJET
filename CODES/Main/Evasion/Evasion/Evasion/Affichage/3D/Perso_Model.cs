@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Evasion.Affichage;
+using Evasion.Jeu;
 
 
 
@@ -181,13 +182,13 @@ namespace Evasion.Affichage._3D
             
         }
 
-        public void UpdatePosition(GameTime gameTime)
+        public void UpdatePosition(float vitesse, Niveau niveau, GameTime gameTime)
         {
             currentKeyboardState = Keyboard.GetState();
 
             float time = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            float vitesse = 0.1f;
-            float deplacement = time * vitesse;
+            float v = vitesse/10f;
+            float deplacement = time * v;
             float rotV = 0.4f;
             float tour = time * rotV;
 
@@ -206,23 +207,39 @@ namespace Evasion.Affichage._3D
             if (currentKeyboardState.IsKeyDown(touches["haut"]))
             {
                 persoPosition.Z += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                if (niveau.Collision(persoPosition) != position_t.vide)
+                    persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
                 persoPosition.X -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                if (niveau.Collision(persoPosition) != position_t.vide)
+                    persoPosition.X += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
             }
             if (currentKeyboardState.IsKeyDown(touches["bas"]))
             {
                 persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                if (niveau.Collision(persoPosition) != position_t.vide)
+                    persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
                 persoPosition.X += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                if (niveau.Collision(persoPosition) != position_t.vide)
+                    persoPosition.X -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
             }
 
             if (currentKeyboardState.IsKeyDown(touches["droite"]))
             {
                 persoPosition.Z -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                if (niveau.Collision(persoPosition) != position_t.vide)
+                    persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
                 persoPosition.X -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                if (niveau.Collision(persoPosition) != position_t.vide)
+                    persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
             }
             if (currentKeyboardState.IsKeyDown(touches["gauche"]))
             {
                 persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                if (niveau.Collision(persoPosition) != position_t.vide)
+                    persoPosition.Z -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
                 persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                if (niveau.Collision(persoPosition) != position_t.vide)
+                    persoPosition.X -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
             }
 
             informations = "\n";

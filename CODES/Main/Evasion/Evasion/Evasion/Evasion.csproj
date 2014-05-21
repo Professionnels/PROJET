@@ -124,6 +124,7 @@
     <Compile Include="Affichage\Menu\ChargerImages.cs" />
     <Compile Include="Decors\Murs.cs" />
     <Compile Include="Decors\ObjetDecors.cs" />
+    <Compile Include="Decors\Sols.cs" />
     <Compile Include="Jeu\ChargementNiveau.cs" />
     <Compile Include="Jeu\Client_L.cs" />
     <Compile Include="Jeu\Jeu.cs" />

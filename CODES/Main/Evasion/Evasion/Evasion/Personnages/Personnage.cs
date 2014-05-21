@@ -7,6 +7,8 @@ using Evasion.Personnages;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Evasion.Affichage._3D;
+using Evasion.Jeu;
 
 namespace Evasion
 {
@@ -25,40 +27,46 @@ namespace Evasion
         pnj
     }
 
+    public enum position_t : int
+    {
+        vide=0,
+        decors=1,
+        joueur=2
+    }
+
     class Personnage
     {
+        public static int tailleX = 20;
+        public static int tailleZ = 15;
+
+        protected Niveau niveau;
         protected int vie;
-        protected int vitesse; 
+        protected float vitesse; 
         protected genre_t genrePerso;
         protected deplacement_t deplacement;
         protected string nom;
-        protected string fichier3D; // emplacement modele 3D du perso
         protected Objets.Objets objet;
-        protected Affichage._3D.Perso_Model model3D;
+        protected Vector3 position;
+        protected Vector3 rotation;
 
+        public Vector3 Position { get { return position; } set { position = value; } }
+        public Vector3 Rotation { get { return rotation; } set { rotation = value; } }
         public int _vie { get { return vie; } }
-        public int _vitesse { get { return vitesse; } }
+        public float _vitesse { get { return vitesse; } }
         public genre_t _genrePerso { get { return genrePerso; } }
         public deplacement_t _deplacement { get { return deplacement; } }
         public string _nom { get { return nom; } }
-        public string _fichier3D { get { return fichier3D; } }
         public Objets.Objets _objet { get { return objet; } }
-        public Affichage._3D.Perso_Model _model3D { get { return model3D; } } 
 
-        public Personnage()  // Constructeur sans parametres
+        public Personnage(ContentManager Content, GraphicsDeviceManager graphics, string nom, int vie, deplacement_t deplacement, Vector3 position, float vitesse, genre_t genrePerso, Matrix view, float aspectRatio, Niveau niveau) // Constructeur avec parametres
         {
-
-        }
-
-        public Personnage(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, string fichier3D, genre_t genrePerso, ContentManager content, Matrix view, float aspectRatio ) // Constructeur avec parametres
-        {
+            this.niveau = niveau;
+            this.position = position;
             this.nom = nom;
             this.vie = vie;
             this.vitesse = vitesse;
             this.genrePerso = genrePerso;
-            this.fichier3D = nom;
             this.objet = new Objets.Objets();
-            //this.model3D = new Affichage._3D.Perso_Model(content, Vector3.Zero, view, aspectRatio);
         }
 
         public void ChangerDeplacement(deplacement_t deplacement) // Methode pour changer le mode de deplacement
@@ -83,12 +91,10 @@ namespace Evasion
 
         virtual public void Update(KeyboardState keyboardState, MouseState mouseState, GameTime gametime) // Methode pour charger les donnees
         {
-            //model3D.UpdatePosition(gametime);
         }
 
-        virtual public void Display(Microsoft.Xna.Framework.Game screen, SpriteBatch sb) // Methode pour afficher les donnees
+        virtual public void Display(Camera camera) // Methode pour afficher les donnees
         {
-            //model3D.draw();
         }
     }
 }

@@ -46,9 +46,9 @@ namespace Evasion.Affichage.Informations
                 vieActu = 0;
         }
 
-        public void UpdateVie(int ajout)
+        public void UpdateVie(int vie)
         {
-            vieActu = vieActu + ajout;
+            vieActu = vie;
             AjusteBarreVie();
             UpdateTailleVie();
         }

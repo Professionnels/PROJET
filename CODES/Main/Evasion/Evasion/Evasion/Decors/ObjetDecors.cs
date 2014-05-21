@@ -3,27 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Evasion.Affichage._3D;
 
 namespace Evasion.Decors
 {
     class ObjetDecors
     {
-        private string fichier3D;
-        private int type;
-        private int identifiant;
-        private Vector3 position;
+        protected int type;
+        protected Vector2 taille;
+        protected int identifiant;
+        protected Vector3 position;
+        protected Matrix view;
 
-        public string _fichier3D { get { return fichier3D; } }
-        public int _type { get { return type; } }
-        public int _identifiant { get { return identifiant; } }
-        public Vector3 _position { get { return position; } }
+        public Vector3 Position { get { return position; } set { position = value; } }
+        public Vector2 Taille { get { return taille; } set { taille = value; } } 
 
-        public ObjetDecors(string fichier3D, int type, int identifiant, Vector3 position)
+        public ObjetDecors(ContentManager Content, Vector3 position, Vector2 taille, Matrix view, float aspectRatio, GraphicsDeviceManager graphics)
         {
-            this.fichier3D = fichier3D;
-            this.type = type;
-            this.identifiant = identifiant;
             this.position = position;
+            this.taille = taille;
+            this.type = type;
+            this.view = view;
+            this.identifiant = identifiant;
+        }
+        
+        virtual public void Draw(Camera camera)
+        {
+
         }
         
     }

@@ -28,7 +28,7 @@ namespace Evasion.Affichage.Menu
             this.Fen = Fen;
         }
 
-        public void LoadContent(Microsoft.Xna.Framework.Game screen)
+        public void LoadContent(Microsoft.Xna.Framework.Game screen, ContentManager Content, GraphicsDeviceManager graphics, GraphicsDevice gd, SpriteBatch sb)
         {
             this.screen = screen;
             switch (type)
@@ -42,20 +42,20 @@ namespace Evasion.Affichage.Menu
                     Image = ChargerImages.menu_accueil;
                     break;
                 case "Reprendre":
-                    Fen.LoadContent(Content_t.LoadGame);
+                    Fen.LoadContent(Content_t.LoadGame, Content, graphics, gd, sb);
                     Fen.ok = true;
                     break;
                 case "Quit":
-                    Fen.LoadContent(Content_t.Quit);
+                    Fen.LoadContent(Content_t.Quit, Content, graphics, gd, sb);
                     break;
                 case "Save":
                     //Fen.LoadContent(Content_t.Save);
                     break;
                 case "New game":
-                    Fen.LoadContent(Content_t.NewGame);
+                    Fen.LoadContent(Content_t.NewGame, Content, graphics, gd, sb);
                     break;
                 case "Multijoueur game":
-                    Fen.LoadContent(Content_t.NewGameMulti);
+                    Fen.LoadContent(Content_t.NewGameMulti, Content, graphics, gd, sb);
                     break;
                 case "Load game":
                     //Fen.LoadContent(Content_t.LoadGame);
@@ -66,7 +66,7 @@ namespace Evasion.Affichage.Menu
             }
         }
 
-        public void Update(KeyboardState keyboardState, MouseState mouseState)
+        public void Update(KeyboardState keyboardState, MouseState mouseState, ContentManager cm, GraphicsDeviceManager gdm, GraphicsDevice gd, SpriteBatch sb)
         {
             for (int i = 0; i < Elements.Length; i++)
             {
@@ -79,7 +79,7 @@ namespace Evasion.Affichage.Menu
                     type=Elements[i].Name;
                     if (Elements[i].Name == "New game" || Elements[i].Name == "Reprendre" || Elements[i].Name == "Main menu" || Elements[i].Name == "Multijoueur game")
                         Elements[i].Press();
-                    LoadContent(screen);
+                    LoadContent(screen, cm, gdm, gd, sb);
                 }
             }
         }

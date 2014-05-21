@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Evasion.Jeu;
 
 namespace Evasion.Personnages
 {
@@ -20,14 +21,14 @@ namespace Evasion.Personnages
         public string _dialogue3 { get { return dialogue3; } }
         public int _objet_a_donner { get { return objet_a_donner; } } 
 
-    public Pnj(ContentManager Content, Matrix view, float aspectRatio)
-            : base("Pnj", 100, deplacement_t.marche, new Vector3(0,0,0), 1, "fichier3D", genre_t.pnj, Content, view, aspectRatio)
+    public Pnj(ContentManager Content, GraphicsDeviceManager graphics, Matrix view, float aspectRatio, Niveau niveau)
+            : base(Content, graphics, "Pnj", 100, deplacement_t.marche, new Vector3(0,0,0), 1f, genre_t.pnj, view, aspectRatio, niveau)
         {
  
         }
 
-        public Pnj(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, int id, string fichier3D, string dialogue1, string dialogue2, string dialogue3, int objet_a_donner, ContentManager Content, Matrix view, float aspectRatio)
-            : base(nom, vie, deplacement, position, vitesse, fichier3D, genre_t.pnj, Content, view, aspectRatio) // fichier mouv.txt
+    public Pnj(string nom, int vie, deplacement_t deplacement, Vector3 position, int vitesse, int id, string fichier3D, string dialogue1, string dialogue2, string dialogue3, int objet_a_donner, ContentManager Content, GraphicsDeviceManager graphics, Matrix view, float aspectRatio, Niveau niveau)
+            : base(Content, graphics, nom, vie, deplacement, position, vitesse, genre_t.pnj, view, aspectRatio, niveau) // fichier mouv.txt
         {
             this.dialogue1 = dialogue1;
             this.dialogue2 = dialogue2;

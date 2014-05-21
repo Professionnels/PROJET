@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework;
 
 namespace Evasion.Affichage
 {
@@ -17,6 +18,7 @@ namespace Evasion.Affichage
         NewGame,
         NewGameMulti,
         LoadGame,
+        Reprendre,
         Save
     };
 
@@ -37,7 +39,7 @@ namespace Evasion.Affichage
             menu = new Menu.Menu("Main menu", this);
         }
 
-        public void LoadContent(Content_t content)
+        public void LoadContent(Content_t content, ContentManager Content, GraphicsDeviceManager graphics, GraphicsDevice gd, SpriteBatch sb)
         {
             this.content = content;
             MediaPlayer.Stop();
@@ -45,7 +47,7 @@ namespace Evasion.Affichage
             {
                 case Content_t.Menu:
                     ok = false;
-                    menu.LoadContent(screen);
+                    menu.LoadContent(screen, Content, graphics, gd, sb);
                     break;
                 case Content_t.Quit:
                     screen.Exit();
@@ -56,20 +58,20 @@ namespace Evasion.Affichage
                 case Content_t.NewGame:
                     ok = true;
                     menu = new Menu.Menu("Pause", this);
-                    jeu = new Jeu.Jeu(this, 1);
+                    jeu = new Jeu.Jeu(this, false, Content, graphics, gd, sb);
                     multi = false;
                     break;
                 case Content_t.NewGameMulti:
                     ok = true;
                     menu = new Menu.Menu("Pause", this);
-                    jeu = new Jeu.Jeu(this, 1);
+                    jeu = new Jeu.Jeu(this, true, Content, graphics, gd, sb);
                     multi = true;
                     break;
                 case Content_t.LoadGame:
                     menu = new Menu.Menu("Pause", this);
-                    jeu = new Jeu.Jeu(this, 1); // temporaire
-
-
+                    jeu = new Jeu.Jeu(this, false, Content, graphics, gd, sb); // temporaire
+                    break;
+                case Content_t.Reprendre:
                     break;
                 default:
                     Console.WriteLine("Erreur: ce contenu de la fenetre n'est pas pris en compte par l'application.");
@@ -78,17 +80,18 @@ namespace Evasion.Affichage
             }
         }
 
-        public void Update(KeyboardState keyboardState, MouseState mouseState)
+        public void Update(KeyboardState keyboardState, MouseState mouseState, ContentManager Content, GraphicsDeviceManager graphics, GameTime gametime, GraphicsDevice graph, SpriteBatch sb)
         {
             switch (content)
             {
                 case Content_t.Menu:
-                    menu.Update(keyboardState, mouseState);
+                    menu.Update(keyboardState, mouseState, Content, graphics, graph, sb);
                     break;
                 case Content_t.NewGame:
                 case Content_t.LoadGame:
                 case Content_t.NewGameMulti:
-                    jeu.Update(keyboardState, mouseState);
+                case Content_t.Reprendre:
+                    jeu.Update(keyboardState, mouseState, Content, graphics, gametime, graph, sb);
                     break;
                 case Content_t.Save:
                     jeu.DisplaySaveProgressing();
@@ -98,7 +101,7 @@ namespace Evasion.Affichage
             }
         }
 
-        public void Display(SpriteBatch sb, GraphicsDevice gd, ContentManager cm)
+        public void Display(SpriteBatch sb, GraphicsDevice gd, ContentManager cm, GraphicsDeviceManager gdm)
         {
             switch (content)
             {
@@ -108,7 +111,8 @@ namespace Evasion.Affichage
                 case Content_t.NewGame:
                 case Content_t.NewGameMulti:
                 case Content_t.LoadGame:
-                    jeu.Display(screen, sb, gd, cm);
+                case Content_t.Reprendre:
+                    jeu.Display(screen, sb, gd, cm,gdm);
                     break;
                 default:
                     break;
