@@ -1,9 +1,11 @@
 \select@language {french}
-\contentsline {section}{\numberline {1}Louis K\IeC {\'e}d\IeC {\'e}mos}{1}
-\contentsline {subsection}{\numberline {1.1}Pr\IeC {\'e}sentation}{1}
-\contentsline {subsection}{\numberline {1.2}R\IeC {\'e}alisations}{2}
-\contentsline {subsubsection}{\numberline {1.2.1}Animations 3D}{2}
-\contentsline {subsubsection}{\numberline {1.2.2}Cr\IeC {\'e}ation d'une intelligence artificelle}{4}
-\contentsline {subsubsection}{\numberline {1.2.3}Utilisation d'objets}{5}
-\contentsline {subsection}{\numberline {1.3}Impressions personnelles}{6}
-\contentsline {subsubsection}{\numberline {1.3.1}}{6}
+\contentsline {section}{\numberline {1}Rappel du cahier des charges}{1}
+\contentsline {section}{\numberline {2}Louis K\IeC {\'e}d\IeC {\'e}mos}{4}
+\contentsline {subsection}{\numberline {2.1}R\IeC {\'e}capitulatif des deux soutenances}{4}
+\contentsline {subsubsection}{\numberline {2.1.1}Premi\IeC {\`e}re soutenance}{4}
+\contentsline {subsubsection}{\numberline {2.1.2}Deuxi\IeC {\`e}me soutenance}{5}
+\contentsline {subsection}{\numberline {2.2}R\IeC {\'e}alisations}{8}
+\contentsline {subsubsection}{\numberline {2.2.1}Animations 3D}{8}
+\contentsline {subsubsection}{\numberline {2.2.2}Cr\IeC {\'e}ation d'une intelligence artificelle}{10}
+\contentsline {subsubsection}{\numberline {2.2.3}Utilisation d'armes}{11}
+\contentsline {subsection}{\numberline {2.3}Conclusion personnelles}{12}

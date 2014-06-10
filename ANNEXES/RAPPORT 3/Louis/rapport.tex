@@ -8,6 +8,7 @@
 \usepackage{fancyhdr}
 \usepackage{eurosym}
 \usepackage{color}
+\usepackage[tight]{shorttoc} 
 \usepackage{soul}
 \usepackage[ left = 4.5cm, right = 3.5cm]{geometry}
 
@@ -67,26 +68,82 @@ Khalis Chalabi - chalab\_k
 
 
 
-
+\setcounter{tocdepth}{1} 
 
 \newpage
 \thispagestyle{empty}
 \pagestyle{fancyplain} \chead{}\lhead{\textit{Les Professionnels}} \rhead{\emph{\textit{Evasion}}}
+\setcounter{tocdepth}{1} 
 \tableofcontents
+
 
 \newpage
 \setcounter{page}{1} 
+
+
+\section{Rappel du cahier des charges}
+
+A notre entrée à EPITA, il nous a été demandé de réaliser un projet. Plus communément appelé \textit{Projet de sup}, il est à réaliser en C\# ou en Caml. Il s'agit de deux langages de programmations. Le C\# est un langage de programmation développé par Microsoft. Il est particulièrement adapté au développement d'applications destinées à Windows. Alors que Caml permet de développer pour un plus large panel de systèmes d'exploitations mais ne fourni aucun outil spécifique à un système d'exploitation. Pour ce projet, le sujet et la réalisation ont été laissés à notre libre choix. Nous avons décidé, comme beaucoup de nos camarades, de réaliser un jeu à l'aide du C\#.
+
+Le jeu pourrait se définir comme un \textit{Prison Break Like}. Un individu doit s'échapper d'une prison sans être repéré. Une fois dehors, il devra récupéré de l'argent, des faux papiers, un moyen de transport pour pouvoir s'échapper du pays. Au cours de son périple, il pourra renconrer différents types d'ennemis, il pourra utiliser des objets, allant d'une simple clé à un pistolet.
+
+Pour réaliser ce projet, le choix des langages a été imposé. Nous avions la possibilité de développer en C\# ou en Caml. Au vu de l'orientation de notre projet, nous avons immédiatement opté pour le C\#. Ce dernier propose tout les outils nécessaires à la réalisation d'un jeu vidéo. Un module a particulièrement retenu notre attention : XNA. XNA est un framework, ou un ensemble d'outils, destiné à la création de jeux vidéos pour Windows. Un jeu assez célèbre a été réalisé avec XNA, il s'agit de Forza, un jeu développé par Microsoft. 
+
+De plus, nous souhaitions faire un jeu vidéo entièrement en 3D. XNA permet justement de faire du développement 3D, en proposant des outils beaucoup plus simple que ceux disponibles sur Internet.
+
+Au début du jeu, nous voulions laissé la possibilité au joueur de choisir un personnage parmi d'autres, avec une certaine capacité. Ce personnage aurait aussi été capable de lancer des objets. Pour pouvoir s'infiltrer ou s'exfiltrer d'un lieu, ce même personnage aurait eu la capacité de marcher doucement, courir, s'accroupir ou d'ouvrir les portes. Pour ajouter une certaine compétition au jeu, nous avions en tête de réaliser un timer. Ainsi, les meilleurs temps réaliser par les joueurs pour s'échapper auraient pu être sauvegardés. Cela implique donc la création d'un site web et d'une interface réseau. Et enfin, pouvoir jouer en ligne en multijoueur a aussi été l'un de nos objectifs pour ce projet.
+
+Malheureusement, à cause d'un problème de gestion du temps et d'une surestimation de nos capacités, certaines choses n'ont pas pu être réalisées. Mais beaucoup d'autres l'ont été. Nous avons réussi à faire un jeu en 3D. Cet aspect du développement a été le plus dur. Les personnages, le décors sont affichés en 3D. De plus, les personnages sont dotés seulement d'une animation de marche. Ils ne peuvent pas courir ou s'accroupir. En revanche, ils sont capables d'utiliser des armes comme un pistolet ou un couteau. L'aspect multijoueur a été plutôt bien développé. On peut en effet jouer en équipe en ligne ou en local sur un même ordinateur. L'interface réseau ayant été développée, il n'a pas été compliqué d'y ajouter un timer et d'enregistrer en ligne les temps réalisés par les joueurs. \\
+
+Au début du projet, nous avons fait des prévisions de réalisation et un partage des tâches en fonction des capacités de chacun. Bien que certaines tâches n'aient pas été réalisées, le planning prévisionnel a été respecté. C'est à dire que les points que nous avons choisi de conserver ont progressé comme indiqué sur le planning. Nous avons aussi dû nous adapter pour la répartition du travail. Certains aspects étaient en réalité plus difficile que prévu. Ils ont donc été attribués à d'autres membres du groupe, ayant plus d'aisance en programmation. 
+\newpage
+
 \section{Louis Kédémos}
 
-\subsection{Présentation}
+\subsection{Récapitulatif des deux soutenances}
 
-Portant un intérêt prépondérant à l'informatique, j'ai intégré l'école d'ingénieur informatique EPITA en 2013. L'informatique est un domaine que je côtoie depuis de longues années. En revanche, c'est la première fois que je réalise un projet d'une telle ampleur. Jusqu'à il y a six mois, je ne connaissais que le travail individuel, de durée n'excédant jamais une semaine. Ce projet a présenté de nouveaux défis, auxquels je n'ai jamais été confronté. Ma première année à EPITA m'a permis de découvrir le côté "intellectuel" de l'informatique. Avant d'entrer dans l'école, je ne connaissais que la partie concernant le code, la programmation. Que du travail brut, pour ainsi dire. 
+\subsubsection{Première soutenance}
 
-Parallèlement à mes activités d'étudiant, je me consacre aussi à la pratique du sport et de la photographie. J'ai notamment rejoint l'association de photo de EPITA, \textit{le club Ephemere}. Ils m'ont permis d'améliorer ma technique et de ne pas abandonner la photographie. C'est aussi durant cette première année à EPITA que j'ai commencé à exercer une "vraie" activité de photographe. J'ai en effet commencé à couvrir en tant que photographe de grands évènements. Ma motivation pour cet art n'a que grandi durant cette année.
+La réalisation de ce projet a fait appel à de la 3D. Nous voulions avoir un jeu en trois dimensions. D'un point de vue qualité, pour un jeu d'infiltration, cela nous a semblé être un point important. D'un point de vue technique, nous pourrions ainsi améliorer nos capacités en informatique. Je me suis proposé pour réaliser cet aspect du jeu vidéo. Ayant pu trouver une masse abondante d'exemples utilisant le module 3D de XNA, mon travail ne semblait pas difficile. Mais petit à petit, plus j'en découvrais sur la 3D, plus cela devenait incompréhensible. Beaucoup de notions sont utilisées qui m'étaient jusque là inconnues. 
 
-Pour revenir au projet, ce dernier m'a beaucoup fait progressé en matière d'informatique et de relations humaines. J'ai toujours aimé les défis, et ce projet en a présenté de nombreux. A chaque nouveau problème ou occasion, j'ai essayé de me surpasser. Et j'espère avoir réussi.
+La première étape pour faire un jeu en 3D est bien sûr d'avoir un modèle 3D. Un modèle 3D est un fichier contenant des informations, des coordonnées plus précisément, permettant de dessiner dans l'espace un objet ou une personne. J'ai utilisé le logiciel de modélisation 3D Blender. Ma première modélisation n'était pas esthétique. Son but était plutôt de me permettre de tester la 3D assez rapidement. Cette étape terminée, le plus dur restait à venir. Il me fallait maintenant réussir à afficher ce modèle à l'écran. Les exemples sur internet étaient complets mais j'étais dans l'incapacité de les comprendre. A chaque tentative, le début de jeu plantait ou bien le modèle ne s'affichait pas correctement. Finalement, une vidéo sur Youtube m'a permis dee comprendre en détail comment XNA permettait de gérer la 3D. Commença la phase de test. Le modèle affiché a été affiché, tourné, redimensionné de nombreuses fois pour pouvoir maitrîser les règles qui régissent la 3D. 
 
-\newpage
+Comprendre le fonctionnement de la 3D avec XNA a été assez ardu et assez long. Concrètement, il n'y a aucune animation de faite. Seul un personnage en 3D s'affiche à l'écran et se translate dans l'espace, mais ses membres ne bougent pas. 
+
+Ma part du travail pour cette première soutenance a été essentiellement la gestion de la 3D. Mais j'ai malgré tout pu participer aux autres éléments du jeu. Avec Anatole, nous avons construit un menu d'accueil. Je lui ai montré comment réalisé des boutons de différents aspects selon si la souris est sur le bouton ou non. Durant cette première phase de développement, j'ai pris soin à ce que nous gardions un projet bien organisé. Si nous voulons rajouter ou modifier quelque chose, c'est possible sans toucher au reste du projet. Ainsi chaque membre du groupe peut travailler de son côté sur la tâche qui lui incombe dans avoir à se préoccuper des autres.
+
+\subsubsection{Deuxième soutenance}
+
+Lors de la première soutenance, la création des personnages ou des murs en 3D demandait beaucoup de travail. Il devenait urgent de rendre la création 3D plus facile, pour permettre des phases de tests plus poussés le plus tot possible. J'ai donc créé des fichiers qui permettent l'instanciation, l'affichage et la manipulation des modèles 3D aisés. Le héros est maintenant dirigeable par le joueur. Il peut se déplacer dans les quatre directions, tourner sur lui même. Réaliser ces déplacements a été compliqué. Pour cela, il faut utiliser le produit matriciel. Malheureusement, je n'avais pas les connaissances requises en mathématique pour manipuler le produit matriciel. Ce dernier est en effet non commutatif. C'est à dire qu'il faut faire les multiplications dans un ordre précis. Je ne l'ai compris que longtemps après la première soutenance. Lors de la première soutenance, les déplacementss'effectuaient que selon les axes représentés par les flèches noires : 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{deplac1.jpg}
+\caption{Déplacements - première soutenance}
+\end{center}
+\end{figure}
+
+Une fois le problème du produit matriciel compris et résolu, les déplacements ont pu se faire de façon plus précise : 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{deplac2.jpg}
+\caption{Déplacements - deuxième soutenance}
+\end{center}
+\end{figure}
+
+Après m'être occupé de l'affichage et du déplacement des modèles 3D, il a fallut m'occuper des collisions. Dans le monde du jeu vidéo, les collisions sont une des choses les plus importantes. Si les collisions sont mal gérées, lors d'un combat par exemple, on peut se faire tuer par l'ennemi sans avoir pu le toucher une seule fois. Je suis allé chercher des informations concernant les collisions sur internet. Les résultats ne manquaient pas. De nombreuses techniques sont expliquées. Je n'en ai retenu qu'une seule : celle utilisant des \bsc{Bounding Box}. Cette méthode définit une boîte virtuelle englobant chaque modèle 3D présent dans l'environnement. Ensuite une méthode de détection d'intersection permet de détecter si deux bouding boxe sont entrées en collisions. On peut voir un exemple de bounding box sur l'image suivant, elles apparaissent en trait blanc : 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{BoundingBox.jpg}
+\caption{Exemple de Bounding Box}
+\end{center}
+\end{figure}
+
+Je n'ai pas eu le temps d'implémenter cette méthode pour la seconde soutenance. Des problèmes apparaissaient au fil du développement.
+
+
 
 \subsection{Réalisations}
 
@@ -109,46 +166,37 @@ A ce stade du développement, notre personnage est capable de se déplacer dans 
 
 Vient ensuite le problème du déplacement des ennemis. Nous savons où ils doivent aller, mais nous ne savons pas comment. Etant donné que le déplacement des ennemis ne concernait pas vraiment la boucle de jeu principale, une seule idée nous est apparue, à Anatole et moi. Il s'agissait d'utiliser des processus en parallèle, ou des \bsc{Thread}. Un thread est un outil du \bsc{C\#} qui permet d'exécuter deux actions en parallèles, ou en tout cas en donne l'illusion. Un ordinateur, naturellement, ne peut effectuer qu'une seule chose à la fois. Ainsi les ennemis sont capables de se déplacer de façon aléatoire et autonome, sans ralentir l'exécution principale. 
 
-Mais se déplacer selon un chemin prédéfini en permanence n'est pas très "intelligent" pour une intelligence artificielle. C'est pourquoi Anatole et moi avons implémenté une capacité repérage aux ennemis.  Lorsque notre personnage se situe à une faible distance d'un ennemi et que celui-ci regarde dans la direction du personnage, alors on considère que le personnage est repéré. Dès lors, l'ennemi va poursuivre le héros, jusqu'à la mort de l'un des deux ou si le héros arrive à échapper à la surveillance de l'ennemi.
+Mais se déplacer selon un chemin prédéfini en permanence n'est pas très "intelligent" pour une intelligence artificielle. C'est pourquoi Anatole et moi avons implémenté une capacité repérage aux ennemis.  Lorsque notre personnage se situe à une faible distance d'un ennemi et que celui-ci regarde dans la direction du personnage, alors on considère que le personnage est repéré. Dès lors, l'ennemi va poursuivre le héros, jusqu'à la mort de l'un des deux ou si le héros arrive à échapper à la surveillance de l'ennemi. 
 
 
 
 
-\subsubsection{Utilisation d'objets}
+\subsubsection{Utilisation d'armes}
 
-Notre jeu dispose maintenant d'ennemis capables de se déplacer et d'un personnage. Il nous manquait encore la possibilité d'utiliser des armes, telles qu'un pistolet ou un couteau. Etant donné que ce point est encore relatif à la 3D, je m'en suis occupé. La première étape a été de modéliser des armes en 3D, avec Blender. Cela n'a pas été très difficile. Notre jeu ayant adopté un style graphiste assez simpliste, je n'avais pas à créer d'armes très détaillées. 
+Notre jeu dispose maintenant d'ennemis capables de se déplacer et d'un personnage. Il nous manquait encore la possibilité d'utiliser des armes, telles qu'un pistolet ou un couteau. Etant donné que ce point est encore relatif à la 3D, je m'en suis occupé. La première étape a été de modéliser des armes en 3D, avec Blender. Khalis s'en est occupé. Pour qu'un personnage se saississe d'une arme et qu'elle vienne se placer dans sa main, il faut placer un marqueur. Ce marqueur se situe à l'emplacement de la main droite. J'ai donc dû modifier les modèles 3D pour qu'ils intègrent un tel marqueur. Je peux ainsi récupérer la position et l'orientation de la main et y placer l'arme.
+
+Quant à l'utilisation des armes, il a fallu créer deux classes différentes. Une pour les armes dites de corps à corps et une pour celles à distance. Lorsque l'on utilise une arme de corps à corps, la classe correspondante va vérifier si un ennemi se trouve à proximité de l'arme et qu'il se trouve en face du personnage. Si ces conditions sont réunies, alors on considère que l'utilisation de l'arme est positive, c'est à dire qu'elle a touché un ennemi. Déterminer de quel ennemi il s'agit est ensuite simple. Il ne reste plus  alors qu'à lui retirer un certain nombre de point de vie. La difficulté de cette méthode se situe dans la détection d'un ennemi. 
 
 
 
 
 \newpage
 
-\subsection{Impressions personnelles}
+\subsection{Conclusion personnelles}
 
-\subsubsection{}
+A mon entrée en première année à EPITA, j'étais excité de devoir réaliser un projet durant le second semestre. Et au terme de ce projet, je suis toujours autant excité d'avoir eu à le faire. 
+
+Evidemment, ces six mois a vu de nombreux différends entre les quatre membres du groupe. Mais à tout moment nous gardions une bonne cohésion. Une désolidarisation du groupe aurait signifier l'échec du projet. De mon point de vue, ce projet avait pour but premier de nous apprendre à travailler en équipe et non de nous apprendre à mener à terme un projet. 
+
+J'ai été nommé chef de projet en début d'année. Ce rôle incombe de nombreuses responsabilités. J'ai dû axer notre groupe sur un chemin de développement que chaque membre acceptait. Assez passionnant au début, cela devient vite frustrant quand on doit effectuer des choix. 
+
+Pour résumer cette expérience, je dirais que ça a été un plus pour mon futur à EPITA. En tant que chef de projet et membre d'un groupe, ce semestre a été enrichissant.Au lieu de ne rencontrer que des portes ouvertes, nombreuses sont celles à être restées fermées. A chaque nouveau problème, il me fallait trouver un compromis, une solution qui satisfasse toute l'équipe. Et à chaque fois, mes prises de déscisions étaient plus rapide. Ayant le plus d'expérience, j'ai souvent plaidoyer en faveur de certaines idées, jugeant celles-ci réalisables ou non. A l'inverse, si nous n'avions rencontrés aucune difficultés, ce projet ne nous aurait pas été profitable. Durant nos années d'études, il y aura de plus en plus de contraintes. Aprrendre à les gérer assez tôt est important. Parmi ces contraites, j'entends aussi bien les divergences d'avis que les contraintes techniques imposées par un client. 
+
+J'ai appris aussi que constituer un groupe de projet avec des amis ne signifie pas forcément une bonne réussite de projet. 
+
+Je dois avouer que les moments précédents nos soutenances ont été mes préférés. Nous voir habillés en costumes, l'air professionnel m'a donné l'impression de soutenir un projet à un niveau plus professionnel. Il ne s'agit bien sûr que d'une impression, la réalité étant différente. Mais cette impression, brève en comparaison des six mois de stress et de travail, m'a conforté dans mon choix d'être ingénieur.
 
 \newpage
 \listoffigures
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
