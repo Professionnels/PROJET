@@ -81,7 +81,8 @@ namespace Evasion
 
         public int ModifierVie(int ajout) // Methode pour modifier la vie
         {
-            return vie + ajout;
+            vie += ajout;
+            return vie;
         }
 
         virtual public void Deplacer(int angle, direction_t direction) // Methode pour se deplacer
@@ -92,6 +93,13 @@ namespace Evasion
         virtual public void Update(KeyboardState keyboardState, MouseState mouseState, GameTime gametime) // Methode pour charger les donnees
         {
         }
+
+        virtual public void Update(Joueur j, KeyboardState keyboardState, MouseState mouseState, GameTime gametime) // Methode pour charger les donnees
+        {
+        }
+
+        virtual public void Update(KeyboardState keyboardState, MouseState mouseState, GameTime gametime, MouseState ms) // Methode pour charger les donnes
+        { }
 
         virtual public void Display(Camera camera) // Methode pour afficher les donnees
         {

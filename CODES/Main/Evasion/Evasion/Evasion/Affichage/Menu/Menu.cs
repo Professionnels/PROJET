@@ -42,7 +42,7 @@ namespace Evasion.Affichage.Menu
                     Image = ChargerImages.menu_accueil;
                     break;
                 case "Reprendre":
-                    Fen.LoadContent(Content_t.LoadGame, Content, graphics, gd, sb);
+                    Fen.LoadContent(Content_t.Reprendre, Content, graphics, gd, sb);
                     Fen.ok = true;
                     break;
                 case "Quit":

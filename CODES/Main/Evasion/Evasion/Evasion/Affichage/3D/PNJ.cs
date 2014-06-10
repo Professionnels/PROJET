@@ -110,16 +110,9 @@ namespace Evasion.Affichage._3D
             float time = (float)gt.ElapsedGameTime.TotalMilliseconds;
             float deplacement = time * vitesse;
 
-
-            if (traque)
-                this.traque = true;
+            this.traque = traque;
 
             if (this.traque)
-            {
-                this.traque = true;
-            }
-
-            else
             {
                 int diffX, diffY;
 
@@ -128,8 +121,12 @@ namespace Evasion.Affichage._3D
                     if (arrivee.X < persoPosition.X)
                     {
                         persoPosition.X += deplacement;
-                        if(persoPosition.X>arrivee.X)
-                            persoPosition.X=arrivee.X;
+                        if (persoPosition.X > arrivee.X)
+                            persoPosition.X = arrivee.X;
+                    }
+                    else
+                    {
+ 
                     }
 
                     if (arrivee.Z < persoPosition.Z)

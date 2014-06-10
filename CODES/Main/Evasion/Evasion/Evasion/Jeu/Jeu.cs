@@ -43,8 +43,8 @@ namespace Evasion.Jeu
         private Matrix projectionMatrix;
         private Matrix orientation = Matrix.Identity;
         private float aspectRatio;
-        Personnage michael;
-        Personnage bellick;
+        Joueur michael;
+        Joueur bellick;
 
         Camera camera;
 
@@ -70,28 +70,46 @@ namespace Evasion.Jeu
             hud = new AffichageHUD(Content, sb, multi);
             rnd = new Random();
             niveau.Load(Content, graphics, viewMatrix, aspectRatio);
-            michael = new Joueur("Michael", 100, deplacement_t.marche, Vector3.Zero, 1f, null, Content, graphics, viewMatrix, aspectRatio, niveau);
-            michael.Position = niveau.GetPositionPerso();
+            michael = new Joueur("Michael", 100, deplacement_t.marche, niveau.GetPositionPerso(), 0.7f, null, Content, graphics, viewMatrix, aspectRatio, niveau, 1);
             camera = new Affichage._3D.Camera(michael.Position, aspectRatio, multi, 1);
             if (multi)
             {
-                bellick = new Joueur("Bellick", 100, deplacement_t.marche, Vector3.Zero, 1f, null, Content, graphics, viewMatrix, aspectRatio, niveau);
+                bellick = new Joueur("Bellick", 100, deplacement_t.marche, niveau.GetPositionPerso(), 0.7f, null, Content, graphics, viewMatrix, aspectRatio, niveau, 2);
                 bellick.Position = niveau.GetPositionPerso();
                 cameratwo = new Affichage._3D.Camera(bellick.Position, aspectRatio, multi, 2);
                 defaultview = gd.Viewport;
                 leftview = defaultview;
                 rightview = defaultview;
-                leftview.Width = leftview.Width / 2;
-                rightview.Width = rightview.Width / 2 - 9;
-                rightview.X = leftview.Width + 9;
+                leftview.Width /= 2;
+                leftview.X = 0;
+                rightview.Width = rightview.Width / 2 - 5;
+                rightview.X = leftview.Width + 5;
             }
+            MouseState ms = Mouse.GetState();
+            camera.previousMouse = ms;
+            michael.SetMs(ms);
         }
 
         public void Update(KeyboardState keyboardState, MouseState mouseState, ContentManager Content, GraphicsDeviceManager graphics, GameTime gametime, GraphicsDevice graph, SpriteBatch sb)
         {
             // Musique
+            MouseState ms = Mouse.GetState();
+            if (ms.X >= graph.DisplayMode.Width - 10)
+            {
+                Mouse.SetPosition(graph.DisplayMode.Width / 2, ms.Y);
+                ms = Mouse.GetState();
+                michael.SetMs(ms);
+                camera.previousMouse = ms;
+            }
+            if (ms.X <= 10)
+            {
+                Mouse.SetPosition(graph.DisplayMode.Width / 2, ms.Y);
+                ms = Mouse.GetState();
+                michael.SetMs(ms);
+                camera.previousMouse = ms;
+            }
 
-            if (Keyboard.GetState().IsKeyUp(Keys.P))
+                if (Keyboard.GetState().IsKeyUp(Keys.P))
                 appuieSon=false;
             if (Keyboard.GetState().IsKeyDown(Keys.P) && !appuieSon)
             {
@@ -129,7 +147,6 @@ namespace Evasion.Jeu
                 michael.ModifierVie(2);
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
-
                 graphics.PreferredBackBufferWidth = graph.DisplayMode.Width;
                 graphics.PreferredBackBufferHeight = graph.DisplayMode.Height;
                 int ratioX = graphics.PreferredBackBufferWidth / Evasion.Affichage.Constantes.SCREEN_WIDTH;
@@ -171,18 +188,23 @@ namespace Evasion.Jeu
 
                 graphics.IsFullScreen = !(graphics.IsFullScreen);
                 graphics.ApplyChanges();
+                ms = Mouse.GetState();
+                michael.SetMs(ms);
+                camera.previousMouse = ms;
             }
 
             infoDeb = "";
 
-            michael.Update(keyboardState, mouseState, gametime);
-            camera.initialize(michael.Position, michael.Rotation, graphics);
+            michael.Update(keyboardState, mouseState, gametime, ms);
+            camera.initialize(michael.Position, michael.Rotation, graphics, ms);
             if (multi)
             {
-                bellick.Update(keyboardState, mouseState, gametime);
-                cameratwo.initialize(bellick.Position, bellick.Rotation, graphics);
+                bellick.Update(keyboardState, mouseState, gametime, ms);
+                cameratwo.initialize(bellick.Position, bellick.Rotation, graphics, ms);
             }
 
+            hud.Update(michael, bellick, multi);
+            niveau.Update(michael, keyboardState, mouseState, gametime);
             infoDeb += (1000.0 / gametime.ElapsedGameTime.TotalMilliseconds).ToString() + '\n';
 
 //#if RES
@@ -207,13 +229,13 @@ namespace Evasion.Jeu
                 gd.DepthStencilState = DepthStencilState.Default;
 
                 gd.Clear(Color.Gray);
-
+                if (multi)
+                    gd.Viewport = leftview;
                 niveau.Draw(camera);
                 michael.Display(camera);
 
                 if (multi)
                 {
-                    gd.Viewport = leftview;
                     bellick.Display(camera);
                     gd.Viewport = rightview;
                     niveau.Draw(cameratwo);
@@ -223,7 +245,7 @@ namespace Evasion.Jeu
 
                 if (multi)
                 {
-                    gd.Viewport = defaultview;
+                    gd.Viewport = rightview;
 
                     sb.Draw(cm.Load<Texture2D>("Separation"), new Vector2(gdm.PreferredBackBufferWidth / 2, 0), null, Microsoft.Xna.Framework.Color.White, 0, Vector2.Zero, new Vector2(1, gdm.PreferredBackBufferWidth / 600), SpriteEffects.None, 0);
                 }
@@ -233,8 +255,6 @@ namespace Evasion.Jeu
             else
             {
 
-                if (multi)
-                    gd.Viewport = defaultview;
 
 #if DEBUG_BB
                 //spriteBatch.DrawString(this.textFont, "Menu", Vector2.Zero, Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
