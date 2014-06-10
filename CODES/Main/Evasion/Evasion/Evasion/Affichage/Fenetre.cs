@@ -41,6 +41,7 @@ namespace Evasion.Affichage
 
         public void LoadContent(Content_t content, ContentManager Content, GraphicsDeviceManager graphics, GraphicsDevice gd, SpriteBatch sb)
         {
+            screen.IsMouseVisible = !screen.IsMouseVisible;
             this.content = content;
             MediaPlayer.Stop();
             switch (content)
@@ -72,6 +73,7 @@ namespace Evasion.Affichage
                     jeu = new Jeu.Jeu(this, false, Content, graphics, gd, sb); // temporaire
                     break;
                 case Content_t.Reprendre:
+                    menu = new Menu.Menu("Pause", this);
                     break;
                 default:
                     Console.WriteLine("Erreur: ce contenu de la fenetre n'est pas pris en compte par l'application.");

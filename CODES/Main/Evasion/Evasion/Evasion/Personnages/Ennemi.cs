@@ -32,6 +32,8 @@ namespace Evasion
         public int _temps_assome { get { return temps_assome; } }
         public bool _mobile { get { return mobile; } }
 
+        public static int portee = 500;
+
         public Ennemi(ContentManager Content, GraphicsDeviceManager graphics, Matrix view, float aspectRatio, Niveau niveau, int argent_recompense, int timer_reperer, int champs_vision, bool mobile, TypePerso type) // Constructeur sans parametres
             : base(Content, graphics,  "Joueur", 100, deplacement_t.marche, new Vector3(0, 0, 0), 1, genre_t.joueur, view, aspectRatio, niveau)
         {
@@ -57,9 +59,14 @@ namespace Evasion
             //switch (distance)
         }
 
-        private bool Reperer()
+        private bool Reperer(Joueur j)
         {
-            return false;
+            int X = (int)((this.Position.X) + (portee / 2) * (Math.Cos((Math.PI / 2) + image.getRotation().Y)));
+            int Z = (int)((this.Position.Z) + (portee / 2) * (Math.Sin((Math.PI / 2) + image.getRotation().Y)));
+            if (Math.Abs(j.Position.X - X) < (portee / 2) && Math.Abs(j.Position.Z - Z) < (portee / 2))
+                return true;
+            else 
+                return false;
         }
 
         private void Alerter()
@@ -77,10 +84,12 @@ namespace Evasion
             // mouv.txt
         }
 
-        override public void Update(KeyboardState keyboardState, MouseState mouseState, GameTime gametime)
+        override public void Update(Joueur j, KeyboardState keyboardState, MouseState mouseState, GameTime gametime)
         {
-            image.UpDate(Reperer(), gametime);
-            if (Reperer())
+            position = image.getPosition();
+            rotation = image.getRotation();
+            image.UpDate(Reperer(j), gametime);
+            if (Reperer(j))
             {
                 Alerter();
                 Attaquer();

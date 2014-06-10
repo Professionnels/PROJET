@@ -26,7 +26,9 @@ namespace Evasion.Affichage._3D
         public Vector3 thirdPersonReference;
         public string informations;
         public float aspectRatio;
+        private bool multi;
         private float offset;
+        public MouseState previousMouse;
 
         private Dictionary<string, Keys> controles1;
         private Dictionary<string, Keys> controles2;
@@ -41,6 +43,7 @@ namespace Evasion.Affichage._3D
             this.cameraReference = new Vector3(0, 0, 1);
             this.transformedReference = Vector3.Zero;
             this.aspectRatio = aspectRatio;
+            this.multi = multi;
 
             controles1 = new Dictionary<string, Keys>();
             controles1.Add("haut", Keys.NumPad8);
@@ -60,17 +63,15 @@ namespace Evasion.Affichage._3D
                 touches = controles2;
         }
 
-        public void initialize(Vector3 persoPos, Vector3 persoRot, GraphicsDeviceManager graphics)
+        public void initialize(Vector3 persoPos, Vector3 persoRot, GraphicsDeviceManager graphics, MouseState ms)
         {
+            int z = (ms.Y -previousMouse.Y)/2;
+            thirdPersonReference.Y += z;
 
-            if (Keyboard.GetState().IsKeyDown(touches["haut"]))
-                thirdPersonReference.Y += 5;
-            if (Keyboard.GetState().IsKeyDown(touches["bas"]))
-                thirdPersonReference.Y -= 5;
-            if (Keyboard.GetState().IsKeyDown(touches["droite"]))
-                offset += 5;
-            if (Keyboard.GetState().IsKeyDown(touches["gauche"]))
-                offset -= 5;
+            if (thirdPersonReference.Y > 55)
+                thirdPersonReference.Y = 55;
+            else if (thirdPersonReference.Y < -5)
+                thirdPersonReference.Y = -5;
 
             rotationMatrix = Matrix.CreateRotationY(MathHelper.ToRadians(-persoRot.Y + offset));
             transformedReference = Vector3.Transform(thirdPersonReference, rotationMatrix);
@@ -82,11 +83,11 @@ namespace Evasion.Affichage._3D
 
             Viewport viewport = graphics.GraphicsDevice.Viewport;
             float aspectRatio = (float)viewport.Width / (float)viewport.Height;
-#if MULTI
-            aspectRatio /= 2;
-#endif
+            if (multi)
+                aspectRatio /= 2;
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(1.0f, aspectRatio,
                     1.0f, 10000.0f);
+            previousMouse = ms;
             //informations += this.position.ToString();
         }
 
