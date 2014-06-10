@@ -32,6 +32,7 @@ namespace Evasion.Affichage._3D
         private float scale = 10f;
 
         private KeyboardState currentKeyboardState;
+        public MouseState previousMouse;
         private Texture2D texture;
         private GraphicsDeviceManager graphic;
 
@@ -182,7 +183,7 @@ namespace Evasion.Affichage._3D
             
         }
 
-        public void UpdatePosition(float vitesse, Niveau niveau, GameTime gameTime)
+        public void UpdatePosition(float vitesse, Niveau niveau, GameTime gameTime, MouseState ms)
         {
             currentKeyboardState = Keyboard.GetState();
 
@@ -196,51 +197,52 @@ namespace Evasion.Affichage._3D
             {
                 //Rotation.Y = (float)((float)(Mouse.GetState().X) / (float)(Evasion.Affichage.Constantes.SCREEN_WIDTH) * 360.0);
             }
-
-            if (currentKeyboardState.IsKeyDown(touches["tourneG"]))
-                Rotation.Y = (Rotation.Y - tour) % 360;
-            if (currentKeyboardState.IsKeyDown(touches["tourneD"]))
-
-                Rotation.Y = (Rotation.Y + tour) % 360;
-
-            
+            int x = ms.X - previousMouse.X;
+            Rotation.Y = (float)((Rotation.Y + x) % 360);
+            int nbTouches = 0;
+            nbTouches = currentKeyboardState.IsKeyDown(touches["haut"]) ? nbTouches + 1 : nbTouches;
+            nbTouches = currentKeyboardState.IsKeyDown(touches["bas"]) ? nbTouches + 1 : nbTouches;
+            nbTouches = currentKeyboardState.IsKeyDown(touches["gauche"]) ? nbTouches + 1 : nbTouches;
+            nbTouches = currentKeyboardState.IsKeyDown(touches["droite"]) ? nbTouches + 1 : nbTouches;
             if (currentKeyboardState.IsKeyDown(touches["haut"]))
             {
-                persoPosition.Z += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                persoPosition.Z += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y)*Math.Sqrt(2)/nbTouches);
                 if (niveau.Collision(persoPosition) != position_t.vide)
-                    persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
-                persoPosition.X -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                    persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
+                persoPosition.X -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
                 if (niveau.Collision(persoPosition) != position_t.vide)
-                    persoPosition.X += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                    persoPosition.X += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
             }
             if (currentKeyboardState.IsKeyDown(touches["bas"]))
             {
-                persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
                 if (niveau.Collision(persoPosition) != position_t.vide)
-                    persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
-                persoPosition.X += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                    persoPosition.Z -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
+                persoPosition.X += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
                 if (niveau.Collision(persoPosition) != position_t.vide)
-                    persoPosition.X -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                    persoPosition.X -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
             }
 
             if (currentKeyboardState.IsKeyDown(touches["droite"]))
             {
-                persoPosition.Z -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                persoPosition.Z -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
                 if (niveau.Collision(persoPosition) != position_t.vide)
-                    persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
-                persoPosition.X -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                    persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
+                persoPosition.X -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
                 if (niveau.Collision(persoPosition) != position_t.vide)
-                    persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                    persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
             }
             if (currentKeyboardState.IsKeyDown(touches["gauche"]))
             {
-                persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
+                persoPosition.Z += (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
                 if (niveau.Collision(persoPosition) != position_t.vide)
-                    persoPosition.Z -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y));
-                persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                    persoPosition.Z -= (float)(deplacement * Math.Sin(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
+                persoPosition.X += (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
                 if (niveau.Collision(persoPosition) != position_t.vide)
-                    persoPosition.X -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y));
+                    persoPosition.X -= (float)(deplacement * Math.Cos(Math.PI / 180 * Rotation.Y) * Math.Sqrt(2) / nbTouches);
             }
+
+            previousMouse = ms;
 
             informations = "\n";
             informations += "Perso.X = " + persoPosition.X.ToString() + "\n";

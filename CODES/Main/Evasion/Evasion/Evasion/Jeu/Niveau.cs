@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using System.IO;
 using Evasion.Affichage;
+using Microsoft.Xna.Framework.Input;
+using Evasion.Personnages;
 
 namespace Evasion.Jeu
 {
@@ -116,6 +118,13 @@ namespace Evasion.Jeu
                     return position_t.joueur;
             } 
             return position_t.vide;
+        }
+
+        public void Update(Joueur j, KeyboardState keyboardState, MouseState mouseState, GameTime gametime)
+        {
+            int i = 0;
+            for (i = 0; i < pnjs.Count(); i++)
+                pnjs[i].Update(j, keyboardState, mouseState, gametime);
         }
 
         public void Draw(Camera camera)

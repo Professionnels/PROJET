@@ -42,19 +42,20 @@ namespace Evasion
             graphics.PreferredBackBufferWidth = Evasion.Affichage.Constantes.SCREEN_WIDTH;
             graphics.PreferredBackBufferHeight = Evasion.Affichage.Constantes.SCREEN_HEIGHT;
             this.Window.Title = "Evasion";
+            this.IsMouseVisible = false;
             this.graphics.ApplyChanges();
         }
 
         protected override void Initialize()
         {
-            this.IsMouseVisible = true;
+      //      this.IsMouseVisible = true;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            IsMouseVisible = true;
+         //   IsMouseVisible = true;
             Son.ChargerSon.Init(Content);
             ChargerImages.InitMenu(Content);
             fenetre.LoadContent(Content_t.Menu, Content, graphics, GraphicsDevice, spriteBatch);

@@ -58,7 +58,10 @@ namespace Evasion.Affichage._3D
 
         public Mur(ContentManager Content, Vector3 position, Matrix view, float aspectRatio, TypeMur type, GraphicsDeviceManager graphic)
         {
-            this.mur = Content.Load<Model>("Models\\mur");
+            if (type == TypeMur.barreaux)
+                this.mur = Content.Load<Model>("Models\\barreaux");
+            else
+                this.mur = Content.Load<Model>("Models\\mur");
             this.murPosition = position;
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 100.0f, 10000.0f);
             viewMatrix = view;
@@ -97,15 +100,28 @@ namespace Evasion.Affichage._3D
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    effect.EnableDefaultLighting();
+                    //effect.EnableDefaultLighting();
+                    effect.AmbientLightColor = new Vector3(10,10,10);
                     effect.TextureEnabled = true;
                     effect.Texture = textures[(int)(type)];
-                    effect.World = transforms[mesh.ParentBone.Index] *
-                                    Matrix.CreateScale(new Vector3(10,10,30)) *
-                                    Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
-                                    Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
-                                    Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z)) *
-                                    Matrix.CreateTranslation(murPosition);
+                    if (type == TypeMur.barreaux)
+                    {
+                        effect.World = transforms[mesh.ParentBone.Index] *
+                Matrix.CreateScale(new Vector3(10, 10, 30)) *
+                Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.X)) *
+                Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
+                Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Z)) *
+                Matrix.CreateTranslation(murPosition);
+                    }
+                    else
+                    {
+                        effect.World = transforms[mesh.ParentBone.Index] *
+                                        Matrix.CreateScale(new Vector3(10, 10, 30)) *
+                                        Matrix.CreateFromAxisAngle(orientation.Right, (float)MathHelper.ToRadians(Rotation.X)) *
+                                        Matrix.CreateFromAxisAngle(orientation.Up, (float)MathHelper.ToRadians(Rotation.Y)) *
+                                        Matrix.CreateFromAxisAngle(orientation.Forward, (float)MathHelper.ToRadians(Rotation.Z)) *
+                                        Matrix.CreateTranslation(murPosition);
+                    }
                     effect.View = camera.viewMatrix;
                     effect.Projection = camera.projectionMatrix;
 mesh.Draw();
