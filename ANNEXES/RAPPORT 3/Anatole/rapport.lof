@@ -1,15 +1,17 @@
+\pagenumbering {roman}
 \select@language {french}
-\contentsline {figure}{\numberline {1}{\ignorespaces D\IeC {\'e}placements - premi\IeC {\`e}re soutenance}}{8}
-\contentsline {figure}{\numberline {2}{\ignorespaces D\IeC {\'e}placements - deuxi\IeC {\`e}me soutenance}}{8}
-\contentsline {figure}{\numberline {3}{\ignorespaces Exemple de Bounding Box}}{9}
-\contentsline {figure}{\numberline {4}{\ignorespaces Menu}}{16}
-\contentsline {figure}{\numberline {5}{\ignorespaces Site}}{18}
-\contentsline {figure}{\numberline {6}{\ignorespaces Editeur de map}}{20}
-\contentsline {figure}{\numberline {7}{\ignorespaces Mode multijoueur}}{22}
-\contentsline {figure}{\numberline {8}{\ignorespaces Patron du personnage}}{33}
-\contentsline {figure}{\numberline {9}{\ignorespaces Texture personnage principal}}{34}
-\contentsline {figure}{\numberline {10}{\ignorespaces Texture gardien de prison}}{34}
-\contentsline {figure}{\numberline {11}{\ignorespaces Personnage principal}}{35}
-\contentsline {figure}{\numberline {12}{\ignorespaces Gardien de prison}}{35}
-\contentsline {figure}{\numberline {13}{\ignorespaces Barre de vie}}{37}
-\contentsline {figure}{\numberline {14}{\ignorespaces Mode multijoueur}}{38}
+\contentsline {figure}{\numberline {1}{\ignorespaces D\IeC {\'e}placements - premi\IeC {\`e}re soutenance}}{11}
+\contentsline {figure}{\numberline {2}{\ignorespaces D\IeC {\'e}placements - deuxi\IeC {\`e}me soutenance}}{11}
+\contentsline {figure}{\numberline {3}{\ignorespaces Exemple de Bounding Box}}{12}
+\contentsline {figure}{\numberline {4}{\ignorespaces Menu}}{19}
+\contentsline {figure}{\numberline {5}{\ignorespaces Site}}{21}
+\contentsline {figure}{\numberline {6}{\ignorespaces Editeur de map}}{23}
+\contentsline {figure}{\numberline {7}{\ignorespaces Mode multijoueur}}{25}
+\contentsline {figure}{\numberline {8}{\ignorespaces Patron du personnage}}{36}
+\contentsline {figure}{\numberline {9}{\ignorespaces Texture personnage principal}}{37}
+\contentsline {figure}{\numberline {10}{\ignorespaces Texture gardien de prison}}{37}
+\contentsline {figure}{\numberline {11}{\ignorespaces Personnage principal}}{38}
+\contentsline {figure}{\numberline {12}{\ignorespaces Gardien de prison}}{38}
+\contentsline {figure}{\numberline {13}{\ignorespaces Barre de vie}}{40}
+\contentsline {figure}{\numberline {14}{\ignorespaces Mode multijoueur}}{41}
+\pagenumbering {roman}

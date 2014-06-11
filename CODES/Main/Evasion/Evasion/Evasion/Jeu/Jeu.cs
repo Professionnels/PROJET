@@ -17,6 +17,7 @@ namespace Evasion.Jeu
 {
     class Jeu
     {
+        private double timer;
         private Son.Son SonAmbiance1;
         private Son.Son SonAmbiance2;
         private Son.Son current;
@@ -58,6 +59,7 @@ namespace Evasion.Jeu
 
         public Jeu(Fenetre fen, bool multi, ContentManager Content, GraphicsDeviceManager graphics, GraphicsDevice gd, SpriteBatch sb)
         {
+            timer = 0;
             appuieSon = false;
             son = true;
             niveau = new Niveau(3, Content, graphics);
@@ -92,6 +94,8 @@ namespace Evasion.Jeu
 
         public void Update(KeyboardState keyboardState, MouseState mouseState, ContentManager Content, GraphicsDeviceManager graphics, GameTime gametime, GraphicsDevice graph, SpriteBatch sb)
         {
+            if (timer == 0)
+                timer = gametime.ElapsedGameTime.TotalMilliseconds;
             // Musique
             MouseState ms = Mouse.GetState();
             if (ms.X >= graph.DisplayMode.Width - 10)

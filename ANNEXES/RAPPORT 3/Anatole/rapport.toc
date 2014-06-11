@@ -1,32 +1,47 @@
 \select@language {french}
-\contentsline {section}{\numberline {1}Rappel du cahier des charges}{3}
-\contentsline {section}{\numberline {2}Louis K\IeC {\'e}d\IeC {\'e}mos}{6}
-\contentsline {subsection}{\numberline {2.1}R\IeC {\'e}capitulatif des deux soutenances}{6}
-\contentsline {subsubsection}{\numberline {2.1.1}Premi\IeC {\`e}re soutenance}{6}
-\contentsline {subsubsection}{\numberline {2.1.2}Deuxi\IeC {\`e}me soutenance}{7}
-\contentsline {subsection}{\numberline {2.2}R\IeC {\'e}alisations}{10}
-\contentsline {subsubsection}{\numberline {2.2.1}Animations 3D}{10}
-\contentsline {subsubsection}{\numberline {2.2.2}Cr\IeC {\'e}ation d'une intelligence artificelle}{12}
-\contentsline {subsubsection}{\numberline {2.2.3}Utilisation d'armes}{13}
-\contentsline {subsection}{\numberline {2.3}Conclusion personnelle}{14}
-\contentsline {section}{\numberline {3}Anatole Moreau}{15}
-\contentsline {subsection}{\numberline {3.1}R\IeC {\'e}capitulatif des deux premi\IeC {\`e}res soutenances}{15}
-\contentsline {subsubsection}{\numberline {3.1.1}Premi\IeC {\`e}re soutenance}{15}
-\contentsline {subsubsection}{\numberline {3.1.2}Deuxi\IeC {\`e}me soutenance}{18}
-\contentsline {subsection}{\numberline {3.2}Taches accomplies pour la troisi\IeC {\`e}me soutenance}{23}
-\contentsline {subsubsection}{\numberline {3.2.1}Site web}{23}
-\contentsline {subsubsection}{\numberline {3.2.2}IA}{23}
-\contentsline {subsubsection}{\numberline {3.2.3}R\IeC {\'e}seau}{24}
-\contentsline {subsubsection}{\numberline {3.2.4}HUD}{25}
-\contentsline {subsubsection}{\numberline {3.2.5}Options}{25}
-\contentsline {subsubsection}{\numberline {3.2.6}Logique du jeu}{25}
-\contentsline {subsubsection}{\numberline {3.2.7}Sauvegarde et chargement}{26}
-\contentsline {subsubsection}{\numberline {3.2.8}Collisions}{26}
-\contentsline {subsection}{\numberline {3.3}Conclusion personnelle}{26}
-\contentsline {section}{\numberline {4}Khalis Chalabi}{29}
-\contentsline {subsection}{\numberline {4.1}R\IeC {\'e}capitulatif des deux premi\IeC {\`e}res soutenances}{29}
-\contentsline {subsubsection}{\numberline {4.1.1}Soutenance 1}{29}
-\contentsline {subsubsection}{\numberline {4.1.2}Soutenance 2}{31}
-\contentsline {subsection}{\numberline {4.2}T\IeC {\^a}ches accomplies pour la troisi\IeC {\`e}me soutenance}{39}
-\contentsline {subsection}{\numberline {4.3}Probl\IeC {\`e}mes rencontr\IeC {\'e}s lors du projet}{41}
-\contentsline {subsection}{\numberline {4.4}Conclusion personnelle}{42}
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {section}{\numberline {2}Rappel du cahier des charges}{6}
+\contentsline {section}{\numberline {3}Louis K\IeC {\'e}d\IeC {\'e}mos}{9}
+\contentsline {subsection}{\numberline {3.1}R\IeC {\'e}capitulatif des deux soutenances}{9}
+\contentsline {subsubsection}{\numberline {3.1.1}Premi\IeC {\`e}re soutenance}{9}
+\contentsline {subsubsection}{\numberline {3.1.2}Deuxi\IeC {\`e}me soutenance}{10}
+\contentsline {subsection}{\numberline {3.2}R\IeC {\'e}alisations}{13}
+\contentsline {subsubsection}{\numberline {3.2.1}Animations 3D}{13}
+\contentsline {subsubsection}{\numberline {3.2.2}Cr\IeC {\'e}ation d'une intelligence artificelle}{15}
+\contentsline {subsubsection}{\numberline {3.2.3}Utilisation d'armes}{16}
+\contentsline {subsection}{\numberline {3.3}Conclusion personnelle}{17}
+\contentsline {section}{\numberline {4}Anatole Moreau}{18}
+\contentsline {subsection}{\numberline {4.1}R\IeC {\'e}capitulatif des deux premi\IeC {\`e}res soutenances}{18}
+\contentsline {subsubsection}{\numberline {4.1.1}Premi\IeC {\`e}re soutenance}{18}
+\contentsline {subsubsection}{\numberline {4.1.2}Deuxi\IeC {\`e}me soutenance}{21}
+\contentsline {subsection}{\numberline {4.2}Taches accomplies pour la troisi\IeC {\`e}me soutenance}{26}
+\contentsline {subsubsection}{\numberline {4.2.1}Site web}{26}
+\contentsline {subsubsection}{\numberline {4.2.2}IA}{26}
+\contentsline {subsubsection}{\numberline {4.2.3}R\IeC {\'e}seau}{27}
+\contentsline {subsubsection}{\numberline {4.2.4}HUD}{28}
+\contentsline {subsubsection}{\numberline {4.2.5}Options}{28}
+\contentsline {subsubsection}{\numberline {4.2.6}Logique du jeu}{28}
+\contentsline {subsubsection}{\numberline {4.2.7}Sauvegarde et chargement}{29}
+\contentsline {subsubsection}{\numberline {4.2.8}Collisions}{29}
+\contentsline {subsection}{\numberline {4.3}Conclusion personnelle}{29}
+\contentsline {section}{\numberline {5}Khalis Chalabi}{32}
+\contentsline {subsection}{\numberline {5.1}R\IeC {\'e}capitulatif des deux premi\IeC {\`e}res soutenances}{32}
+\contentsline {subsubsection}{\numberline {5.1.1}Soutenance 1}{32}
+\contentsline {subsubsection}{\numberline {5.1.2}Soutenance 2}{34}
+\contentsline {subsection}{\numberline {5.2}T\IeC {\^a}ches accomplies pour la troisi\IeC {\`e}me soutenance}{42}
+\contentsline {subsection}{\numberline {5.3}Probl\IeC {\`e}mes rencontr\IeC {\'e}s lors du projet}{44}
+\contentsline {subsection}{\numberline {5.4}Conclusion personnelle}{45}
+\contentsline {section}{\numberline {6}Lenny Danino}{47}
+\contentsline {subsection}{\numberline {6.1}Pr\IeC {\'e}sentation}{47}
+\contentsline {subsection}{\numberline {6.2}R\IeC {\'e}alisations}{49}
+\contentsline {subsubsection}{\numberline {6.2.1}Premi\IeC {\`e}re soutenance}{49}
+\contentsline {subsubsection}{\numberline {6.2.2}Seconde soutenance}{51}
+\contentsline {subsubsection}{\numberline {6.2.3}Troisi\IeC {\`e}me soutenance}{53}
+\contentsline {subsubsection}{\numberline {6.2.4}Probl\IeC {\`e}mes rencontr\IeC {\'e}s}{54}
+\contentsline {subsection}{\numberline {6.3}Conclusion personnelle}{55}
+\contentsline {section}{\numberline {7}Conclusion}{56}
+\contentsline {section}{\numberline {8}Bibliographie/Webographie}{57}
+\contentsline {subsection}{\numberline {8.1}Bibliographie}{57}
+\contentsline {subsection}{\numberline {8.2}Webographie}{57}
+\contentsline {subsubsection}{\numberline {8.2.1}Site Internet}{57}
+\contentsline {subsubsection}{\numberline {8.2.2}Vid\IeC {\'e}os Youtube}{58}
