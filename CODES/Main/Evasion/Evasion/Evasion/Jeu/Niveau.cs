@@ -76,6 +76,9 @@ namespace Evasion.Jeu
                         case 8:
                             decors.Add(new Murs(Content, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), new Vector2(10, 10), viewMatrix, aspectRatio, TypeMur.barreaux, graphics));
                             break;
+                        case 9:
+                            decors.Add(new Murs(Content, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), new Vector2(10, 10), viewMatrix, aspectRatio, TypeMur.beton, graphics));
+                            break;
                         default:
                             break;
 

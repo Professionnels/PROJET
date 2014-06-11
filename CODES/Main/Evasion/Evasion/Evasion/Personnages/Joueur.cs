@@ -21,7 +21,7 @@ namespace Evasion.Personnages
 
     class Joueur : Personnage
     {
-        
+        private double timer;
         private Objets.Objets objet_actuel;
         private int bruit;
         private bool reperer;
@@ -33,15 +33,17 @@ namespace Evasion.Personnages
         public bool _reperer { get { return reperer; } }
         public Capacite _capacite_speciale { get { return capacite_speciale; } }
 
-        public Joueur(ContentManager Content, GraphicsDeviceManager graphics, Matrix view, float aspectRatio, Niveau niveau, int nb) // Constructeur sans parametres
+        public Joueur(GameTime gametime, ContentManager Content, GraphicsDeviceManager graphics, Matrix view, float aspectRatio, Niveau niveau, int nb) // Constructeur sans parametres
             : base(Content, graphics,  "Joueur", 100, deplacement_t.marche, new Vector3(0, 0, 0), 1, genre_t.joueur, view, aspectRatio, niveau)
         {
+            timer = gametime.ElapsedGameTime.TotalMilliseconds;
             image = new Perso_Model(Content, position, view, aspectRatio, graphics, nb);
         }
 
-        public Joueur(string nom, int vie, deplacement_t deplacement, Vector3 position, float vitesse, Capacite capacite_speciale, ContentManager Content, GraphicsDeviceManager graphics, Matrix view, float aspectRatio, Niveau niveau, int nb) // Constructeur avec parmetres
+        public Joueur(GameTime gametime, string nom, int vie, deplacement_t deplacement, Vector3 position, float vitesse, Capacite capacite_speciale, ContentManager Content, GraphicsDeviceManager graphics, Matrix view, float aspectRatio, Niveau niveau, int nb) // Constructeur avec parmetres
             : base(Content, graphics, nom, vie, deplacement, position, vitesse, genre_t.joueur, view, aspectRatio, niveau)
         {
+            timer = gametime.ElapsedGameTime.TotalMilliseconds;
             image = new Perso_Model(Content, position, view, aspectRatio, graphics, nb);
         }
 
