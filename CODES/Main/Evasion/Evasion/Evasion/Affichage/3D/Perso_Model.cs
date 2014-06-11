@@ -19,7 +19,6 @@ namespace Evasion.Affichage._3D
 {
     class Perso_Model
     {
-        private int vise;
         public Model persoModel;
         public Vector3 persoPosition;
 

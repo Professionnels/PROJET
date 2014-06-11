@@ -329,8 +329,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Models\sol_prison.PNG">
       <Name>sol_prison</Name>
+=======
+    <Compile Include="plafond_prison.PNG">
+      <Name>plafond_prison</Name>
+>>>>>>> 0c823da96f7f69e3030c7fec3927d7c770e6ef9d
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
