@@ -2,7 +2,7 @@
 \contentsline {section}{\numberline {1}Introduction}{4}
 \contentsline {section}{\numberline {2}Rappel du cahier des charges}{6}
 \contentsline {section}{\numberline {3}Louis K\IeC {\'e}d\IeC {\'e}mos}{9}
-\contentsline {subsection}{\numberline {3.1}R\IeC {\'e}capitulatif des deux soutenances}{9}
+\contentsline {subsection}{\numberline {3.1}R\IeC {\'e}capitulatif des deux premi\IeC {\`e}res soutenances}{9}
 \contentsline {subsubsection}{\numberline {3.1.1}Premi\IeC {\`e}re soutenance}{9}
 \contentsline {subsubsection}{\numberline {3.1.2}Deuxi\IeC {\`e}me soutenance}{10}
 \contentsline {subsection}{\numberline {3.2}R\IeC {\'e}alisations}{13}
@@ -35,13 +35,13 @@
 \contentsline {subsection}{\numberline {6.1}Pr\IeC {\'e}sentation}{47}
 \contentsline {subsection}{\numberline {6.2}R\IeC {\'e}alisations}{49}
 \contentsline {subsubsection}{\numberline {6.2.1}Premi\IeC {\`e}re soutenance}{49}
-\contentsline {subsubsection}{\numberline {6.2.2}Seconde soutenance}{51}
-\contentsline {subsubsection}{\numberline {6.2.3}Troisi\IeC {\`e}me soutenance}{53}
-\contentsline {subsubsection}{\numberline {6.2.4}Probl\IeC {\`e}mes rencontr\IeC {\'e}s}{54}
-\contentsline {subsection}{\numberline {6.3}Conclusion personnelle}{55}
-\contentsline {section}{\numberline {7}Conclusion}{56}
-\contentsline {section}{\numberline {8}Bibliographie/Webographie}{57}
-\contentsline {subsection}{\numberline {8.1}Bibliographie}{57}
-\contentsline {subsection}{\numberline {8.2}Webographie}{57}
-\contentsline {subsubsection}{\numberline {8.2.1}Site Internet}{57}
-\contentsline {subsubsection}{\numberline {8.2.2}Vid\IeC {\'e}os Youtube}{58}
+\contentsline {subsubsection}{\numberline {6.2.2}Seconde soutenance}{50}
+\contentsline {subsubsection}{\numberline {6.2.3}Troisi\IeC {\`e}me soutenance}{52}
+\contentsline {subsubsection}{\numberline {6.2.4}Probl\IeC {\`e}mes rencontr\IeC {\'e}s}{53}
+\contentsline {subsection}{\numberline {6.3}Conclusion personnelle}{54}
+\contentsline {section}{\numberline {7}Conclusion}{55}
+\contentsline {section}{\numberline {8}Bibliographie/Webographie}{56}
+\contentsline {subsection}{\numberline {8.1}Bibliographie}{56}
+\contentsline {subsection}{\numberline {8.2}Webographie}{56}
+\contentsline {subsubsection}{\numberline {8.2.1}Site Internet}{56}
+\contentsline {subsubsection}{\numberline {8.2.2}Vid\IeC {\'e}os Youtube}{57}
