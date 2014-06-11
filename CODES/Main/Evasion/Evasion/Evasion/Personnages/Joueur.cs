@@ -50,6 +50,10 @@ namespace Evasion.Personnages
             capacite_speciale.Utiliser();
         }
 
+        public void Viser()
+        {
+        }
+
         public void SetMs(MouseState ms) // Methode pour utiliser la capacite speciale du joueur
         {
             image.previousMouse = ms;

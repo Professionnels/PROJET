@@ -16,6 +16,8 @@ namespace Evasion.Affichage._3D
 {
     class Camera
     {
+        private bool vise;
+        private bool transformed;
         public Vector3 position;
         public Matrix viewMatrix;
         public Matrix projectionMatrix;
@@ -36,6 +38,8 @@ namespace Evasion.Affichage._3D
 
         public Camera(Vector3 position, float aspectRatio, bool multi, int nbCam)
         {
+            this.transformed = true;
+            this.vise = false;
             this.thirdPersonReference = new Vector3(0, 40, -40);
             this.position = position;
             this.viewMatrix = Matrix.CreateLookAt(this.position, new Vector3(0, 35, 0), Vector3.Up);
@@ -74,7 +78,8 @@ namespace Evasion.Affichage._3D
                 thirdPersonReference.Y = -5;
 
             rotationMatrix = Matrix.CreateRotationY(MathHelper.ToRadians(-persoRot.Y + offset));
-            transformedReference = Vector3.Transform(thirdPersonReference, rotationMatrix);
+            if (vise)
+            transformedReference = Vector3.Transform(thirdPersonReference, rotationMatrix); 
             position = transformedReference + persoPos;
             cameraLookat = position + transformedReference;
             viewMatrix = Matrix.CreateLookAt(position, Vector3.Add(persoPos, new Vector3(0, 35, 0)), new Vector3(0f, 1f, 0f));

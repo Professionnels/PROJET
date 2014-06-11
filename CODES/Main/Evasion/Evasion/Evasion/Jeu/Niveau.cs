@@ -15,10 +15,11 @@ namespace Evasion.Jeu
 {
     class Niveau
     {
+        public List<Vector3> positionArrivee;
         public List<Personnage> pnjs;
         private List<ObjetDecors> decors;
         private List<Sols> sols;
-       //private List<Sols> plafonds;
+       private List<Sols> plafonds;
         string fichier;
         private FileStream file;
         private StreamReader str;
@@ -28,9 +29,10 @@ namespace Evasion.Jeu
         {
             fichier = Directory.GetCurrentDirectory() + @"\..\..\..\..\EvasionContent\Maps\prison_"+id+".txt";
             sols=new List<Sols>();
-            //plafonds = new List<Sols>();
+            plafonds = new List<Sols>();
             pnjs = new List<Personnage>();
             positionSpawn = new List<Vector3>();
+            positionArrivee = new List<Vector3>();
             decors = new List<ObjetDecors>();
             
         }
@@ -43,40 +45,49 @@ namespace Evasion.Jeu
             {
                 for (int j = 0; j < 40; j++)
                 {
-                    int a = (int)str.Read() - 48;
+                    char a = (char)str.Read();
                     if (j % 5 == 0)
                     {
                         sols.Add(new Sols(Content, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), viewMatrix, aspectRatio, TypeSol.prison, graphics));
-                        //plafonds.Add(new Sols(Content, new Vector3(Constantes.scale * j, 100, Constantes.scale * i), viewMatrix, aspectRatio, TypeSol.prison, graphics));
+                        plafonds.Add(new Sols(Content, new Vector3(Constantes.scale * j, 100, Constantes.scale * i), viewMatrix, aspectRatio, TypeSol.plafond, graphics));
                     }
                     switch (a)
                     {
-                        case 0:
+                        case '0':
                             break;
-                        case 1:
+                        case '1':
                             decors.Add(new Murs(Content, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), new Vector2(10,10), viewMatrix, aspectRatio, TypeMur.brique, graphics));
                             break;
-                        case 2:
+                        case '2':
                             pnjs.Add(new Ennemi("Ennemi", 100, deplacement_t.marche, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), 1f, Content, graphics, viewMatrix, aspectRatio, this, 75, 7000, 500, false, TypePerso.bellick));
                             break;
-                        case 3:
+                        case '3':
                             pnjs.Add(new Ennemi("Ennemi", 75, deplacement_t.accroupi, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), 1f, Content, graphics, viewMatrix, aspectRatio, this, 50, 5000, 300, false, TypePerso.gardien));
                             break;
-                        case 4:
+                        case '4':
                             pnjs.Add(new Ennemi("Ennemi", 50, deplacement_t.accroupi, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), 0.7f, Content, graphics, viewMatrix, aspectRatio, this, 0, 1000, 150, false, TypePerso.prisonnier));
                             break;
-                        case 5:
+                        case '5':
                             pnjs.Add(new Ennemi("Ennemi", 75, deplacement_t.courir, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), 1.5f, Content, graphics, viewMatrix, aspectRatio, this, 100, 10000, 3000, false, TypePerso.perso));
                             break;
-                        case 6:
+                        case '6':
                             positionSpawn.Add(new Vector3(Constantes.scale * j, 0, Constantes.scale * i));
                             break;
-                        case 7:
+                        case '7':
                             break;
-                        case 8:
+                        case '8':
                             decors.Add(new Murs(Content, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), new Vector2(10, 10), viewMatrix, aspectRatio, TypeMur.barreaux, graphics));
                             break;
-                        case 9:
+                        case '9':
+                            decors.Add(new Murs(Content, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), new Vector2(10, 10), viewMatrix, aspectRatio, TypeMur.beton, graphics));
+                            break;
+                        case 'a':
+                            decors.Add(new Murs(Content, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), new Vector2(10, 10), viewMatrix, aspectRatio, TypeMur.beton, graphics));
+                            break;
+                        case 'b':
+                            decors.Add(new Murs(Content, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), new Vector2(10, 10), viewMatrix, aspectRatio, TypeMur.beton, graphics));
+                            break;
+                        case 'c':
                             decors.Add(new Murs(Content, new Vector3(Constantes.scale * j, 0, Constantes.scale * i), new Vector2(10, 10), viewMatrix, aspectRatio, TypeMur.beton, graphics));
                             break;
                         default:
@@ -139,8 +150,8 @@ namespace Evasion.Jeu
                     pnjs[i].Display(camera);
                 for (i = 0; i < sols.Count(); i++)
                     sols[i].Draw(camera);
-                //for (i = 0; i < plafonds.Count(); i++)
-                //    plafonds[i].Draw(camera);
+                for (i = 0; i < plafonds.Count(); i++)
+                    plafonds[i].Draw(camera);
         }
 
     }

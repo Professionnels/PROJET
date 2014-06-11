@@ -8,8 +8,8 @@ using System.Text;
 namespace Evasion.Affichage
 {
     public enum TypeMur { brique = 0, beton = 1, barreaux = 2};
-    public enum TypeSol { evasion = 0, prison = 1, moquette = 2 };
-    public enum TypePerso { perso = 0, gardien = 1, bellick = 2, prisonnier = 3 };
+    public enum TypeSol { evasion = 0, prison = 1, plafond = 2};
+    public enum TypePerso { perso = 0, gardien = 1, bellick = 2, prisonnier = 3};
 
     public static class Constantes
     {

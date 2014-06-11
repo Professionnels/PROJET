@@ -294,13 +294,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\sol_prison.PNG">
-      <Name>sol_prison</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Separation.png">
       <Name>Separation</Name>
       <Importer>TextureImporter</Importer>
@@ -331,6 +324,13 @@
   <ItemGroup>
     <Compile Include="Models\barreau.png">
       <Name>barreau</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\sol_prison.PNG">
+      <Name>sol_prison</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

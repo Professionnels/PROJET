@@ -29,7 +29,7 @@ namespace Evasion.Affichage._3D
 
         public TypeSol type;
 
-        private Texture2D[] textures = new Texture2D[2];
+        private Texture2D[] textures = new Texture2D[3];
 
         public Sol(ContentManager Content, Vector3 position, Matrix view, float aspectRatio, TypeSol type)
         {
@@ -38,8 +38,11 @@ namespace Evasion.Affichage._3D
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40.0f), aspectRatio, 1.0f, 10000.0f);
             viewMatrix = view;
             orientation = Matrix.Identity;
+            if (type == TypeSol.plafond)
+                orientation *= -1;
             textures[0] = Content.Load<Texture2D>("Models\\evasion");
             textures[1] = Content.Load<Texture2D>("Models\\sol_prison");
+            textures[2] = Content.Load<Texture2D>("Models\\sol_prison");
             this.type = type;
             this.initPhyMur();
             this.initMur();
